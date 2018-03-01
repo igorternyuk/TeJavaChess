@@ -26,6 +26,11 @@ public class Queen extends Piece {
         return createQueen(Board.position(x, y), alliance, isFirstMove);
     }
 
+    public static Queen createQueen(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                  final boolean isFirstMove){
+        return createQueen(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
+    }
+
     public static Queen createQueen(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
             return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_QUEENS.get(position) :

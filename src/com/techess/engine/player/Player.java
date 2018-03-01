@@ -9,6 +9,8 @@ import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Rook;
 import com.techess.engine.board.Move.KingsSideCastling;
 import com.techess.engine.board.Move.QueensSideCastling;
+import javafx.geometry.Pos;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,11 +29,15 @@ public abstract class Player {
     public Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
         this.board = board;
         this.king = establishKing();
-
         //Don't forget to concatenate castles
-        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, this.calculateCastles(legalMoves,
-                opponentMoves)));
         this.opponentLegalMoves = opponentMoves;
+        final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
+        final Alliance currentAlliance = this.getAlliance();
+        System.out.println((currentAlliance.isWhite() ? "White " : "Black ") + "player has " + castles.size() +
+                " castles");
+        System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
+        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
+        System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
         this.isInCheck = !Player.calculateAttacksOnTile(this.king.getPosition(), opponentMoves).isEmpty();
     }
 
@@ -47,7 +53,7 @@ public abstract class Player {
         return this.opponentLegalMoves;
     }
 
-    public boolean isMoveLegal(Move move){
+    public boolean isMoveLegal(final Move move){
         return this.legalMoves.contains(move);
     }
 
@@ -71,15 +77,17 @@ public abstract class Player {
 
     public MoveTransition makeMove(final Move move){
         if(!isMoveLegal(move)){
+            System.out.println("Illegal move");
             return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
         }
-
-        final Board transitedBoard = move.execute();
-        final Position currentPlayerPosition = transitedBoard.getCurrentPlayer().getPlayerKing().getPosition();
-        final Collection<Move> opponentLegalMoves = transitedBoard.getCurrentPlayer().getOpponentLegalMoves();
+        final Board transitedBoard = move.execute(); //This method transfer the turn to the opponent
+        final Player playerWhoseMoveIsChecking = transitedBoard.getCurrentPlayer().getOpponent();
+        final Position currentPlayerPosition = playerWhoseMoveIsChecking.getPlayerKing().getPosition();
+        final Collection<Move> opponentLegalMoves = playerWhoseMoveIsChecking.getOpponentLegalMoves();
         final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerPosition, opponentLegalMoves);
 
         if(!kingAttacks.isEmpty()){
+            System.out.println("King is under check");
             return new MoveTransition(transitedBoard, move, MoveStatus.KING_IS_UNDER_CHECK);
         }
         return new MoveTransition(transitedBoard, move, MoveStatus.DONE);
@@ -93,22 +101,26 @@ public abstract class Player {
     protected Collection<Move> calculateCastles(final Collection<Move> playerLegalMoves,
                                                 final Collection<Move> opponentLegalMoves) {
         //this.board.getCurrentPlayer().getAlliance().equals(Alliance.WHITE)
-        final int lastRank = this.getAlliance().isWhite() ? Board.FIRST_RANK : Board.EIGHTH_RANK;
+        final int lastRank = this.getAlliance().isWhite() ? 1 : 8;
         List<Move> castles = new ArrayList<>();
+        System.out.println("this.king.isFirstMove() = " + this.king.isFirstMove());
+        System.out.println("!this.isUnderCheck() = " + !this.isUnderCheck());
         if(this.king.isFirstMove() && !this.isUnderCheck()){
-
+            System.out.println("King has no moved yet and is not under check");
             //King's side castling
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
             final Tile kingsSideKingsDestinationTile = this.board.getTile('g', lastRank);
             if(kingsRookDestinationTile.isEmpty() && kingsSideKingsDestinationTile.isEmpty()){
+                System.out.println("There are no pieces between king and rook");
                 final Tile kingsRookStartTile = this.board.getTile('h', lastRank);
                 if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook() &&
                         kingsRookStartTile.getPiece().isFirstMove()) {
-                    if(Player.calculateAttacksOnTile(kingsRookDestinationTile.getTilePosition(),
-                            this.getOpponent().getLegalMoves()).isEmpty() &&
+                    if( Player.calculateAttacksOnTile(kingsRookDestinationTile.getTilePosition(),
+                            opponentLegalMoves).isEmpty() &&
                             Player.calculateAttacksOnTile(kingsSideKingsDestinationTile.getTilePosition(),
-                                    this.getOpponent().getLegalMoves()).isEmpty()) {
-                        castles.add(new KingsSideCastling(this.board, this.king, this.king.getPosition(),
+                                    opponentLegalMoves).isEmpty()) {
+                        castles.add(new KingsSideCastling(this.board, this.king,
+                                                          kingsSideKingsDestinationTile.getTilePosition(),
                                                           (Rook)kingsRookStartTile.getPiece(),
                                                           kingsRookStartTile.getTilePosition(),
                                                           kingsRookDestinationTile.getTilePosition()));
@@ -129,7 +141,8 @@ public abstract class Player {
                             this.getOpponentLegalMoves()).isEmpty() &&
                             Player.calculateAttacksOnTile(queensRookDestinationTile.getTilePosition(),
                                     this.getOpponentLegalMoves()).isEmpty()) {
-                        castles.add(new QueensSideCastling(this.board, this.king, this.king.getPosition(),
+                        castles.add(new QueensSideCastling(this.board, this.king,
+                                                           queensSideKingsDestinationTile.getTilePosition(),
                                                            (Rook)queensRookStartTile.getPiece(),
                                                            queensRookStartTile.getTilePosition(),
                                                            queensRookDestinationTile.getTilePosition()));

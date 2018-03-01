@@ -3,7 +3,10 @@ package com.techess.engine.board;
 import com.techess.engine.pieces.Pawn;
 import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Rook;
+import static com.techess.engine.board.Board.Builder;
+import static com.techess.engine.board.Board.fileMap;
 
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -52,12 +55,12 @@ public abstract class Move {
 
         @Override
         public Board execute() {
-            final Board.Builder builder = new Board.Builder();
+            final Builder builder = new Board.Builder();
             this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
                     .forEach(piece -> builder.setPiece(piece));
             this.board.getCurrentPlayer().getOpponent().getActivePieces().forEach(piece -> builder.setPiece(piece));
             builder.setPiece(this.movedPiece.move(this));
-            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
+            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
     }
@@ -72,7 +75,15 @@ public abstract class Move {
 
         @Override
         public Board execute() {
-            return null;
+
+            final Builder builder = new Builder();
+            this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
+                    .forEach(piece -> builder.setPiece(piece));
+            this.board.getCurrentPlayer().getOpponentActivePieces().stream()
+                    .filter(piece -> !this.capturedPiece.equals(piece)).forEach(piece -> builder.setPiece(piece));
+            builder.setPiece(this.movedPiece.move(this));
+            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
+            return builder.build();
         }
 
         @Override
@@ -257,13 +268,10 @@ public abstract class Move {
         }
     }
 
-    public static class MoveFactory{
-        private MoveFactory(){
-            super();
-        }
-
-        public static Move createMove(final Board board, final Position currentPosition, final Position destination){
-            for(final Move move: board.getAllLegalMoves()){
+    public static class MoveFactory {
+         public static Move createMove(final Board board, final Position currentPosition, final Position destination){
+            final Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
+            for(final Move move: legalMoves){
                 if(move.getMovedPiece().getPosition().equals(currentPosition) &&
                    move.getDestination().equals(destination)){
                     return move;

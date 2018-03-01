@@ -27,6 +27,11 @@ public class Bishop extends Piece {
         return createBishop(Board.position(x,y), alliance, isFirstMove);
     }
 
+    public static Bishop createBishop(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                    final boolean isFirstMove){
+        return createBishop(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
+    }
+
     public static Bishop createBishop(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
             return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_BISHOPS.get(position) :

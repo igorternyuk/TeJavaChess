@@ -19,11 +19,16 @@ public class King extends Piece {
     private static final int[] DY = {  0, -1, -1, -1, 0, 1, 1,  1 };
     private static final Map<Position, King> WHITE_ALREADY_MOVED_KINGS = createAllPossibleWhiteKings(false);
     private static final Map<Position, King> WHITE_NOT_MOVED_KINGS = createAllPossibleWhiteKings(true);
-    private static final Map<Position, King> BLACK_AREADY_MOVED_KINGS = createAllPossibleBlackKings(false);
+    private static final Map<Position, King> BLACK_ALREADY_MOVED_KINGS = createAllPossibleBlackKings(false);
     private static final Map<Position, King> BLACK_NOT_MOVED_KINGS = createAllPossibleBlackKings(true);
 
     public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
         return createKing(Board.position(x,y), alliance, isFirstMove);
+    }
+
+    public static King createKing(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createKing(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
     }
 
     public static King createKing(final Position position, final Alliance alliance, final boolean isFirstMove){
@@ -32,7 +37,7 @@ public class King extends Piece {
                     BLACK_NOT_MOVED_KINGS.get(position);
         } else {
             return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_KINGS.get(position) :
-                    BLACK_AREADY_MOVED_KINGS.get(position);
+                    BLACK_ALREADY_MOVED_KINGS.get(position);
         }
     }
 
@@ -54,7 +59,7 @@ public class King extends Piece {
         if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
             return WHITE_ALREADY_MOVED_KINGS.get(move.getDestination());
         } else {
-            return BLACK_AREADY_MOVED_KINGS.get(move.getDestination());
+            return BLACK_ALREADY_MOVED_KINGS.get(move.getDestination());
         }
     }
 

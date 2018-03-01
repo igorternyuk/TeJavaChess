@@ -35,13 +35,17 @@ public abstract class Piece {
         return this.alliance;
     }
 
+    public boolean isFirstMove() {
+        return this.isFirstMove;
+    }
+
     protected Alliance alliance;
 
     public Piece(final PieceType pieceType, final Position position, final Alliance alliance, boolean isFirstMove){
         this.pieceType = pieceType;
         this.position = position;
         this.alliance = alliance;
-        this.isFirstMove = false;
+        this.isFirstMove = isFirstMove;
         this.cachedHashCode = computeHashCode();
     }
 
@@ -56,22 +60,26 @@ public abstract class Piece {
     public abstract Collection<Move> getLegalMoves(final Board board);
     public abstract Piece move(final Move move);
 
-    protected final Collection<Move> getLinearlyMovingPiecesLegalMoves(final Board board, final int[] DX, final int[] DY){
+    protected final Collection<Move> getLinearlyMovingPiecesLegalMoves(final Board board, final int[] DX,
+                                                                       final int[] DY){
         List<Move> legalMoves = new ArrayList<>();
         for(int i = 0; i < DX.length; ++i){
-            label:
-            while (true){
-                final int destX = this.position.getX() + DX[i];
-                final int destY = this.position.getY() + DY[i];
-                if(!checkAndAddMoveIfLegal(board, legalMoves, destX, destY))
-                    break label;
+            //int counter = 0;
+            int destX = this.position.getX() + DX[i];
+            int destY = this.position.getY() + DY[i];
+            while (checkAndAddMoveIfLegal(board, legalMoves, destX, destY)){
+                //++counter;
+                //System.out.println("Infinite loop -> " + counter);
+                destX += DX[i];
+                destY += DY[i];
             }
         }
 
         return ImmutableList.copyOf(legalMoves);
     }
 
-    protected final Collection<Move> getOneStepMovingPieceLegalMoves(final Board board, final int[] DX, final int[] DY) {
+    protected final Collection<Move> getOneStepMovingPieceLegalMoves(final Board board, final int[] DX,
+                                                                     final int[] DY) {
         List<Move> legalMoves = new ArrayList<>();
         for(int i = 0; i < DX.length; ++i){
             final int destX = this.position.getX() + DX[i];
@@ -82,14 +90,15 @@ public abstract class Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
-    private boolean checkAndAddMoveIfLegal(final Board board, List<Move> legalMoves, final int destX, final int destY){
+    private boolean checkAndAddMoveIfLegal(final Board board, List<Move> legalMoves, final int destX,
+                                           final int destY){
         boolean hasMoreMovesInTheCurrentDirection = true;
         if(Board.isValidPosition(destX, destY)){
             final Position candidateDestination = Board.position(destX, destY);
             final Tile destinationTile = board.getTile(destX, destY);
             if(destinationTile.isOccupied()){
                 final Piece capturedPiece = destinationTile.getPiece();
-                if(this.getAlliance().equals(capturedPiece.getAlliance())){
+                if(!this.getAlliance().equals(capturedPiece.getAlliance())){
                     legalMoves.add(new Move.CapturingMove(board, this, candidateDestination,
                             capturedPiece));
                 }
@@ -104,9 +113,7 @@ public abstract class Piece {
         return hasMoreMovesInTheCurrentDirection;
     }
 
-    public boolean isFirstMove() {
-        return this.isFirstMove;
-    }
+
 
     @Override
     public boolean equals(final Object other) {
@@ -135,12 +142,12 @@ public abstract class Piece {
     }
 
     public enum PieceType {
-        PAWN("p", false, false),
-        ROOK("r", false, true),
-        KNIGHT("n", false, false),
-        BISHOP("b", false, false),
+        KING("k", true, false),
         QUEEN("q", false, false),
-        KING("k", true, false);
+        BISHOP("b", false, false),
+        KNIGHT("n", false, false),
+        ROOK("r", false, true),
+        PAWN("p", false, false);
 
         private PieceType(final String name, final boolean isKing, final boolean isRook){
             this.name = name;

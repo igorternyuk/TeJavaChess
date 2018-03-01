@@ -19,11 +19,16 @@ public class Rook extends Piece {
     private static final int[] DY = { 0, 0, -1, 1 };
     private static final Map<Position, Rook> WHITE_ALREADY_MOVED_ROOKS = createAllPossibleWhiteRooks(false);
     private static final Map<Position, Rook> WHITE_NOT_MOVED_ROOKS = createAllPossibleWhiteRooks(true);
-    private static final Map<Position, Rook> BLACK_ALREDY_MOVED_ROOKS = createAllPossibleBlackRooks(false);
+    private static final Map<Position, Rook> BLACK_ALREADY_MOVED_ROOKS = createAllPossibleBlackRooks(false);
     private static final Map<Position, Rook> BLACK_NOT_MOVED_ROOKS = createAllPossibleBlackRooks(true);
 
     public static Rook createRook(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
         return createRook(Board.position(x,y), alliance, isFirstMove);
+    }
+
+    public static Rook createRook(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                  final boolean isFirstMove){
+        return createRook(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
     }
 
     public static Rook createRook(final Position position, final Alliance alliance, final boolean isFirstMove){
@@ -32,7 +37,7 @@ public class Rook extends Piece {
                     BLACK_NOT_MOVED_ROOKS.get(position);
         } else {
             return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_ROOKS.get(position) :
-                    BLACK_ALREDY_MOVED_ROOKS.get(position);
+                    BLACK_ALREADY_MOVED_ROOKS.get(position);
         }
     }
 
@@ -54,7 +59,7 @@ public class Rook extends Piece {
         if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
             return WHITE_ALREADY_MOVED_ROOKS.get(move.getDestination());
         } else {
-            return BLACK_ALREDY_MOVED_ROOKS.get(move.getDestination());
+            return BLACK_ALREADY_MOVED_ROOKS.get(move.getDestination());
         }
     }
 

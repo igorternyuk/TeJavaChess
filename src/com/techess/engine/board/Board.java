@@ -21,6 +21,8 @@ public class Board {
     public static final int FIRST_RANK = 7;
     public static final int SECOND_RANK = 6;
     public static final int THIRD_RANK = 5;
+    public static final int FOURTH_RANK = 4;
+    public static final int FIFTH_RANK = 3;
     public static final int SIXTH_RANK = 2;
     public static final int SEVENTH_RANK = 1;
     public static final int EIGHTH_RANK = 0;
@@ -49,7 +51,7 @@ public class Board {
         this.legalMovesWhitePieces = calculateLegalMoves(this.whitePieces);
         this.legalMovesBlackPieces = calculateLegalMoves(this.blackPieces);
         whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
-        blackPlayer = new BlackPlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
+        blackPlayer = new BlackPlayer(this, this.legalMovesBlackPieces, this.legalMovesWhitePieces);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
     }
 
@@ -91,8 +93,14 @@ public class Board {
     }
 
     public Tile getTile(final char file, final int rank){
+        //System.out.println(file + " -> " + fileMap.get(file));
+        //System.out.println("rank = " + rank + " -> " + rankMap.get(rank));
         return gameBoard.get(Board.position(fileMap.get(file), rankMap.get(rank)));
     }
+
+    public static final Position position(final char file, final int rank) {
+        return Board.position(fileMap.get(file), rankMap.get(rank));
+    };
 
     public static final Position position(final int x, final int y){
         return Board.positions[y][x];
@@ -136,14 +144,14 @@ public class Board {
 
         //White pieces
 
-        builder.setPiece(Rook.createRook(0, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Knight.createKnight(1, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Bishop.createBishop(2, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Queen.createQueen(3, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(King.createKing(4, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Bishop.createBishop(5, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Knight.createKnight(6, FIRST_RANK, Alliance.WHITE, true));
-        builder.setPiece(Rook.createRook(7, FIRST_RANK, Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook('a', 1, Alliance.WHITE, true));
+        builder.setPiece(Knight.createKnight('b', 1, Alliance.WHITE, true));
+        builder.setPiece(Bishop.createBishop('c', 1, Alliance.WHITE, true));
+        builder.setPiece(Queen.createQueen('d', 1, Alliance.WHITE, true));
+        builder.setPiece(King.createKing('e', 1, Alliance.WHITE, true));
+        builder.setPiece(Bishop.createBishop('f', 1, Alliance.WHITE, true));
+        builder.setPiece(Knight.createKnight('g', 1, Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook('h', 1, Alliance.WHITE, true));
 
         //White pawns
 
@@ -153,14 +161,14 @@ public class Board {
 
         //Black pieces
 
-        builder.setPiece(Rook.createRook(0, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Knight.createKnight(1, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Bishop.createBishop(2, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Queen.createQueen(3, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(King.createKing(4, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Bishop.createBishop(5, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Knight.createKnight(6, EIGHTH_RANK, Alliance.BLACK, true));
-        builder.setPiece(Rook.createRook(7, EIGHTH_RANK, Alliance.BLACK, true));
+        builder.setPiece(Rook.createRook('a', 8, Alliance.BLACK, true));
+        builder.setPiece(Knight.createKnight('b', 8, Alliance.BLACK, true));
+        builder.setPiece(Bishop.createBishop('c', 8, Alliance.BLACK, true));
+        builder.setPiece(Queen.createQueen('d', 8, Alliance.BLACK, true));
+        builder.setPiece(King.createKing('e', 8, Alliance.BLACK, true));
+        builder.setPiece(Bishop.createBishop('f', 8, Alliance.BLACK, true));
+        builder.setPiece(Knight.createKnight('g', 8, Alliance.BLACK, true));
+        builder.setPiece(Rook.createRook('h', 8, Alliance.BLACK, true));
 
         //Black pawns
 

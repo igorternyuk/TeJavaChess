@@ -27,6 +27,11 @@ public class Knight extends Piece {
         return createKnight(Board.position(x,y), alliance, isFirstMove);
     }
 
+    public static Knight createKnight(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createKnight(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
+    }
+
     public static Knight createKnight(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
             return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_KNIGHTS.get(position) :

@@ -14,8 +14,8 @@ import java.util.List;
  * Created by igor on 03.12.17.
  */
 public class BlackPlayer extends Player {
-    public BlackPlayer(final Board board, final Collection<Move> legalMovesWhitePieces,
-                       final Collection<Move> legalMovesBlackPieces) {
+    public BlackPlayer(final Board board, final Collection<Move> legalMovesBlackPieces,
+                       final Collection<Move> legalMovesWhitePieces) {
         super(board, legalMovesBlackPieces, legalMovesWhitePieces);
     }
 

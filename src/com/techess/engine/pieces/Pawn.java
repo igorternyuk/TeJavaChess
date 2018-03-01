@@ -26,6 +26,11 @@ public class Pawn extends Piece {
         return createPawn(Board.position(x,y), alliance, isFirstMove);
     }
 
+    public static Pawn createPawn(final char fileOnChessBoard, final int rank, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createPawn(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
+    }
+
     public static Pawn createPawn(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
             return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_PAWNS.get(position) :
