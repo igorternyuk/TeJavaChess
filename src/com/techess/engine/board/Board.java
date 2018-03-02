@@ -33,6 +33,7 @@ public class Board {
     private final Map<Position, Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
+    private final Collection<Piece> allActivePieces;
     private final Collection<Move> legalMovesWhitePieces;
     private final Collection<Move> legalMovesBlackPieces;
     private final WhitePlayer whitePlayer;
@@ -48,6 +49,7 @@ public class Board {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = detectActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = detectActivePieces(this.gameBoard, Alliance.BLACK);
+        this.allActivePieces = ImmutableList.copyOf(Iterables.concat(this.whitePieces, this.blackPieces));
         this.legalMovesWhitePieces = calculateLegalMoves(this.whitePieces);
         this.legalMovesBlackPieces = calculateLegalMoves(this.blackPieces);
         whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
@@ -71,6 +73,8 @@ public class Board {
     public Collection<Piece> getBlackPieces() {
         return this.blackPieces;
     }
+
+    public Collection<Piece> getAllActivePieces() { return this.allActivePieces; }
 
     public Player getWhitePlayer(){
         return this.whitePlayer;
