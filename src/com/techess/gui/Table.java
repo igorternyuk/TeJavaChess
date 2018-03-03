@@ -32,10 +32,11 @@ public class Table {
     private static final int MAIN_WINDOW_HEIGHT = TILE_SIZE * BOARD_SIZE + DY;
     private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(TILE_SIZE * BOARD_SIZE,
             TILE_SIZE * BOARD_SIZE);
-    private static final Dimension TILE_PANEL_DIMENSION = new Dimension(80,80);
     private static final String DEFAULT_PATH_TO_SPRITE_SET = "resources/img/chessPiecesSpriteSet.png";
     private static final int LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS = 5;
-    private static final int LAST_MOVE_HIGHLIGHT_ARROW_WIDTH = 5;
+    private static final int LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT = 30;
+    private static final int LAST_MOVE_HIGHLIGHT_ARROW_ANGLE = 30;
+    private static final int LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH = 5;
     private Board chessBoard;
     private Tile startTile;
     private Tile destinationTile;
@@ -66,12 +67,9 @@ public class Table {
             this.piecesSpriteSet = ImageIO.read(new File(DEFAULT_PATH_TO_SPRITE_SET));
             this.pieceImages = createPieceImages();
             System.out.println("The sprite set of chess pieces has been successfully loaded");
-            //ImageIcon icon = new ImageIcon(Table.class.getResource("spriteSet/chessPiecesSpriteSet.png"));
-
-            //ImageIcon icoFill = new ImageIcon(View.class.getResource("img/btnFill.png"));
         } catch (IOException e) {
             System.out.println("Could not load image");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         this.boardPanel = new BoardPanel();
@@ -83,14 +81,14 @@ public class Table {
     private BufferedImage[][] createPieceImages(){
         final int numOfAlliances = Alliance.values().length;
         final int numOfPieceTypes = PieceType.values().length;
-        BufferedImage[][] images = new BufferedImage[numOfAlliances][numOfPieceTypes];
+        final BufferedImage[][] pieceImages = new BufferedImage[numOfAlliances][numOfPieceTypes];
         for(int y = 0; y < numOfAlliances; ++y){
             for(int x = 0; x < numOfPieceTypes; ++x){
-                images[y][x] = this.piecesSpriteSet.getSubimage(x * TILE_SIZE, y * TILE_SIZE,
+                pieceImages[y][x] = this.piecesSpriteSet.getSubimage(x * TILE_SIZE, y * TILE_SIZE,
                         TILE_SIZE, TILE_SIZE);
             }
         }
-        return images;
+        return pieceImages;
     }
 
     private final BufferedImage getPieceImage(final Piece piece){
@@ -262,12 +260,12 @@ public class Table {
         }
 
         @Override
-        public void mouseDragged(MouseEvent e) {
+        public void mouseDragged(final MouseEvent e) {
             e.consume();
         }
 
         @Override
-        public void mouseMoved(MouseEvent e) {
+        public void mouseMoved(final MouseEvent e) {
             if(humanMovedPiece != null){
                 humanMovedPieceX = e.getX() - TILE_SIZE / 2;
                 humanMovedPieceY = e.getY() - TILE_SIZE / 2;
@@ -285,20 +283,30 @@ public class Table {
             });
         }
 
-        @Override
-        protected void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Graphics2D g2D = (Graphics2D)g;
-            g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            //Draw chess field
+        private void drawChessField(Graphics2D g2D){
             for(int y = 0; y < BOARD_SIZE; ++y){
                 for(int x = 0; x < BOARD_SIZE; ++x){
-                    g2D.setColor((x + y) % 2 == 0 ? Color.WHITE : new Color(0,202,255));
+                    g2D.setColor((x + y) % 2 == 0 ? Color.WHITE : new Color(0, 202, 255));
                     g2D.fillRect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE);
+                    final Tile currentTile = chessBoard.getTile(x, y);
+                    //Highlights king which is under check
+                    if((chessBoard.getCurrentPlayer().isUnderCheck() && currentTile.isOccupied() &&
+                            currentTile.getPiece().getPieceType().isKing() &&
+                            currentTile.getPiece().getAlliance().equals(chessBoard.getCurrentPlayer().getAlliance()))) {
+                        g2D.setColor(Color.RED);
+                        int checkedKingX = x;
+                        int checkedKingY = y;
+                        if(boardOrientation.isOpposite()){
+                            checkedKingX = calculateFlippedCoordinate(checkedKingX);
+                            checkedKingY = calculateFlippedCoordinate(checkedKingY);
+                        }
+                        g2D.fillRect(checkedKingX * TILE_SIZE, checkedKingY * TILE_SIZE,TILE_SIZE, TILE_SIZE);
+                    }
                 }
             }
+        }
 
-            //Draw all active pieces
+        private void drawAllActivePieces(Graphics2D g2D){
             chessBoard.getAllActivePieces().stream().filter(piece -> !piece.equals(humanMovedPiece))
                     .forEach(piece -> {
                         final BufferedImage bufferedImage = getPieceImage(piece);
@@ -311,87 +319,115 @@ public class Table {
                                     TILE_SIZE, TILE_SIZE, this);
                         } else {
                             g2D.drawImage(bufferedImage, pieceX * TILE_SIZE, pieceY * TILE_SIZE, TILE_SIZE,
-                                        TILE_SIZE, this);
+                                    TILE_SIZE, this);
                         }
                     });
+        }
 
+        private void drawLegalMovesHints(Graphics2D g2D){
+            //Draw current player's legal moves
+            if(highlightLegalMoves){
+                chessBoard.getCurrentPlayer().getLegalMoves().stream()
+                        .filter(move -> move.getMovedPiece().equals(humanMovedPiece)).forEach(move -> {
+                    g2D.setColor(Color.GREEN.brighter());
+                    int x = move.getDestination().getX();
+                    int y = move.getDestination().getY();
+                    if(boardOrientation.isOpposite()) {
+                        x = calculateFlippedCoordinate(x);
+                        y = calculateFlippedCoordinate(y);
+                    }
+                    x = x * TILE_SIZE + TILE_SIZE / 2;
+                    y = y * TILE_SIZE + TILE_SIZE / 2;
+                    g2D.fillOval(x - LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
+                            y - LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
+                            2 * LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
+                            2 * LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS);
+
+                });
+            }
+            //Draws selected piece which is following mouse cursor
+            g2D.drawImage(getPieceImage(humanMovedPiece), humanMovedPieceX, humanMovedPieceY,
+                    TILE_SIZE, TILE_SIZE, this);
+        }
+
+        private void drawLastMoveHighlight(Graphics2D g2D){
+            //This part of code draw arrow which highlights last move
+            g2D.setColor(Color.RED);
+            g2D.setStroke(new BasicStroke(LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH));
+            int arrowStartPointX = lastMove.getMovedPiece().getPosition().getX();
+            int arrowStartPointY = lastMove.getMovedPiece().getPosition().getY();
+            int arrowEndPointX = lastMove.getDestination().getX();
+            int arrowEndPointY = lastMove.getDestination().getY();
+
+            if(boardOrientation.isOpposite()) {
+                arrowStartPointX = calculateFlippedCoordinate(arrowStartPointX);
+                arrowStartPointY = calculateFlippedCoordinate(arrowStartPointY);
+                arrowEndPointX = calculateFlippedCoordinate(arrowEndPointX);
+                arrowEndPointY = calculateFlippedCoordinate(arrowEndPointY);
+            }
+
+            arrowStartPointX = arrowStartPointX * TILE_SIZE + TILE_SIZE / 2;
+            arrowStartPointY = arrowStartPointY * TILE_SIZE + TILE_SIZE / 2;
+            arrowEndPointX = arrowEndPointX * TILE_SIZE + TILE_SIZE / 2;
+            arrowEndPointY = arrowEndPointY * TILE_SIZE + TILE_SIZE / 2;
+
+            final int dx = arrowEndPointX - arrowStartPointX;
+            final int dy = arrowEndPointY - arrowStartPointY;
+            int arrowHeadLeftPointX = 0,arrowHeadLeftPointY = 0,arrowHeadRightPointX = 0,arrowHeadRightPointY = 0;
+
+            final double arrowHalfAngle = Math.toRadians(LAST_MOVE_HIGHLIGHT_ARROW_ANGLE / 2);
+            //Horizontal move
+            if(dy == 0){
+                arrowHeadLeftPointX = arrowHeadRightPointX = arrowEndPointX +
+                        ((dx > 0) ? -LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT : LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT);
+                arrowHeadLeftPointY = (int)(arrowEndPointY - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.tan(arrowHalfAngle));
+                arrowHeadRightPointY = (int)(arrowEndPointY + LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.tan(arrowHalfAngle));
+            } else if(dx == 0){
+                //Vertical move
+                arrowHeadLeftPointY = arrowHeadRightPointY = arrowEndPointY +
+                        ((dy > 0) ? -LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT : LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT);
+                arrowHeadLeftPointX = (int)(arrowEndPointX - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.tan(arrowHalfAngle));
+                arrowHeadRightPointX = (int)(arrowEndPointX + LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.tan(arrowHalfAngle));
+            } else {
+                final double arrowTilt = Math.atan2(dy, dx);
+
+                arrowHeadLeftPointX = (int)(arrowEndPointX - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.cos(arrowTilt + arrowHalfAngle));
+                arrowHeadLeftPointY = (int)(arrowEndPointY - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.sin(arrowTilt + arrowHalfAngle));
+                arrowHeadRightPointX = (int)(arrowEndPointX - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.cos(arrowTilt - arrowHalfAngle));
+                arrowHeadRightPointY = (int)(arrowEndPointY - LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT *
+                        Math.sin(arrowTilt - arrowHalfAngle));
+            }
+
+            g2D.drawLine(arrowStartPointX, arrowStartPointY, arrowEndPointX, arrowEndPointY);
+            g2D.drawLine(arrowHeadLeftPointX, arrowHeadLeftPointY, arrowEndPointX, arrowEndPointY);
+            g2D.drawLine(arrowHeadRightPointX, arrowHeadRightPointY, arrowEndPointX, arrowEndPointY);
+        }
+
+
+        @Override
+        protected void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Graphics2D g2D = (Graphics2D)g;
+            g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //Draws chess field
+            drawChessField(g2D);
+            //Draws all active pieces
+            drawAllActivePieces(g2D);
+            //Heighlights
             if(humanMovedPiece != null) {
-                //Draw current player's legal moves
-                if(highlightLegalMoves){
-                    chessBoard.getCurrentPlayer().getLegalMoves().stream()
-                            .filter(move -> move.getMovedPiece().equals(humanMovedPiece)).forEach(move -> {
-                        g2D.setColor(Color.GREEN.brighter());
-                        int x = move.getDestination().getX();
-                        int y = move.getDestination().getY();
-                        if(boardOrientation.isOpposite()) {
-                            x = calculateFlippedCoordinate(x);
-                            y = calculateFlippedCoordinate(y);
-                        }
-                        x = x * TILE_SIZE + TILE_SIZE / 2;
-                        y = y * TILE_SIZE + TILE_SIZE / 2;
-                        g2D.fillOval(x - LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
-                                y - LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
-                                2 * LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS,
-                                2 * LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS);
-
-                    });
-                }
-                //Draw selected piece which is following mouse cursor
-                g2D.drawImage(getPieceImage(humanMovedPiece), humanMovedPieceX, humanMovedPieceY,
-                        TILE_SIZE, TILE_SIZE, this);
+                drawLegalMovesHints(g2D);
             } else if(highlightLastMove && lastMove != null){
-                g2D.setColor(Color.RED);
-                g2D.setStroke(new BasicStroke(LAST_MOVE_HIGHLIGHT_ARROW_WIDTH));
-                //g2D.setStroke(new Stroke);
-                int x1 = lastMove.getMovedPiece().getPosition().getX();
-                int y1 = lastMove.getMovedPiece().getPosition().getY();
-                int x2 = lastMove.getDestination().getX();
-                int y2 = lastMove.getDestination().getY();
-
-                if(boardOrientation.isOpposite()) {
-                    x1 = calculateFlippedCoordinate(x1);
-                    y1 = calculateFlippedCoordinate(y1);
-                    x2 = calculateFlippedCoordinate(x2);
-                    y2 = calculateFlippedCoordinate(y2);
-                }
-
-                x1 = x1 * TILE_SIZE + TILE_SIZE / 2;
-                y1 = y1 * TILE_SIZE + TILE_SIZE / 2;
-                x2 = x2 * TILE_SIZE + TILE_SIZE / 2;
-                y2 = y2 * TILE_SIZE + TILE_SIZE / 2;
-
-                g2D.drawLine(x1, y1, x2, y2);
-
-                System.out.println("x1 = " + x1 + " y1 = " + y1);
-                System.out.println("x2 = " + x2 + " y2 = " + y2);
-
-                //Arrow drawing
-               /* final int dx = x2 - x1;
-                final int dy = y2 - y1;
-                final double moveDistance = Math.sqrt(dx * dx + dy * dy);
-                System.out.println("moveDistance = " + moveDistance);
-                final double k = dx != 0 ? dy / dx : 999999;
-                final int R = 20;
-                final double xp = x2 - R / Math.sqrt(k * k + 1);
-                final double yp = y2 - R * k / Math.sqrt(k * k + 1);
-                System.out.println("xp = " + xp + " yp = " + yp);
-                final double kp = 1 / k;
-                final int Rp = 10;
-                final int x3 = (int)(xp - Rp / Math.sqrt(kp * kp + 1));
-                final int y3 = (int)(yp - Rp * kp / Math.sqrt(kp * kp + 1));
-                final int x4 = (int)(xp + Rp / Math.sqrt(kp * kp + 1));
-                final int y4 = (int)(yp + Rp * kp / Math.sqrt(kp * kp + 1));
-                g2D.setColor(Color.blue);
-
-                g2D.drawLine(x3, y3, x2, y2);
-                g2D.drawLine(x4, y4, x2, y2);*/
-               // g2D.drawLine(X1, Y1, x2, y2);
-
-
+                drawLastMoveHighlight(g2D);
             }
         }
     }
-
 
     private void checkForMate() {
         if(chessBoard.getCurrentPlayer().isCheckMate()){
