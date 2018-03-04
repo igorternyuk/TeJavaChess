@@ -3,9 +3,8 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
-import com.techess.engine.board.Move;
+import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
-import javafx.geometry.Pos;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -93,8 +92,8 @@ public class Bishop extends Piece {
         return ImmutableMap.copyOf(bishops);
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return PieceType.BISHOP.getName();
-    }
+        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.position);
+    }*/
 }

@@ -4,8 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
-import com.techess.engine.board.Move;
-import com.techess.engine.board.Move.CapturingMove;
+import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 import com.techess.engine.board.Tile;
 
@@ -64,15 +63,13 @@ public class Pawn extends Piece {
             if(DX[i] == 0){
                 if(!board.getTile(candidateDestination).isOccupied()) {
                     //Regular move
-                    legalMoves.add(new Move.RegularMove(board, this, candidateDestination));
+                    legalMoves.add(new Move.PawnMove(board, this, candidateDestination));
                     // TODO regular pawn promotion
-
-                    if((this.position.getY() == Board.SECOND_RANK && this.alliance.isWhite()) ||
-                            (this.position.getY() == Board.SEVENTH_RANK && this.alliance.isBlack())){
+                    if(this.isFirstMove){
                         //Pawn jump
                         final int jumpDestY = candidateDestination.getY() + this.getAlliance().getDirectionY();
                         if(!board.getTile(destX, jumpDestY).isOccupied()){
-                            legalMoves.add(new Move.RegularMove(board, this, Board.position(destX, jumpDestY)));
+                            legalMoves.add(new Move.PawnJump(board, this, Board.position(destX, jumpDestY)));
                         }
                     }
                 }
@@ -82,7 +79,8 @@ public class Pawn extends Piece {
                 if(destinationTile.isOccupied()){
                     final Piece capturedPiece = destinationTile.getPiece();
                     if(capturedPiece.getAlliance() != this.alliance){
-                        legalMoves.add(new CapturingMove(board, this, candidateDestination, capturedPiece));
+                        legalMoves.add(new Move.PawnCapturingMove(board, this, candidateDestination,
+                                capturedPiece));
                         // TODO pawn promotion by capturing
                     }
                 }
@@ -133,6 +131,7 @@ public class Pawn extends Piece {
 
     @Override
     public String toString() {
-        return PieceType.PAWN.getName();
+        return String.valueOf(Board.getChessNotationForColumn(this.position.getX()));
+        //return Board.getChessNotationTileName(this.position);
     }
 }

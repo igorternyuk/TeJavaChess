@@ -3,7 +3,7 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
-import com.techess.engine.board.Move;
+import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 
 import java.util.Collection;
@@ -92,8 +92,8 @@ public class Knight extends Piece {
         return ImmutableMap.copyOf(knights);
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return PieceType.KNIGHT.getName();
-    }
+        return PieceType.KNIGHT.getName().toUpperCase() + Board.getChessNotationTileName(this.position);
+    }*/
 }

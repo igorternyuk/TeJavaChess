@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.techess.engine.Alliance;
+import com.techess.engine.moves.Move;
 import com.techess.engine.pieces.*;
 import com.techess.engine.player.BlackPlayer;
 import com.techess.engine.player.Player;
@@ -90,6 +91,32 @@ public class Board {
 
     public Tile getTile(final Position candidateDestination) {
         return isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
+    }
+
+    public static int getChessNotationForRow(final int y){
+        Set<Map.Entry<Integer,Integer>> setOfRows = rankMap.entrySet();
+        for(Map.Entry entry: setOfRows){
+            if(entry.getValue().equals(y)) return (Integer) entry.getKey();
+        }
+        return -1;
+    }
+
+    public static char getChessNotationForColumn(final int x){
+        Set<Map.Entry<Character,Integer>> columnsSet = fileMap.entrySet();
+        for(Map.Entry entry: columnsSet){
+            if(entry.getValue().equals(x)) return (Character) entry.getKey();
+        }
+        return '\0';
+    }
+
+    public static String getChessNotationTileName(final Position position){
+
+        return String.valueOf(getChessNotationForColumn(position.getX())) + getChessNotationForRow(position.getY());
+    }
+
+    public static String getChessNotationTileName(final int x, final int y){
+
+        return String.valueOf(getChessNotationForColumn(x)) + getChessNotationForRow(y);
     }
 
     public Tile getTile(final int x, final int y){

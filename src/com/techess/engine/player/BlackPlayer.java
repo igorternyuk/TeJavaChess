@@ -2,13 +2,10 @@ package com.techess.engine.player;
 
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
-import com.techess.engine.board.Move;
-import com.techess.engine.board.Tile;
+import com.techess.engine.moves.Move;
 import com.techess.engine.pieces.Piece;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by igor on 03.12.17.

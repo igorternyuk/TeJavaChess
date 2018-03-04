@@ -3,10 +3,9 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableList;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
-import com.techess.engine.board.Move;
+import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 import com.techess.engine.board.Tile;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +16,7 @@ import java.util.Objects;
  * Created by igor on 26.11.17.
  */
 
-public abstract class Piece {
+public abstract class Piece{
     protected final PieceType pieceType;
     protected final Position position;
     protected final boolean isFirstMove;
@@ -26,6 +25,8 @@ public abstract class Piece {
     public PieceType getPieceType() {
         return this.pieceType;
     }
+
+    public int getValue() { return this.pieceType.getValue(); }
 
     public Position getPosition() {
         return this.position;
@@ -132,6 +133,11 @@ public abstract class Piece {
         return this.cachedHashCode;
     }
 
+    @Override
+    public String toString(){
+        return this.pieceType.getName().toUpperCase();
+    }
+
     private int computeHashCode(){
         final int hash = 31;
         int result = getPieceType() != null ? getPieceType().hashCode() : 0;
@@ -142,15 +148,16 @@ public abstract class Piece {
     }
 
     public enum PieceType {
-        KING("k", true, false),
-        QUEEN("q", false, false),
-        BISHOP("b", false, false),
-        KNIGHT("n", false, false),
-        ROOK("r", false, true),
-        PAWN("p", false, false);
+        KING("k", 10000, true, false),
+        QUEEN("q", 900, false, false),
+        BISHOP("b", 300, false, false),
+        KNIGHT("n", 300, false, false),
+        ROOK("r", 500, false, true),
+        PAWN("p", 100, false, false);
 
-        private PieceType(final String name, final boolean isKing, final boolean isRook){
+        private PieceType(final String name, final int value, final boolean isKing, final boolean isRook){
             this.name = name;
+            this.value = value;
             this.isKing = isKing;
             this.isRook = isRook;
         }
@@ -158,6 +165,8 @@ public abstract class Piece {
         public String getName() {
             return this.name;
         }
+
+        public int getValue() { return this.value; }
 
         public boolean isKing(){
             return this.isKing;
@@ -168,6 +177,7 @@ public abstract class Piece {
         }
 
         private String name;
+        private int value;
         private boolean isKing;
         private boolean isRook;
 

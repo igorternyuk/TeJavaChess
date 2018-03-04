@@ -4,12 +4,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.*;
+import com.techess.engine.moves.Move;
+import com.techess.engine.moves.MoveStatus;
+import com.techess.engine.moves.MoveTransition;
 import com.techess.engine.pieces.King;
 import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Rook;
-import com.techess.engine.board.Move.KingsSideCastling;
-import com.techess.engine.board.Move.QueensSideCastling;
-import javafx.geometry.Pos;
+import com.techess.engine.moves.Move.KingsSideCastling;
+import com.techess.engine.moves.Move.QueensSideCastling;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,11 +35,8 @@ public abstract class Player {
         this.opponentLegalMoves = opponentMoves;
         final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
         final Alliance currentAlliance = this.getAlliance();
-        System.out.println((currentAlliance.isWhite() ? "White " : "Black ") + "player has " + castles.size() +
-                " castles");
-        System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
         this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
-        System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
+        //System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
         this.isInCheck = !Player.calculateAttacksOnTile(this.king.getPosition(), opponentMoves).isEmpty();
     }
 
@@ -87,9 +86,10 @@ public abstract class Player {
         final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerPosition, opponentLegalMoves);
 
         if(!kingAttacks.isEmpty()){
-            System.out.println("King is under check");
+            //System.out.println("King is under check");
             return new MoveTransition(transitedBoard, move, MoveStatus.KING_IS_UNDER_CHECK);
         }
+        //System.out.println(move);
         return new MoveTransition(transitedBoard, move, MoveStatus.DONE);
     }
 
@@ -103,15 +103,11 @@ public abstract class Player {
         //this.board.getCurrentPlayer().getAlliance().equals(Alliance.WHITE)
         final int lastRank = this.getAlliance().isWhite() ? 1 : 8;
         List<Move> castles = new ArrayList<>();
-        System.out.println("this.king.isFirstMove() = " + this.king.isFirstMove());
-        System.out.println("!this.isUnderCheck() = " + !this.isUnderCheck());
         if(this.king.isFirstMove() && !this.isUnderCheck()){
-            System.out.println("King has no moved yet and is not under check");
             //King's side castling
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
             final Tile kingsSideKingsDestinationTile = this.board.getTile('g', lastRank);
             if(kingsRookDestinationTile.isEmpty() && kingsSideKingsDestinationTile.isEmpty()){
-                System.out.println("There are no pieces between king and rook");
                 final Tile kingsRookStartTile = this.board.getTile('h', lastRank);
                 if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook() &&
                         kingsRookStartTile.getPiece().isFirstMove()) {
