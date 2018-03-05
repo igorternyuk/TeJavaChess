@@ -3,15 +3,17 @@ package com.techess.engine.player;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.techess.engine.Alliance;
-import com.techess.engine.board.*;
+import com.techess.engine.board.Board;
+import com.techess.engine.board.Position;
+import com.techess.engine.board.Tile;
 import com.techess.engine.moves.Move;
+import com.techess.engine.moves.Move.KingsSideCastling;
+import com.techess.engine.moves.Move.QueensSideCastling;
 import com.techess.engine.moves.MoveStatus;
 import com.techess.engine.moves.MoveTransition;
 import com.techess.engine.pieces.King;
 import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Rook;
-import com.techess.engine.moves.Move.KingsSideCastling;
-import com.techess.engine.moves.Move.QueensSideCastling;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +36,10 @@ public abstract class Player {
         //Don't forget to concatenate castles
         this.opponentLegalMoves = opponentMoves;
         final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
+        /*System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
+                " has castles = " + castles.size());*/
         final Alliance currentAlliance = this.getAlliance();
+        //System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
         this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
         //System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
         this.isInCheck = !Player.calculateAttacksOnTile(this.king.getPosition(), opponentMoves).isEmpty();
@@ -97,14 +102,14 @@ public abstract class Player {
     protected Collection<Move> calculateCastles(final Collection<Move> playerLegalMoves,
                                                 final Collection<Move> opponentLegalMoves) {
         //this.board.getCurrentPlayer().getAlliance().equals(Alliance.WHITE)
-        final int lastRank = this.getAlliance().isWhite() ? Board.getAlgebraicNotationForCoordinateY(Board.FIFTH_RANK) :
+        final int lastRank = this.getAlliance().isWhite() ? Board.getAlgebraicNotationForCoordinateY(Board.FIRST_RANK) :
                 Board.getAlgebraicNotationForCoordinateY(Board.EIGHTH_RANK);
         List<Move> castles = new ArrayList<>();
         if(this.king.isFirstMove() && !this.isUnderCheck()){
             //King's side castling
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
             final Tile kingsSideKingsDestinationTile = this.board.getTile('g', lastRank);
-            System.out.println("lastRank = " + lastRank);
+            //System.out.println("lastRank = " + lastRank);
             if(kingsRookDestinationTile.isEmpty() && kingsSideKingsDestinationTile.isEmpty()){
                 final Tile kingsRookStartTile = this.board.getTile('h', lastRank);
                 if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook() &&

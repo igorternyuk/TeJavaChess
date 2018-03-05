@@ -6,6 +6,8 @@ import com.techess.engine.pieces.Pawn;
 import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Queen;
 import com.techess.engine.pieces.Rook;
+import javafx.geometry.Pos;
+
 import static com.techess.engine.board.Board.Builder;
 
 import java.util.Collection;
@@ -52,11 +54,17 @@ public abstract class Move {
         return false;
     }
 
+    public boolean isPawnPromotionMove() { return false; }
+
     public Piece getCapturedPiece(){
         return null;
     }
 
     public abstract Board execute();
+
+    public Board getBoard() {
+        return this.board;
+    }
 
     public static class RegularMove extends Move {
 
@@ -135,6 +143,23 @@ public abstract class Move {
         }
     }
 
+    public static class PieceCapturingMove extends CapturingMove{
+        public PieceCapturingMove(final Board board, final Piece movedPiece, final Position destination,
+                                 final Piece capturedPiece) {
+            super(board, movedPiece, destination, capturedPiece);
+        }
+
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PieceCapturingMove) && super.equals(other));
+        }
+
+        @Override
+        public String toString(){
+            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
+        }
+    }
+
     public static class PawnMove extends RegularMove{
         public PawnMove(final Board board, final Piece movedPiece, final Position destination) {
             super(board, movedPiece, destination);
@@ -145,6 +170,7 @@ public abstract class Move {
             return this == other || ((other instanceof PawnMove) && super.equals(other));
         }
 
+        @Override
         public String toString(){
             return movedPiece.toString() + Board.getAlgebraicNotationForCoordinateY(destination.getY());
         }
@@ -193,55 +219,77 @@ public abstract class Move {
     }
 
     public static class PawnPromotion extends PawnMove{
+        private final PawnMove pawnMove;
+        private Pawn promotedPawn;
         private Piece promotedPiece;
-        public PawnPromotion(final Board board, final Piece movedPiece, final Position destination,
-                             final Piece promotedPiece) {
-            super(board, movedPiece, destination);
+
+        public PawnPromotion(final PawnMove decoratedPawnMove, final Piece promotedPiece) {
+            super(decoratedPawnMove.getBoard(), decoratedPawnMove.getMovedPiece(), decoratedPawnMove.getDestination());
+            this.pawnMove = decoratedPawnMove;
+            this.promotedPawn = (Pawn)decoratedPawnMove.getMovedPiece();
             this.promotedPiece = promotedPiece;
         }
 
+        public PawnMove getPawnMove() {
+            return pawnMove;
+        }
+
+        public Pawn getPromotedPawn() {
+            return promotedPawn;
+        }
+
+        public Piece getPromotedPiece() {
+            return promotedPiece;
+        }
+
+        @Override
+        public boolean isPawnPromotionMove() { return true; }
+
         @Override
         public Board execute() {
-
+            final Board promotedPawnBoard = pawnMove.execute();
             final Builder builder = new Board.Builder();
-            this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
+            promotedPawnBoard.getCurrentPlayer().getActivePieces().stream()
+                    .filter(piece -> !this.promotedPawn.equals(piece)).forEach(piece -> builder.setPiece(piece));
+            promotedPawnBoard.getCurrentPlayer().getOpponent().getActivePieces()
                     .forEach(piece -> builder.setPiece(piece));
-            this.board.getCurrentPlayer().getOpponent().getActivePieces().forEach(piece -> builder.setPiece(piece));
             builder.setPiece(promotedPiece);
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
 
         @Override
+        public int hashCode(){
+            final int prime = 37;
+            int result = super.hashCode();
+            result += prime * this.pawnMove.hashCode();
+            result += prime * this.promotedPawn.hashCode();
+            result += prime * this.promotedPiece.hashCode();
+            return result;
+        }
+
+        @Override
         public boolean equals(final Object other){
-            return this == other || ((other instanceof PawnPromotion) && super.equals(other));
+            if(this == other) return true;
+            if(other == null || !(other instanceof PawnPromotion)) return false;
+            PawnPromotion otherPawnPromotion = (PawnPromotion)other;
+            return Objects.equals(this.pawnMove, otherPawnPromotion.getPawnMove()) &&
+                   Objects.equals(this.promotedPawn, otherPawnPromotion.getPromotedPawn()) &&
+                   Objects.equals(this.promotedPiece, otherPawnPromotion.getPromotedPiece()) &&
+                   super.equals(other);
+        }
+
+        @Override
+        public String toString(){
+            return pawnMove.toString() + promotedPiece.getPieceType().getName().toUpperCase();
         }
     }
 
     public static final class PawnEnPassantCapture extends PawnCapturingMove {
-        private Piece capturedPiece;
         public PawnEnPassantCapture(final Board board, final Piece movedPiece, final Position destination,
                                     final Piece capturedPiece) {
             super(board, movedPiece, destination, capturedPiece);
-            this.capturedPiece = capturedPiece;
         }
-
-       /* @Override
-        public Board execute() {
-            /*
-            * final Builder builder = new Builder();
-            this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
-                    .forEach(piece -> builder.setPiece(piece));
-            this.board.getCurrentPlayer().getOpponentActivePieces().stream()
-                    .filter(piece -> !this.capturedPiece.equals(piece)).forEach(piece -> builder.setPiece(piece));
-            builder.setPiece(this.movedPiece.move(this));
-            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
-            return builder.build();
-
-            final Builder builder = new Builder();
-            this.board.getCurrentPlayer().getActivePieces().stream();
-            return builder.build();
-        }*/
 
         @Override
         public boolean equals(final Object other){
@@ -371,6 +419,22 @@ public abstract class Move {
                 }
             }
             return NULL_MOVE;
+        }
+
+        public static Move createPawnPromotionMove(final Board board, final Position currentPosition,
+                                                   final Position destination, final Piece promotedPiece){
+             final Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
+             for(final Move move: legalMoves){
+                 if(move.isPawnPromotionMove()) {
+                     final PawnPromotion pawnPromotion = (PawnPromotion)move;
+                     if (pawnPromotion.getMovedPiece().getPosition().equals(currentPosition) &&
+                         pawnPromotion.getDestination().equals(destination) &&
+                         pawnPromotion.getPromotedPiece().equals(promotedPiece)){
+                         return pawnPromotion;
+                     }
+                 }
+             }
+             return NULL_MOVE;
         }
     }
 

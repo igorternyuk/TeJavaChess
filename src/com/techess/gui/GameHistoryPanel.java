@@ -43,6 +43,14 @@ public class GameHistoryPanel extends JPanel{
         this.setVisible(true);
     }
 
+    public void clear(){
+        this.dataModel.clear();
+        this.table.setVisible(false);
+        this.table.setVisible(true);
+        this.validate();
+        this.repaint();
+    }
+
     public void update(final Board chessBoard, final MoveLog moveLog){
         //System.out.println("Move history updating ");
         this.dataModel.clear();

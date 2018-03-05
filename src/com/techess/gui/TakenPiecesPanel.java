@@ -1,8 +1,8 @@
 package com.techess.gui;
 
-import com.techess.engine.board.Board;
 import com.techess.engine.moves.MoveLog;
 import com.techess.engine.pieces.Piece;
+import com.techess.engine.pieces.PieceType;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -29,10 +29,10 @@ public class TakenPiecesPanel extends JPanel {
         this.setBackground(PANEL_COLOR);
         this.setBorder(PANEL_BORDER);
         this.setPreferredSize(PANEL_DIMENSION);
-        this.northPanel = new JPanel(new GridLayout(BOARD_SIZE, Piece.PieceType.values().length));
+        this.northPanel = new JPanel(new GridLayout(BOARD_SIZE, PieceType.values().length));
         this.northPanel.setBackground(PANEL_COLOR);
         this.northPanel.setVisible(true);
-        this.southPanel = new JPanel(new GridLayout(BOARD_SIZE, Piece.PieceType.values().length));
+        this.southPanel = new JPanel(new GridLayout(BOARD_SIZE, PieceType.values().length));
         this.southPanel.setBackground(PANEL_COLOR);
         this.southPanel.setVisible(true);
         this.add(this.northPanel, BorderLayout.NORTH);

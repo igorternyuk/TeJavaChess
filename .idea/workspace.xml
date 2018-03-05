@@ -2,22 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/img/chessPiecesSpriteSet2.png" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$1.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$2.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Board.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Board.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$Castling.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$Castling.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$KingsSideCastling.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$KingsSideCastling.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$MoveFactory.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$MoveFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$NullMove.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$NullMove.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnCapturingMove.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnCapturingMove.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnEnPassantCapture.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnEnPassantCapture.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnJump.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnJump.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnMove.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnMove.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnPromotion.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnPromotion.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$QueensSideCastling.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$QueensSideCastling.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Pawn.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Pawn.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Piece.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Piece.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/player/Player.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/player/Player.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$DataModel.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$DataModel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$MoveRecord.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$MoveRecord.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$1.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$2.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/Alliance.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/Alliance.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Board.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/board/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Position.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/board/Position.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/moves/Move.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/moves/Move.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Bishop.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Bishop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/King.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/King.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Knight.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Knight.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Queen.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Queen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/Player.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/player/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java" afterPath="$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java" afterPath="$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java" afterPath="$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/gui/View.java" afterPath="$PROJECT_DIR$/src/com/techess/gui/View.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,20 +54,30 @@
       <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/Move.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="182" column="30" lean-forward="true" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
+            <state relative-caret-position="159">
+              <caret line="423" column="27" lean-forward="false" selection-start-line="423" selection-start-column="27" selection-end-line="423" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
+                <element signature="e#1674#1675#0" expanded="true" />
+                <element signature="e#8442#8443#0" expanded="true" />
+                <element signature="e#8481#8482#0" expanded="true" />
+                <element signature="e#8522#8523#0" expanded="true" />
+                <element signature="e#8565#8566#0" expanded="true" />
+                <element signature="e#8608#8609#0" expanded="true" />
+                <element signature="e#8652#8653#0" expanded="true" />
+                <element signature="e#10402#10403#0" expanded="true" />
+                <element signature="e#10507#10508#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="View.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/techess/gui/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state relative-caret-position="3519">
+              <caret line="239" column="62" lean-forward="false" selection-start-line="239" selection-start-column="62" selection-end-line="239" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,22 +85,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java">
+      <file leaf-file-name="TakenPiecesPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="639">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="45" column="36" lean-forward="false" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pawn.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Pawn.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="604">
+              <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+              <folding>
+                <element signature="e#9197#9198#0" expanded="true" />
+                <element signature="e#9298#9299#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Alliance.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/Alliance.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="684">
+              <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
+              <folding>
+                <element signature="e#470#471#0" expanded="true" />
+                <element signature="e#502#503#0" expanded="true" />
+                <element signature="e#772#773#0" expanded="true" />
+                <element signature="e#839#840#0" expanded="true" />
+                <element signature="e#1260#1261#0" expanded="true" />
+                <element signature="e#1293#1294#0" expanded="true" />
+                <element signature="e#1563#1564#0" expanded="true" />
+                <element signature="e#1629#1630#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,12 +130,22 @@
       <file leaf-file-name="Piece.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1575">
-              <caret line="137" column="39" lean-forward="false" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="39" />
+            <state relative-caret-position="1935">
+              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding>
-                <element signature="e#4821#4822#0" expanded="true" />
-                <element signature="e#4882#4883#0" expanded="true" />
+                <element signature="e#4826#4827#0" expanded="true" />
+                <element signature="e#4887#4888#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PieceType.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,30 +153,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-981">
-              <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rook.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameHistoryPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="193" column="13" lean-forward="false" selection-start-line="193" selection-start-column="13" selection-end-line="193" selection-end-column="13" />
+            <state relative-caret-position="186">
+              <caret line="111" column="14" lean-forward="false" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,8 +165,8 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3441">
-              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="474">
+              <caret line="65" column="33" lean-forward="false" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3520#3521#0" expanded="true" />
@@ -141,11 +182,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Position.java">
+      <file leaf-file-name="WhitePlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+            <state relative-caret-position="165">
+              <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -180,6 +221,11 @@
       <find>println</find>
       <find>NullMove</find>
       <find>pas</find>
+      <find>All</find>
+      <find>Allia</find>
+      <find>Alliance</find>
+      <find>showO</find>
+      <find>showOP</find>
     </findStrings>
     <replaceStrings>
       <replace>EIGHTH_RANK</replace>
@@ -214,7 +260,6 @@
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/MoveStatus.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/Alliance.java" />
         <option value="$PROJECT_DIR$/src/com/techess/App.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/MoveTransition.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" />
@@ -222,21 +267,23 @@
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/Move.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/BoardOrientation.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/moves/MoveLog.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java" />
         <option value="$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java" />
         <option value="$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/gui/View.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Bishop.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/King.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Knight.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Queen.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/Position.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/player/Player.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java" />
         <option value="$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/moves/Move.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/board/Board.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/engine/Alliance.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/engine/moves/Move.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/engine/player/Player.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/gui/View.java" />
       </list>
     </option>
   </component>
@@ -504,11 +551,11 @@
       <recent name="com.techess.engine.moves" />
       <recent name="com.techess.engine.board" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.techess.engine.player" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.techess.engine.player" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -969,7 +1016,7 @@
       <workItem from="1520060668919" duration="14638000" />
       <workItem from="1520143095404" duration="23924000" />
       <workItem from="1520170283446" duration="4870000" />
-      <workItem from="1520225835597" duration="15870000" />
+      <workItem from="1520225835597" duration="30391000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -989,7 +1036,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252829000" />
+    <option name="totallyTimeSpent" value="267350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1286" height="769" extended-state="6" />
@@ -1010,7 +1057,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.226979" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19789983" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1070,7 +1117,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="24" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/techess/engine/moves/Move.java</url>
+          <line>425</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1079,13 +1134,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -1230,16 +1278,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="53" column="7" lean-forward="false" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Programs/JavaLibs/guava-19.0.jar!/com/google/common/collect/Iterables.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
@@ -1251,6 +1289,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="73" column="16" lean-forward="false" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1265,6 +1304,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="581" column="43" lean-forward="false" selection-start-line="581" selection-start-column="43" selection-end-line="581" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,34 +1319,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3394">
           <caret line="920" column="28" lean-forward="false" selection-start-line="920" selection-start-column="28" selection-end-line="920" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/Alliance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="37" column="7" lean-forward="false" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#292#293#0" expanded="false" />
-            <element signature="e#325#326#0" expanded="false" />
-            <element signature="e#379#380#0" expanded="false" />
-            <element signature="e#414#415#0" expanded="false" />
-            <element signature="e#468#469#0" expanded="false" />
-            <element signature="e#504#505#0" expanded="false" />
-            <element signature="e#622#623#0" expanded="false" />
-            <element signature="e#664#665#0" expanded="false" />
-            <element signature="e#717#718#0" expanded="false" />
-            <element signature="e#755#756#0" expanded="false" />
-            <element signature="e#829#830#0" expanded="false" />
-            <element signature="e#861#862#0" expanded="false" />
-            <element signature="e#915#916#0" expanded="false" />
-            <element signature="e#951#952#0" expanded="false" />
-            <element signature="e#1005#1006#0" expanded="false" />
-            <element signature="e#1040#1041#0" expanded="false" />
-            <element signature="e#1158#1159#0" expanded="false" />
-            <element signature="e#1200#1201#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,14 +1356,6 @@
             <element signature="e#10065#10066#0" expanded="false" />
             <element signature="e#10148#10149#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="45" column="36" lean-forward="false" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1418,31 +1423,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Position.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-981">
-          <caret line="38" column="67" lean-forward="false" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1456,39 +1441,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="193" column="13" lean-forward="false" selection-start-line="193" selection-start-column="13" selection-end-line="193" selection-end-column="13" />
+        <state relative-caret-position="264">
+          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
+    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="137" column="39" lean-forward="false" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="39" />
-          <folding>
-            <element signature="e#4821#4822#0" expanded="true" />
-            <element signature="e#4882#4883#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="182" column="30" lean-forward="true" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="45" column="36" lean-forward="false" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3441">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="474">
+          <caret line="65" column="33" lean-forward="false" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3520#3521#0" expanded="true" />
@@ -1503,11 +1475,98 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/Alliance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
+          <folding>
+            <element signature="e#470#471#0" expanded="true" />
+            <element signature="e#502#503#0" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1293#1294#0" expanded="true" />
+            <element signature="e#1563#1564#0" expanded="true" />
+            <element signature="e#1629#1630#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1935">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding>
+            <element signature="e#4826#4827#0" expanded="true" />
+            <element signature="e#4887#4888#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="423" column="27" lean-forward="false" selection-start-line="423" selection-start-column="27" selection-end-line="423" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1674#1675#0" expanded="true" />
+            <element signature="e#8442#8443#0" expanded="true" />
+            <element signature="e#8481#8482#0" expanded="true" />
+            <element signature="e#8522#8523#0" expanded="true" />
+            <element signature="e#8565#8566#0" expanded="true" />
+            <element signature="e#8608#8609#0" expanded="true" />
+            <element signature="e#8652#8653#0" expanded="true" />
+            <element signature="e#10402#10403#0" expanded="true" />
+            <element signature="e#10507#10508#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+        <state relative-caret-position="604">
+          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <folding>
+            <element signature="e#9197#9198#0" expanded="true" />
+            <element signature="e#9298#9299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="111" column="14" lean-forward="false" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3519">
+          <caret line="239" column="62" lean-forward="false" selection-start-line="239" selection-start-column="62" selection-end-line="239" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

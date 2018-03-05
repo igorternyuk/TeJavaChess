@@ -68,8 +68,24 @@ public class Pawn extends Piece {
             if(DX[i] == 0){
                 if(!board.getTile(candidateDestination).isOccupied()) {
                     //Regular move
-                    legalMoves.add(new Move.PawnMove(board, this, candidateDestination));
                     // TODO regular pawn promotion
+                    if(this.getAlliance().isPawnPromotionSquare(candidateDestination)){
+                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                 this, candidateDestination), Queen.createQueen(candidateDestination,
+                                this.alliance, false)));
+                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                this, candidateDestination), Rook.createRook(candidateDestination,
+                                this.alliance, false)));
+                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                this, candidateDestination), Knight.createKnight(candidateDestination,
+                                this.alliance, false)));
+                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                this, candidateDestination), Bishop.createBishop(candidateDestination,
+                                this.alliance, false)));
+                    } else {
+                        legalMoves.add(new Move.PawnMove(board, this, candidateDestination));
+                    }
+
                     if(this.isFirstMove){
                         //Pawn jump
                         final int jumpDestY = candidateDestination.getY() + this.getAlliance().getDirectionY();
@@ -84,14 +100,30 @@ public class Pawn extends Piece {
                 if(destinationTile.isOccupied()){
                     final Piece capturedPiece = destinationTile.getPiece();
                     if(capturedPiece.getAlliance() != this.alliance){
-                        legalMoves.add(new Move.PawnCapturingMove(board, this, candidateDestination,
-                                capturedPiece));
-                        // TODO pawn promotion by capturing
+                        // Pawn promotion by capturing
+                        if(this.getAlliance().isPawnPromotionSquare(candidateDestination)){
+                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                    this, candidateDestination), Queen.createQueen(candidateDestination,
+                                    this.alliance, false)));
+                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                    this, candidateDestination), Rook.createRook(candidateDestination,
+                                    this.alliance, false)));
+                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                    this, candidateDestination), Knight.createKnight(candidateDestination,
+                                    this.alliance, false)));
+                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                                    this, candidateDestination), Bishop.createBishop(candidateDestination,
+                                    this.alliance, false)));
+                        } else {
+                            legalMoves.add(new Move.PawnCapturingMove(board, this, candidateDestination,
+                                    capturedPiece));
+                        }
                     }
                 } else {
                     //En passant capture
                     final Pawn enPassantPawn = board.getEnPassantPawn();
-                    if(enPassantPawn != null){
+                    if(enPassantPawn != null && !enPassantPawn.getAlliance().equals(this.alliance) &&
+                            enPassantPawn.getAlliance().getDirectionY() == this.alliance.getOppositeDirectionY()){
                         if(enPassantPawn.getPosition().getX() - this.position.getX() == DX[i]){
                             legalMoves.add(new Move.PawnEnPassantCapture(board, this, candidateDestination,
                                     enPassantPawn));
@@ -99,7 +131,6 @@ public class Pawn extends Piece {
                     }
                 }
             }
-
         }
         return ImmutableList.copyOf(legalMoves);
     }
@@ -146,6 +177,5 @@ public class Pawn extends Piece {
     @Override
     public String toString() {
         return String.valueOf(Board.getAlgebraicNotationForCoordinateX(this.position.getX()));
-        //return Board.getChessNotationTileName(this.getPosition);
     }
 }

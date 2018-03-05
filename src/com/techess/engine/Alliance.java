@@ -1,5 +1,7 @@
 package com.techess.engine;
 
+import com.techess.engine.board.Board;
+import com.techess.engine.board.Position;
 import com.techess.engine.player.BlackPlayer;
 import com.techess.engine.player.Player;
 import com.techess.engine.player.WhitePlayer;
@@ -16,6 +18,11 @@ public enum Alliance {
         }
 
         @Override
+        public int getOppositeDirectionY() {
+            return 1;
+        }
+
+        @Override
         public boolean isWhite() {
             return true;
         }
@@ -23,6 +30,11 @@ public enum Alliance {
         @Override
         public boolean isBlack() {
             return false;
+        }
+
+        @Override
+        public boolean isPawnPromotionSquare(final Position position) {
+            return position.getY() == Board.EIGHTH_RANK;
         }
 
         @Override
@@ -42,6 +54,11 @@ public enum Alliance {
         }
 
         @Override
+        public int getOppositeDirectionY() {
+            return -1;
+        }
+
+        @Override
         public boolean isWhite() {
             return false;
         }
@@ -49,6 +66,11 @@ public enum Alliance {
         @Override
         public boolean isBlack() {
             return true;
+        }
+
+        @Override
+        public boolean isPawnPromotionSquare(final Position position) {
+            return position.getY() == Board.FIRST_RANK;
         }
 
         @Override
@@ -62,8 +84,10 @@ public enum Alliance {
         }
     };
     public abstract int getDirectionY();
+    public abstract int getOppositeDirectionY();
     public abstract boolean isWhite();
     public abstract boolean isBlack();
+    public abstract boolean isPawnPromotionSquare(final Position position);
 
     public abstract Player choosePlayer(final WhitePlayer whitePlayer, final BlackPlayer blackPlayer);
 }

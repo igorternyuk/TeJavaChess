@@ -2,6 +2,7 @@ package com.techess.gui;
 
 import com.techess.engine.Alliance;
 import com.techess.engine.pieces.Piece;
+import com.techess.engine.pieces.PieceType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class ResourceManager {
 
     private BufferedImage[][] createPieceImages(){
         final int numOfAlliances = Alliance.values().length;
-        final int numOfPieceTypes = Piece.PieceType.values().length;
+        final int numOfPieceTypes = PieceType.values().length;
         final BufferedImage[][] pieceImages = new BufferedImage[numOfAlliances][numOfPieceTypes];
         for(int y = 0; y < numOfAlliances; ++y){
             for(int x = 0; x < numOfPieceTypes; ++x){
@@ -68,7 +69,7 @@ public class ResourceManager {
 
     private ImageIcon[][] createScaledPieceIcons() {
         final int numOfAlliances = Alliance.values().length;
-        final int numOfPieceTypes = Piece.PieceType.values().length;
+        final int numOfPieceTypes = PieceType.values().length;
         final ImageIcon[][] scaledPieceIcons = new ImageIcon[numOfAlliances][numOfPieceTypes];
         for(int y = 0; y < numOfAlliances; ++y){
             for(int x = 0; x < numOfPieceTypes; ++x){

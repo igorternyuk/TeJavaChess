@@ -57,10 +57,10 @@ public class Board {
             System.out.println("\n");
         }*/
         this.gameBoard = createGameBoard(builder);
-        this.enPassantPawn = builder.enPassantPawn;
         this.whitePieces = detectActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = detectActivePieces(this.gameBoard, Alliance.BLACK);
         this.allActivePieces = ImmutableList.copyOf(Iterables.concat(this.whitePieces, this.blackPieces));
+        this.enPassantPawn = builder.enPassantPawn;
         this.legalMovesWhitePieces = calculateLegalMoves(this.whitePieces);
         this.legalMovesBlackPieces = calculateLegalMoves(this.blackPieces);
         whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);

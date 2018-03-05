@@ -5,7 +5,8 @@ import com.techess.engine.board.*;
 import com.techess.engine.moves.Move;
 import com.techess.engine.moves.MoveLog;
 import com.techess.engine.moves.MoveTransition;
-import com.techess.engine.pieces.Piece;
+import com.techess.engine.pieces.*;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class View {
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_ANGLE = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH = 5;
+    final String[] PROMOTED_PIECE_OPTIONS = {"Rook", "Bishop", "Knight", "Queen"};
     private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
     private Board chessBoard;
     private MoveLog moveLog;
@@ -51,6 +53,7 @@ public class View {
     private BoardOrientation boardOrientation;
     private boolean highlightLegalMoves = false;
     private boolean highlightLastMove = false;
+    private boolean isAutoQueenEnabled = false;
 
 
     public View(){
@@ -83,6 +86,14 @@ public class View {
 
     private JMenu createFileMenu(){
         final JMenu fileMenu = new JMenu("File");
+
+        final JMenuItem newGameMenuItem = new JMenuItem("New game");
+        newGameMenuItem.addActionListener(event->{
+            this.prepareNewGame();
+        });
+
+        fileMenu.add(newGameMenuItem);
+
         final JMenuItem openPGN = new JMenuItem("Load pgn file");
         openPGN.addActionListener(event -> {
             System.out.println("Open up that pgn file!!!");
@@ -131,6 +142,12 @@ public class View {
         });
         preferencesMenu.add(highlightLastMoveMenuItem);
 
+        final JCheckBoxMenuItem setAutoQueenMenuItem = new JCheckBoxMenuItem("Set autoqueen");
+        setAutoQueenMenuItem.addActionListener(event->{
+            isAutoQueenEnabled = setAutoQueenMenuItem.isSelected();
+        });
+
+        preferencesMenu.add(setAutoQueenMenuItem);
         return preferencesMenu;
     }
 
@@ -138,9 +155,45 @@ public class View {
         startTile = null;
         destinationTile = null;
         humanMovedPiece = null;
-        humanMovedPieceX = -100;
-        humanMovedPieceY = -100;
+        humanMovedPieceX = -TILE_SIZE;
+        humanMovedPieceY = -TILE_SIZE;
     }
+
+    private void prepareNewGame(){
+        this.takenPiecesPanel.clear();
+        this.gameHistoryPanel.clear();
+        cleanMoveTilesUp();
+        moveLog.clear();
+        lastMove = null;
+        chessBoard = Board.createStandardBoard();
+    }
+
+    private Piece choosePromotedPiece() {
+        final Piece newPiece;
+        int userAnswer = JOptionPane.showOptionDialog(null, "Choose a piece for promotion",
+                "Pawn promotion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                PROMOTED_PIECE_OPTIONS, PROMOTED_PIECE_OPTIONS[0]);
+        switch (userAnswer){
+            case 0:
+                newPiece = Rook.createRook(destinationTile.getTilePosition(),
+                        humanMovedPiece.getAlliance(),false);
+                break;
+            case 1:
+                newPiece = Bishop.createBishop(destinationTile.getTilePosition(),
+                        humanMovedPiece.getAlliance(),false);
+                break;
+            case 2:
+                newPiece = Knight.createKnight(destinationTile.getTilePosition(),
+                        humanMovedPiece.getAlliance(),false);
+                break;
+            default:
+                newPiece = Queen.createQueen(destinationTile.getTilePosition(),
+                        humanMovedPiece.getAlliance(),false);
+                break;
+        }
+        return newPiece;
+    }
+
 
     private class BoardPanel extends JPanel implements MouseMotionListener{
         public BoardPanel(){
@@ -170,20 +223,36 @@ public class View {
                             startTile = chessBoard.getTile(x,y);
                             if(startTile.isOccupied()) {
                                 humanMovedPiece = startTile.getPiece();
-                                System.out.println("Selected piece = " + startTile.getPiece().getPieceType().getName());
+                                //System.out.println("Selected piece = " + startTile.getPiece().getPieceType().getName());
                             } else {
                                 startTile = null;
                             }
                         } else {
                             destinationTile = chessBoard.getTile(x,y);
                             if(destinationTile != null){
-                                System.out.println("Destination tile = " + destinationTile.getTilePosition());
-                                final Move move = Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
-                                        destinationTile.getTilePosition());
+                                //System.out.println("Destination tile = " + destinationTile.getTilePosition());
+                                final Move move;
+                                if(humanMovedPiece.getPieceType().isPawn() &&
+                                   chessBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
+                                   .getTilePosition())){
+                                    final Piece promotedPiece = isAutoQueenEnabled ?
+                                            Queen.createQueen(destinationTile.getTilePosition(),
+                                                              humanMovedPiece.getAlliance(),false) :
+                                            choosePromotedPiece();
+                                    move = Move.MoveFactory.createPawnPromotionMove(chessBoard,
+                                                                                    startTile.getTilePosition(),
+                                                                                    destinationTile.getTilePosition(),
+                                                                                    promotedPiece);
+
+                                } else {
+                                    move = Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
+                                            destinationTile.getTilePosition());
+                                }
+
                                 final MoveTransition moveTransition = chessBoard.getCurrentPlayer().makeMove(move);
                                 if(moveTransition.getMoveStatus().isDone()){
-                                    System.out.println("Legal move from " + startTile.getTilePosition() + " to " +
-                                            destinationTile.getTilePosition());
+                                    //System.out.println("Legal move from " + startTile.getTilePosition() + " to " +
+                                    //        destinationTile.getTilePosition());
                                     chessBoard = moveTransition.getTransitedBoard();
                                     lastMove = move;
                                     moveLog.addMove(move);
@@ -205,6 +274,8 @@ public class View {
                 }
             });
         }
+
+
 
         @Override
         public void mouseDragged(final MouseEvent e) {

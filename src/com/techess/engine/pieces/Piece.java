@@ -100,7 +100,7 @@ public abstract class Piece{
             if(destinationTile.isOccupied()){
                 final Piece capturedPiece = destinationTile.getPiece();
                 if(!this.getAlliance().equals(capturedPiece.getAlliance())){
-                    legalMoves.add(new Move.CapturingMove(board, this, candidateDestination,
+                    legalMoves.add(new Move.PieceCapturingMove(board, this, candidateDestination,
                             capturedPiece));
                 }
                 hasMoreMovesInTheCurrentDirection = false;
@@ -147,39 +147,4 @@ public abstract class Piece{
         return result;
     }
 
-    public enum PieceType {
-        KING("k", 10000, true, false),
-        QUEEN("q", 900, false, false),
-        BISHOP("b", 300, false, false),
-        KNIGHT("n", 300, false, false),
-        ROOK("r", 500, false, true),
-        PAWN("p", 100, false, false);
-
-        private PieceType(final String name, final int value, final boolean isKing, final boolean isRook){
-            this.name = name;
-            this.value = value;
-            this.isKing = isKing;
-            this.isRook = isRook;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public int getValue() { return this.value; }
-
-        public boolean isKing(){
-            return this.isKing;
-        }
-
-        public boolean isRook(){
-            return this.isRook;
-        }
-
-        private String name;
-        private int value;
-        private boolean isKing;
-        private boolean isRook;
-
-    }
 }
