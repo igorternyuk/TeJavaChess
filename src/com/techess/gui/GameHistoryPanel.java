@@ -36,6 +36,7 @@ public class GameHistoryPanel extends JPanel{
         this.dataModel = new DataModel();
         this.table = new JTable(this.dataModel);
         this.table.setRowHeight(TABLE_ROW_HEIGHT);
+        //this.table.getColumn(0).setPreferredWidth(10);
         this.scrollPane = new JScrollPane(this.table);
         this.scrollPane.setColumnHeaderView(this.table.getTableHeader());
         this.add(this.scrollPane, BorderLayout.CENTER);
@@ -43,10 +44,10 @@ public class GameHistoryPanel extends JPanel{
     }
 
     public void update(final Board chessBoard, final MoveLog moveLog){
-        System.out.println("Move history updating ");
+        //System.out.println("Move history updating ");
         this.dataModel.clear();
         final List<Move> moves = moveLog.getMoves();
-        System.out.println("moves.size() = " + moves.size());
+        //System.out.println("moves.size() = " + moves.size());
         int currentRow = 0;
         for(final Move currentMove: moves){
             final String moveText = currentMove.toString();
@@ -58,7 +59,7 @@ public class GameHistoryPanel extends JPanel{
             }
         }
 
-        System.out.println("Current row = " + currentRow);
+       // System.out.println("Current row = " + currentRow);
 
         if(!moves.isEmpty()){
             final Move lastMove = moves.get(moves.size() - 1);
@@ -187,10 +188,10 @@ public class GameHistoryPanel extends JPanel{
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             final MoveRecord currentRecord;
-            System.out.println("Setting new value at row = " + rowIndex);
-            System.out.println("this.getRowCount() = " + this.getRowCount());
+           // System.out.println("Setting new value at row = " + rowIndex);
+           // System.out.println("this.getRowCount() = " + this.getRowCount());
             if(rowIndex > this.getRowCount() - 1){
-                System.out.println("Adding new row");
+           //     System.out.println("Adding new row");
                 currentRecord = new MoveRecord();
                 this.records.add(currentRecord);
             }
@@ -208,7 +209,6 @@ public class GameHistoryPanel extends JPanel{
                     throw new IllegalArgumentException("Invalid column index");
 
             }
-           // fireTableCellUpdated(rowIndex, columnIndex);
         }
 
         @Override

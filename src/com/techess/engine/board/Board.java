@@ -9,6 +9,7 @@ import com.techess.engine.pieces.*;
 import com.techess.engine.player.BlackPlayer;
 import com.techess.engine.player.Player;
 import com.techess.engine.player.WhitePlayer;
+import javafx.geometry.Pos;
 
 import java.util.*;
 
@@ -27,10 +28,16 @@ public class Board {
     public static final int SIXTH_RANK = 2;
     public static final int SEVENTH_RANK = 1;
     public static final int EIGHTH_RANK = 0;
-    public static final Map<Character, Integer> fileMap = initializeFileMap();
-    public static final Map<Integer, Integer> rankMap = initializeRankMap();
     public static final Position NULL_POSITION = new Position(-1, -1);
     private static final Position[][] positions = createAllPossiblePositions();
+    private static final Map<Character, Integer> ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X =
+            createAlgebraicNotationFileToCoordinateX();
+    private static final char[] COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE = createCoordinateXToAlgebraicNotationFile();
+    private static final int[] COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK = createCoordinateYToAlgebraicNotationRank();
+    private static final int[] ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y = createAlgebraicNotationRankToCoordinateY();
+    private static final Map<String, Position> ALGEBRAIC_NOTATION_TO_POSITION = createAlgebraicNotationToPositionMap();
+    private static final Map<Position, String> POSITION_TO_ALGEBRAIC_NOTATION = createPositionToAlgebraicNotationMap();
+
     private final Map<Position, Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
@@ -40,14 +47,17 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
+    private final Pawn enPassantPawn;
 
     private Board(final Builder builder){
-        for(int y = 0; y < BOARD_SIZE; ++y){
+        /*for(int y = 0; y < BOARD_SIZE; ++y){
             for(int x = 0; x < BOARD_SIZE; ++x){
-                this.positions[y][x] = new Position(x, y);
+                System.out.print(getAlgebraicNotationFromPosition(this.positions[y][x]) + " ");
             }
-        }
+            System.out.println("\n");
+        }*/
         this.gameBoard = createGameBoard(builder);
+        this.enPassantPawn = builder.enPassantPawn;
         this.whitePieces = detectActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = detectActivePieces(this.gameBoard, Alliance.BLACK);
         this.allActivePieces = ImmutableList.copyOf(Iterables.concat(this.whitePieces, this.blackPieces));
@@ -56,6 +66,10 @@ public class Board {
         whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
         blackPlayer = new BlackPlayer(this, this.legalMovesBlackPieces, this.legalMovesWhitePieces);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
+    }
+
+    public Pawn getEnPassantPawn(){
+        return this.enPassantPawn;
     }
 
     public static boolean isValidPosition(final Position position) {
@@ -89,34 +103,45 @@ public class Board {
         return this.currentPlayer;
     }
 
+    public static int getAlgebraicNotationForCoordinateY(final int y){
+        return COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK[y];
+    }
+
+    public static int getCoordinateYForAlgebraicNotation(final int rank){
+        return ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y[rank];
+    }
+
+    public static char getAlgebraicNotationForCoordinateX(final int x){
+        return COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE[x];
+    }
+
+    public static int getCoordinateXForAlgebraicNotation(final char file){
+        return ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X.get(file);
+    }
+
+    public static String getAlgebraicNotationFromPosition(final Position position){
+        return POSITION_TO_ALGEBRAIC_NOTATION.get(position);
+    }
+
+    public static String getAlgebraicNotationFromCoordinates(final int x, final int y){
+
+        return POSITION_TO_ALGEBRAIC_NOTATION.get(Board.getPosition(x,y));
+    }
+
+    public static final Position getPosition(final int x, final int y){
+        return Board.positions[y][x];
+    }
+
+    public static Position getPosition(final String algebraicNotation){
+        return ALGEBRAIC_NOTATION_TO_POSITION.get(algebraicNotation);
+    }
+
+    public static Position getPosition(final char file, final int rank){
+        return getPosition(String.valueOf(file) + String.valueOf(rank));
+    }
+
     public Tile getTile(final Position candidateDestination) {
         return isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
-    }
-
-    public static int getChessNotationForRow(final int y){
-        Set<Map.Entry<Integer,Integer>> setOfRows = rankMap.entrySet();
-        for(Map.Entry entry: setOfRows){
-            if(entry.getValue().equals(y)) return (Integer) entry.getKey();
-        }
-        return -1;
-    }
-
-    public static char getChessNotationForColumn(final int x){
-        Set<Map.Entry<Character,Integer>> columnsSet = fileMap.entrySet();
-        for(Map.Entry entry: columnsSet){
-            if(entry.getValue().equals(x)) return (Character) entry.getKey();
-        }
-        return '\0';
-    }
-
-    public static String getChessNotationTileName(final Position position){
-
-        return String.valueOf(getChessNotationForColumn(position.getX())) + getChessNotationForRow(position.getY());
-    }
-
-    public static String getChessNotationTileName(final int x, final int y){
-
-        return String.valueOf(getChessNotationForColumn(x)) + getChessNotationForRow(y);
     }
 
     public Tile getTile(final int x, final int y){
@@ -124,17 +149,11 @@ public class Board {
     }
 
     public Tile getTile(final char file, final int rank){
-        //System.out.println(file + " -> " + fileMap.get(file));
-        //System.out.println("rank = " + rank + " -> " + rankMap.get(rank));
-        return gameBoard.get(Board.position(fileMap.get(file), rankMap.get(rank)));
+        return gameBoard.get(getPosition(file, rank));
     }
 
-    public static final Position position(final char file, final int rank) {
-        return Board.position(fileMap.get(file), rankMap.get(rank));
-    };
-
-    public static final Position position(final int x, final int y){
-        return Board.positions[y][x];
+    public Tile getTile(final String algebraicNotation){
+        return gameBoard.get(getPosition(algebraicNotation));
     }
 
     public Iterable<Move> getAllLegalMoves() {
@@ -142,8 +161,8 @@ public class Board {
     }
 
     public static class Builder {
-        Map<Position, Piece> boardPattern;
-        Alliance nextMoveMaker;
+        private Map<Position, Piece> boardPattern;
+        private Alliance nextMoveMaker;
         private Pawn enPassantPawn;
 
         public Builder(){
@@ -175,14 +194,14 @@ public class Board {
 
         //White pieces
 
-        builder.setPiece(Rook.createRook('a', 1, Alliance.WHITE, true));
-        builder.setPiece(Knight.createKnight('b', 1, Alliance.WHITE, true));
-        builder.setPiece(Bishop.createBishop('c', 1, Alliance.WHITE, true));
-        builder.setPiece(Queen.createQueen('d', 1, Alliance.WHITE, true));
-        builder.setPiece(King.createKing('e', 1, Alliance.WHITE, true));
-        builder.setPiece(Bishop.createBishop('f', 1, Alliance.WHITE, true));
-        builder.setPiece(Knight.createKnight('g', 1, Alliance.WHITE, true));
-        builder.setPiece(Rook.createRook('h', 1, Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook("a1", Alliance.WHITE, true));
+        builder.setPiece(Knight.createKnight("b1",  Alliance.WHITE, true));
+        builder.setPiece(Bishop.createBishop("c1",Alliance.WHITE, true));
+        builder.setPiece(Queen.createQueen("d1", Alliance.WHITE, true));
+        builder.setPiece(King.createKing("e1", Alliance.WHITE, true));
+        builder.setPiece(Bishop.createBishop("f1", Alliance.WHITE, true));
+        builder.setPiece(Knight.createKnight("g1", Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook("h1",  Alliance.WHITE, true));
 
         //White pawns
 
@@ -192,14 +211,14 @@ public class Board {
 
         //Black pieces
 
-        builder.setPiece(Rook.createRook('a', 8, Alliance.BLACK, true));
-        builder.setPiece(Knight.createKnight('b', 8, Alliance.BLACK, true));
-        builder.setPiece(Bishop.createBishop('c', 8, Alliance.BLACK, true));
-        builder.setPiece(Queen.createQueen('d', 8, Alliance.BLACK, true));
-        builder.setPiece(King.createKing('e', 8, Alliance.BLACK, true));
-        builder.setPiece(Bishop.createBishop('f', 8, Alliance.BLACK, true));
-        builder.setPiece(Knight.createKnight('g', 8, Alliance.BLACK, true));
-        builder.setPiece(Rook.createRook('h', 8, Alliance.BLACK, true));
+        builder.setPiece(Rook.createRook("a8", Alliance.BLACK, true));
+        builder.setPiece(Knight.createKnight("b8", Alliance.BLACK, true));
+        builder.setPiece(Bishop.createBishop("c8", Alliance.BLACK, true));
+        builder.setPiece(Queen.createQueen("d8", Alliance.BLACK, true));
+        builder.setPiece(King.createKing("e8", Alliance.BLACK, true));
+        builder.setPiece(Bishop.createBishop("f8", Alliance.BLACK, true));
+        builder.setPiece(Knight.createKnight("g8", Alliance.BLACK, true));
+        builder.setPiece(Rook.createRook("h8", Alliance.BLACK, true));
 
         //Black pawns
 
@@ -227,47 +246,66 @@ public class Board {
     }
 
     private static Position[][] createAllPossiblePositions(){
-        Position[][] allPosiiblePositions = new Position[BOARD_SIZE][BOARD_SIZE];
+        Position[][] allPossiblePositions = new Position[BOARD_SIZE][BOARD_SIZE];
         for(int y = 0; y < BOARD_SIZE; ++y){
             for(int x = 0; x < BOARD_SIZE; ++x){
-                allPosiiblePositions[y][x] = new Position(x, y);
+                allPossiblePositions[y][x] = new Position(x, y);
             }
         }
-        return allPosiiblePositions;
+        return allPossiblePositions;
     }
 
-    private static Map<Character,Integer> initializeFileMap() {
+    private static Map<Character,Integer> createAlgebraicNotationFileToCoordinateX() {
         Map<Character, Integer> map = new HashMap<>();
         for(int i = 0; i < BOARD_SIZE; ++i){
             map.put((char)(i + 97), i);
         }
-        /*map.put('a', 0);
-        map.put('b', 1);
-        map.put('c', 2);
-        map.put('d', 3);
-        map.put('e', 4);
-        map.put('f', 5);
-        map.put('g', 6);
-        map.put('h', 7);*/
         return ImmutableMap.copyOf(map);
     }
 
-    private static Map<Integer,Integer> initializeRankMap() {
-        Map<Integer, Integer> map = new HashMap<>();
+    private static char[] createCoordinateXToAlgebraicNotationFile() {
+        char[] array = new char[BOARD_SIZE];
+        ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X.forEach((k,v) -> {
+            array[v] = k;
+        });
+        return array;
+    }
+
+    private static int[] createCoordinateYToAlgebraicNotationRank() {
+        int[] array = new int[BOARD_SIZE];
         for(int i = 1; i <= BOARD_SIZE; ++i){
-            map.put(i, BOARD_SIZE - i);
-            /*
-            * 1 - 7
-            * 2 - 6
-            * 3 - 5
-            * 4 - 4
-            * 5 - 3
-            * 6 - 2
-            * 7 - 1
-            * 8 - 0
-            * */
+            array[BOARD_SIZE - i] = i;
         }
-        return ImmutableMap.copyOf(map);
+        return array;
+    }
+
+    private static int[] createAlgebraicNotationRankToCoordinateY() {
+        int[] array = new int[BOARD_SIZE + 1];
+        for(int i = 1; i <= BOARD_SIZE; ++i){
+            array[i] = BOARD_SIZE - i;
+        }
+        return array;
+    }
+
+    private static Map<String, Position> createAlgebraicNotationToPositionMap(){
+        Map<String, Position> map = new HashMap<>();
+        for(int y = 0; y < BOARD_SIZE; ++y){
+            for(int x = 0; x < BOARD_SIZE; ++x){
+                final Position position = Board.positions[y][x];
+                final String algebraicNotation = String.valueOf(COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE[x]) +
+                        String.valueOf(COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK[y]);
+                map.put(algebraicNotation, position);
+            }
+        }
+        return map;
+    }
+
+    private static Map<Position, String> createPositionToAlgebraicNotationMap(){
+        Map<Position, String> map = new HashMap<>();
+        ALGEBRAIC_NOTATION_TO_POSITION.forEach((k,v) -> {
+            map.put(v,k);
+        });
+        return map;
     }
 
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
@@ -296,7 +334,7 @@ public class Board {
         final Map<Position, Tile> tiles = new HashMap<>();
         for(int y = 0; y < BOARD_SIZE; ++y){
             for(int x = 0; x < BOARD_SIZE; ++x){
-                final Position position = Board.position(x,y);
+                final Position position = Board.getPosition(x,y);
                 final Piece piece = builder.boardPattern.get(position);
                 final Tile tile = Tile.createTile(position, piece);
                 tiles.put(position, tile);

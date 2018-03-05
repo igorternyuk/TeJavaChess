@@ -56,8 +56,6 @@ public abstract class Player {
         return this.legalMoves.contains(move);
     }
 
-    //TODO implement these methods below!!!
-
     public boolean isUnderCheck(){
         return this.isInCheck;
     }
@@ -86,10 +84,8 @@ public abstract class Player {
         final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerPosition, opponentLegalMoves);
 
         if(!kingAttacks.isEmpty()){
-            //System.out.println("King is under check");
             return new MoveTransition(transitedBoard, move, MoveStatus.KING_IS_UNDER_CHECK);
         }
-        //System.out.println(move);
         return new MoveTransition(transitedBoard, move, MoveStatus.DONE);
     }
 
@@ -101,12 +97,14 @@ public abstract class Player {
     protected Collection<Move> calculateCastles(final Collection<Move> playerLegalMoves,
                                                 final Collection<Move> opponentLegalMoves) {
         //this.board.getCurrentPlayer().getAlliance().equals(Alliance.WHITE)
-        final int lastRank = this.getAlliance().isWhite() ? 1 : 8;
+        final int lastRank = this.getAlliance().isWhite() ? Board.getAlgebraicNotationForCoordinateY(Board.FIFTH_RANK) :
+                Board.getAlgebraicNotationForCoordinateY(Board.EIGHTH_RANK);
         List<Move> castles = new ArrayList<>();
         if(this.king.isFirstMove() && !this.isUnderCheck()){
             //King's side castling
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
             final Tile kingsSideKingsDestinationTile = this.board.getTile('g', lastRank);
+            System.out.println("lastRank = " + lastRank);
             if(kingsRookDestinationTile.isEmpty() && kingsSideKingsDestinationTile.isEmpty()){
                 final Tile kingsRookStartTile = this.board.getTile('h', lastRank);
                 if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook() &&

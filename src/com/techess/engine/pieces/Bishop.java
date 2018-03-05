@@ -22,14 +22,6 @@ public class Bishop extends Piece {
     private static final Map<Position, Bishop> BLACK_ALREADY_MOVED_BISHOPS = createAllPossibleBlackBishops(false);
     private static final Map<Position, Bishop> BLACK_NOT_MOVED_BISHOPS = createAllPossibleBlackBishops(true);
 
-    public static Bishop createBishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createBishop(Board.position(x,y), alliance, isFirstMove);
-    }
-
-    public static Bishop createBishop(final char fileOnChessBoard, final int rank, final Alliance alliance,
-                                    final boolean isFirstMove){
-        return createBishop(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
-    }
 
     public static Bishop createBishop(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
@@ -41,8 +33,22 @@ public class Bishop extends Piece {
         }
     }
 
+    public static Bishop createBishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
+        return createBishop(Board.getPosition(x,y), alliance, isFirstMove);
+    }
+
+    public static Bishop createBishop(final char file, final int rank, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createBishop(Board.getPosition(file,rank), alliance, isFirstMove);
+    }
+
+    public static Bishop createBishop(final String algebraicNotationForPosition, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createBishop(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+    }
+
     private Bishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.position(x,y), alliance, isFirstMove);
+        this(Board.getPosition(x,y), alliance, isFirstMove);
     }
 
     private Bishop(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -77,14 +83,14 @@ public class Bishop extends Piece {
         if(isFirstMove){
             final int backRank = alliance.isWhite() ? Board.FIRST_RANK : Board.EIGHTH_RANK;
             for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                final Position currentPosition = Board.position(x,backRank);
+                final Position currentPosition = Board.getPosition(x,backRank);
                 bishops.put(currentPosition, new Bishop(currentPosition, alliance, true));
             }
 
         } else {
             for(int y = 0; y < Board.BOARD_SIZE; ++y){
                 for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                    final Position currentPosition = Board.position(x,y);
+                    final Position currentPosition = Board.getPosition(x,y);
                     bishops.put(currentPosition, new Bishop(currentPosition, alliance, false));
                 }
             }
@@ -94,6 +100,6 @@ public class Bishop extends Piece {
 
     /*@Override
     public String toString() {
-        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.position);
+        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.getPosition);
     }*/
 }

@@ -2,7 +2,6 @@ package com.techess.engine.board;
 
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.pieces.Piece;
-import javafx.geometry.Pos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public abstract class Tile {
         final Map<Position,EmptyTile> emptyTilesMap = new HashMap<>();
         for(int y = 0; y < Board.BOARD_SIZE; ++y){
             for (int x = 0; x < Board.BOARD_SIZE; ++x){
-                emptyTilesMap.put(Board.position(x,y), new EmptyTile(Board.position(x,y)));
+                emptyTilesMap.put(Board.getPosition(x,y), new EmptyTile(Board.getPosition(x,y)));
             }
         }
         return ImmutableMap.copyOf(emptyTilesMap);

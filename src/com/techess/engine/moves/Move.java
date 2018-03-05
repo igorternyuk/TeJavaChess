@@ -4,6 +4,7 @@ import com.techess.engine.board.Board;
 import com.techess.engine.board.Position;
 import com.techess.engine.pieces.Pawn;
 import com.techess.engine.pieces.Piece;
+import com.techess.engine.pieces.Queen;
 import com.techess.engine.pieces.Rook;
 import static com.techess.engine.board.Board.Builder;
 
@@ -81,7 +82,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + Board.getChessNotationTileName(destination);
+            return movedPiece.toString() + Board.getAlgebraicNotationFromPosition(destination);
         }
     }
 
@@ -130,7 +131,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + "x" + Board.getChessNotationTileName(destination);
+            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
         }
     }
 
@@ -139,8 +140,13 @@ public abstract class Move {
             super(board, movedPiece, destination);
         }
 
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PawnMove) && super.equals(other));
+        }
+
         public String toString(){
-            return movedPiece.toString() + Board.getChessNotationForRow(destination.getY());
+            return movedPiece.toString() + Board.getAlgebraicNotationForCoordinateY(destination.getY());
         }
     }
 
@@ -150,13 +156,13 @@ public abstract class Move {
             super(board, movedPiece, destination, capturedPiece);
         }
 
-        @Override
-        public Board execute() {
-            return super.execute();
+        public String toString(){
+            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
         }
 
-        public String toString(){
-            return movedPiece.toString() + Board.getChessNotationForColumn(destination.getX());
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PawnCapturingMove) && super.equals(other));
         }
     }
 
@@ -172,10 +178,17 @@ public abstract class Move {
                     .forEach(piece -> builder.setPiece(piece));
             this.board.getCurrentPlayer().getOpponentActivePieces().forEach(piece -> builder.setPiece(piece));
             Pawn jumpedPawn = (Pawn) this.movedPiece.move(this);
+            System.out.println("Setting en passant pawn " +
+                    Board.getAlgebraicNotationFromPosition(jumpedPawn.getPosition()));
             builder.setEnPassantPawn(jumpedPawn);
             builder.setPiece(jumpedPawn);
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
+        }
+
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PawnJump) && super.equals(other));
         }
     }
 
@@ -198,6 +211,11 @@ public abstract class Move {
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
+
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PawnPromotion) && super.equals(other));
+        }
     }
 
     public static final class PawnEnPassantCapture extends PawnCapturingMove {
@@ -208,9 +226,26 @@ public abstract class Move {
             this.capturedPiece = capturedPiece;
         }
 
-        @Override
+       /* @Override
         public Board execute() {
-            return null;
+            /*
+            * final Builder builder = new Builder();
+            this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
+                    .forEach(piece -> builder.setPiece(piece));
+            this.board.getCurrentPlayer().getOpponentActivePieces().stream()
+                    .filter(piece -> !this.capturedPiece.equals(piece)).forEach(piece -> builder.setPiece(piece));
+            builder.setPiece(this.movedPiece.move(this));
+            builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
+            return builder.build();
+
+            final Builder builder = new Builder();
+            this.board.getCurrentPlayer().getActivePieces().stream();
+            return builder.build();
+        }*/
+
+        @Override
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof PawnEnPassantCapture) && super.equals(other));
         }
     }
 
@@ -258,6 +293,25 @@ public abstract class Move {
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
+
+        @Override
+        public int hashCode(){
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + this.castledRook.hashCode();
+            result = prime * result + this.castledRookEndPosition.hashCode();
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if(this == other) return true;
+            if(other == null || !(other instanceof Castling)) return false;
+            final Castling otherCastling = (Castling)other;
+            return Objects.equals(this.castledRook, otherCastling.getCastledRook()) &&
+                   Objects.equals(this.castledRookEndPosition, ((Castling) other).getCastledRookEndPosition()) &&
+                   super.equals(other);
+        }
     }
 
     public static final class KingsSideCastling extends Castling {
@@ -268,8 +322,8 @@ public abstract class Move {
         }
 
         @Override
-        public Board execute() {
-            return super.execute();
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof KingsSideCastling) && super.equals(other));
         }
 
         @Override
@@ -286,8 +340,8 @@ public abstract class Move {
         }
 
         @Override
-        public Board execute() {
-            return super.execute();
+        public boolean equals(final Object other){
+            return this == other || ((other instanceof QueensSideCastling) && super.equals(other));
         }
 
         @Override
@@ -318,7 +372,6 @@ public abstract class Move {
             }
             return NULL_MOVE;
         }
-
     }
 
     @Override

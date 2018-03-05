@@ -22,15 +22,6 @@ public class King extends Piece {
     private static final Map<Position, King> BLACK_ALREADY_MOVED_KINGS = createAllPossibleBlackKings(false);
     private static final Map<Position, King> BLACK_NOT_MOVED_KINGS = createAllPossibleBlackKings(true);
 
-    public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createKing(Board.position(x,y), alliance, isFirstMove);
-    }
-
-    public static King createKing(final char fileOnChessBoard, final int rank, final Alliance alliance,
-                                      final boolean isFirstMove){
-        return createKing(Board.position(fileOnChessBoard, rank), alliance, isFirstMove);
-    }
-
     public static King createKing(final Position position, final Alliance alliance, final boolean isFirstMove){
         if(isFirstMove) {
             return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_KINGS.get(position) :
@@ -41,8 +32,22 @@ public class King extends Piece {
         }
     }
 
+    public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
+        return createKing(Board.getPosition(x,y), alliance, isFirstMove);
+    }
+
+    public static King createKing(final char file, final int rank, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createKing(Board.getPosition(file,rank), alliance, isFirstMove);
+    }
+
+    public static King createKing(final String algebraicNotationForPosition, final Alliance alliance,
+                                      final boolean isFirstMove){
+        return createKing(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+    }
+
     private King(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.position(x, y), alliance, isFirstMove);
+        this(Board.getPosition(x, y), alliance, isFirstMove);
     }
 
     private King(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -78,13 +83,13 @@ public class King extends Piece {
             for(int x = 1; x < Board.BOARD_SIZE - 1; ++x){
                 /*We did not include first and last positions(corners -a1 and h1) because in Random Fisher Chess
                  the king must be located between rooks*/
-                final Position currentPosition = Board.position(x, backRank);
-                kings.put(currentPosition, new King(Board.position(x, backRank), alliance, true));
+                final Position currentPosition = Board.getPosition(x, backRank);
+                kings.put(currentPosition, new King(Board.getPosition(x, backRank), alliance, true));
             }
         } else {
             for (int y = 0; y < Board.BOARD_SIZE; ++y) {
                 for (int x = 0; x < Board.BOARD_SIZE; ++x) {
-                    final Position currentPosition = Board.position(x, y);
+                    final Position currentPosition = Board.getPosition(x, y);
                     kings.put(currentPosition, new King(currentPosition, alliance, false));
                 }
             }
@@ -94,6 +99,6 @@ public class King extends Piece {
 
     /*@Override
     public String toString() {
-        return PieceType.KING.getName().toUpperCase() + Board.getChessNotationTileName(this.position);
+        return PieceType.KING.getName().toUpperCase() + Board.getChessNotationTileName(this.getPosition);
     }*/
 }

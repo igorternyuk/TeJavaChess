@@ -55,7 +55,7 @@ public abstract class Piece{
     }
 
     public Piece(PieceType pieceType, final int x, final int y, final Alliance alliance){
-        this(pieceType, Board.position(x,y), alliance);
+        this(pieceType, Board.getPosition(x,y), alliance);
     }
 
     public abstract Collection<Move> getLegalMoves(final Board board);
@@ -95,7 +95,7 @@ public abstract class Piece{
                                            final int destY){
         boolean hasMoreMovesInTheCurrentDirection = true;
         if(Board.isValidPosition(destX, destY)){
-            final Position candidateDestination = Board.position(destX, destY);
+            final Position candidateDestination = Board.getPosition(destX, destY);
             final Tile destinationTile = board.getTile(destX, destY);
             if(destinationTile.isOccupied()){
                 final Piece capturedPiece = destinationTile.getPiece();
