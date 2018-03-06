@@ -4,9 +4,7 @@ import com.techess.engine.board.Board;
 import com.techess.engine.board.Position;
 import com.techess.engine.pieces.Pawn;
 import com.techess.engine.pieces.Piece;
-import com.techess.engine.pieces.Queen;
 import com.techess.engine.pieces.Rook;
-import javafx.geometry.Pos;
 
 import static com.techess.engine.board.Board.Builder;
 
@@ -79,6 +77,9 @@ public abstract class Move {
                     .forEach(piece -> builder.setPiece(piece));
             this.board.getCurrentPlayer().getOpponent().getActivePieces().forEach(piece -> builder.setPiece(piece));
             builder.setPiece(this.movedPiece.move(this));
+            builder.setGameType(this.board.getGameType());
+            builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
+            builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
@@ -110,6 +111,9 @@ public abstract class Move {
             this.board.getCurrentPlayer().getOpponentActivePieces().stream()
                     .filter(piece -> !this.capturedPiece.equals(piece)).forEach(piece -> builder.setPiece(piece));
             builder.setPiece(this.movedPiece.move(this));
+            builder.setGameType(this.board.getGameType());
+            builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
+            builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
@@ -208,6 +212,9 @@ public abstract class Move {
                     Board.getAlgebraicNotationFromPosition(jumpedPawn.getPosition()));
             builder.setEnPassantPawn(jumpedPawn);
             builder.setPiece(jumpedPawn);
+            builder.setGameType(this.board.getGameType());
+            builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
+            builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
@@ -254,6 +261,9 @@ public abstract class Move {
             promotedPawnBoard.getCurrentPlayer().getOpponent().getActivePieces()
                     .forEach(piece -> builder.setPiece(piece));
             builder.setPiece(promotedPiece);
+            builder.setGameType(this.board.getGameType());
+            builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
+            builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
@@ -338,6 +348,9 @@ public abstract class Move {
             builder.setPiece(this.movedPiece.move(this));
             builder.setPiece(Rook.createRook(this.castledRookEndPosition, this.board.getCurrentPlayer().getAlliance(),
                     false));
+            builder.setGameType(this.board.getGameType());
+            builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
+            builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
             builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
             return builder.build();
         }
@@ -435,6 +448,24 @@ public abstract class Move {
                  }
              }
              return NULL_MOVE;
+        }
+
+        public static Move createRandomFisherChessCastling(final Board board, final Position currentPosition,
+                                                           final Position destination, final Rook castlingRook,
+                                                           final Position castlingRookTargetPosition){
+            final Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
+            for(final Move move: legalMoves){
+                if(move.isCastlingMove()){
+                    Castling castling = (Castling)move;
+                    if(castling.getMovedPiece().getPosition().equals(currentPosition) &&
+                       castling.getDestination().equals(destination) &&
+                       castling.getCastledRook().equals(castlingRook) &&
+                       castling.getCastledRookEndPosition().equals(castlingRookTargetPosition)){
+                       return castling;
+                    }
+                }
+            }
+            return NULL_MOVE;
         }
     }
 

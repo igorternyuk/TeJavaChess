@@ -1,4 +1,4 @@
-package com.techess.engine.board;
+package com.techess.gui;
 
 /**
  * Created by igor on 04.03.18.

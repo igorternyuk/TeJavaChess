@@ -6,7 +6,6 @@ import com.techess.engine.moves.Move;
 import com.techess.engine.moves.MoveLog;
 import com.techess.engine.moves.MoveTransition;
 import com.techess.engine.pieces.*;
-import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +54,6 @@ public class View {
     private boolean highlightLastMove = false;
     private boolean isAutoQueenEnabled = false;
 
-
     public View(){
         this.chessBoard = Board.createStandardBoard();
         this.moveLog = new MoveLog();
@@ -87,12 +85,19 @@ public class View {
     private JMenu createFileMenu(){
         final JMenu fileMenu = new JMenu("File");
 
-        final JMenuItem newGameMenuItem = new JMenuItem("New game");
-        newGameMenuItem.addActionListener(event->{
-            this.prepareNewGame();
+        final JMenuItem newClassicChessGameMenuItem = new JMenuItem("New classic chess game");
+        newClassicChessGameMenuItem.addActionListener(event->{
+            this.prepareNewClassicChessGame();
         });
 
-        fileMenu.add(newGameMenuItem);
+        fileMenu.add(newClassicChessGameMenuItem);
+
+        final JMenuItem newRandomFisherChessGameMenuItem = new JMenuItem("New random Fisher chess game");
+        newRandomFisherChessGameMenuItem.addActionListener(event->{
+            this.prepareNewRandomFisherChessGame();
+        });
+
+        fileMenu.add(newRandomFisherChessGameMenuItem);
 
         final JMenuItem openPGN = new JMenuItem("Load pgn file");
         openPGN.addActionListener(event -> {
@@ -159,13 +164,22 @@ public class View {
         humanMovedPieceY = -TILE_SIZE;
     }
 
-    private void prepareNewGame(){
+    private void cleanAllUpForNewGame(){
         this.takenPiecesPanel.clear();
         this.gameHistoryPanel.clear();
         cleanMoveTilesUp();
         moveLog.clear();
         lastMove = null;
+    }
+
+    private void prepareNewClassicChessGame(){
+        cleanAllUpForNewGame();
         chessBoard = Board.createStandardBoard();
+    }
+
+    private void prepareNewRandomFisherChessGame(){
+        cleanAllUpForNewGame();
+        chessBoard = Board.createBoardForChess960();
     }
 
     private Piece choosePromotedPiece() {
@@ -208,17 +222,14 @@ public class View {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     if(isRightMouseButton(e)){
-                        System.out.println("Right mouse button was clicked");
                         cleanMoveTilesUp();
                     } else if(isLeftMouseButton(e)) {
-                        System.out.println("Left mouse button was clicked");
                         int x = e.getX() / TILE_SIZE;
                         int y = e.getY() / TILE_SIZE;
                         if(boardOrientation.isOpposite()){
                             x = calculateFlippedCoordinate(x);
                             y = calculateFlippedCoordinate(y);
                         }
-                        System.out.println("mx = " + x + " my = " + y);
                         if(startTile == null){
                             startTile = chessBoard.getTile(x,y);
                             if(startTile.isOccupied()) {
@@ -231,24 +242,10 @@ public class View {
                             destinationTile = chessBoard.getTile(x,y);
                             if(destinationTile != null){
                                 //System.out.println("Destination tile = " + destinationTile.getTilePosition());
-                                final Move move;
-                                if(humanMovedPiece.getPieceType().isPawn() &&
-                                   chessBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
-                                   .getTilePosition())){
-                                    final Piece promotedPiece = isAutoQueenEnabled ?
-                                            Queen.createQueen(destinationTile.getTilePosition(),
-                                                              humanMovedPiece.getAlliance(),false) :
-                                            choosePromotedPiece();
-                                    move = Move.MoveFactory.createPawnPromotionMove(chessBoard,
-                                                                                    startTile.getTilePosition(),
-                                                                                    destinationTile.getTilePosition(),
-                                                                                    promotedPiece);
-
-                                } else {
-                                    move = Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
-                                            destinationTile.getTilePosition());
-                                }
-
+                                final Move move = detectMove();
+                                System.out.println("From View move.getMovedPiece() = " + (move.getMovedPiece() == null));
+                                //System.out.println("From view move is - " + move);
+                                System.out.println("Moving piece - " + move.getMovedPiece().getPieceType().getName());
                                 final MoveTransition moveTransition = chessBoard.getCurrentPlayer().makeMove(move);
                                 if(moveTransition.getMoveStatus().isDone()){
                                     //System.out.println("Legal move from " + startTile.getTilePosition() + " to " +
@@ -275,7 +272,76 @@ public class View {
             });
         }
 
+        private Move detectMove(){
+            if (chessBoard.getGameType().isRandomFisherChess() &&
+                    humanMovedPiece.getPieceType().isKing()){
+                final int kingsRookStartCoordinateX = chessBoard.getKingsRookStartCoordinateX();
+                final int queensRookStartCoordinateX = chessBoard.getQueensRookStartCoordinateX();
+                System.out.println("kingsRookStartPosition = " + kingsRookStartCoordinateX);
+                System.out.println("queensRookStartPosition = " + queensRookStartCoordinateX);
+                final Alliance currentPlayerAlliance = chessBoard.getCurrentPlayer().getAlliance();
+                final int backRankCoordinateY =
+                        chessBoard.getCurrentPlayer().getAlliance().isWhite() ?
+                                Board.FIRST_RANK : Board.EIGHTH_RANK;
+                final Position kingSideRookStartPosition =
+                        Board.getPosition(kingsRookStartCoordinateX, backRankCoordinateY);
+                final Position queenSideRookStartPosition =
+                        Board.getPosition(queensRookStartCoordinateX, backRankCoordinateY);
+                final Position kingsSideKingPosition = currentPlayerAlliance.isWhite() ?
+                                chessBoard.getTile("g1").getTilePosition() :
+                                chessBoard.getTile("g8").getTilePosition();
 
+                final Position queensSideKingPosition = currentPlayerAlliance.isWhite() ?
+                                chessBoard.getTile("c1").getTilePosition() :
+                                chessBoard.getTile("c8").getTilePosition();
+
+                final Position kingsSideRookTargetPosition = currentPlayerAlliance.isWhite() ?
+                        chessBoard.getTile("f1").getTilePosition() :
+                        chessBoard.getTile("f8").getTilePosition();
+
+                final Position queensSideRookTargetPosition = currentPlayerAlliance.isWhite() ?
+                        chessBoard.getTile("d1").getTilePosition() :
+                        chessBoard.getTile("d8").getTilePosition();
+
+                if(destinationTile.getTilePosition().equals(kingSideRookStartPosition)) {
+                    Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartPosition);
+                    if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook()){
+                        Rook castlingRook = (Rook)kingsRookStartTile.getPiece();
+                        if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
+                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard, startTile.getTilePosition(),
+                                    kingsSideKingPosition, castlingRook, kingsSideRookTargetPosition);
+                        }
+                    }
+
+                } else if(destinationTile.getTilePosition().equals(queenSideRookStartPosition)){
+                    Tile queensRookStartTile = chessBoard.getTile(queenSideRookStartPosition);
+                    if(queensRookStartTile.isOccupied() && queensRookStartTile.getPiece().getPieceType().isRook()){
+                        Rook castlingRook = (Rook)queensRookStartTile.getPiece();
+                        if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
+                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard, startTile.getTilePosition(),
+                                    queensSideKingPosition, castlingRook, queensSideRookTargetPosition);
+                        }
+                    }
+                }
+            }
+
+            if(humanMovedPiece.getPieceType().isPawn() &&
+                    chessBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
+                            .getTilePosition())){
+                final Piece promotedPiece = isAutoQueenEnabled ?
+                        Queen.createQueen(destinationTile.getTilePosition(),
+                                humanMovedPiece.getAlliance(),false) :
+                        choosePromotedPiece();
+                return Move.MoveFactory.createPawnPromotionMove(chessBoard,
+                       startTile.getTilePosition(),
+                       destinationTile.getTilePosition(),
+                       promotedPiece);
+
+            }
+            System.out.println("from move factory isStartTileEmpty = " + startTile.isEmpty());
+            return Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
+                    destinationTile.getTilePosition());
+        }
 
         @Override
         public void mouseDragged(final MouseEvent e) {

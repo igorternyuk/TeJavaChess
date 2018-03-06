@@ -5,6 +5,7 @@ import com.techess.engine.pieces.Piece;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by igor on 26.11.17.
@@ -42,6 +43,18 @@ public abstract class Tile {
     public abstract boolean isEmpty();
     public abstract Piece getPiece();
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof Tile)) return false;
+        Tile otherTile = (Tile) other;
+        return Objects.equals(this.tilePosition, otherTile.getTilePosition());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.tilePosition.hashCode();
+    }
 
     public static final class EmptyTile extends Tile{
 
@@ -91,6 +104,21 @@ public abstract class Tile {
         @Override
         public Piece getPiece() {
             return pieceOnTile;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (this == other) return true;
+            if (other == null || !(other instanceof OccupiedTile)) return false;
+            Tile otherOccupiedTile = (Tile) other;
+            return Objects.equals(this.pieceOnTile, otherOccupiedTile.getPiece()) &&
+                   super.equals(otherOccupiedTile);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 73;
+            return prime * this.tilePosition.hashCode() + this.pieceOnTile.hashCode();
         }
 
         @Override

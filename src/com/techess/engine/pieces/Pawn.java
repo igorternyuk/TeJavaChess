@@ -123,7 +123,8 @@ public class Pawn extends Piece {
                     //En passant capture
                     final Pawn enPassantPawn = board.getEnPassantPawn();
                     if(enPassantPawn != null && !enPassantPawn.getAlliance().equals(this.alliance) &&
-                            enPassantPawn.getAlliance().getDirectionY() == this.alliance.getOppositeDirectionY()){
+                       enPassantPawn.getAlliance().getDirectionY() == this.alliance.getOppositeDirectionY() &&
+                       enPassantPawn.getPosition().getY() == this.position.getY()){
                         if(enPassantPawn.getPosition().getX() - this.position.getX() == DX[i]){
                             legalMoves.add(new Move.PawnEnPassantCapture(board, this, candidateDestination,
                                     enPassantPawn));

@@ -37,7 +37,7 @@ public class Board {
     private static final int[] ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y = createAlgebraicNotationRankToCoordinateY();
     private static final Map<String, Position> ALGEBRAIC_NOTATION_TO_POSITION = createAlgebraicNotationToPositionMap();
     private static final Map<Position, String> POSITION_TO_ALGEBRAIC_NOTATION = createPositionToAlgebraicNotationMap();
-
+    private final GameType gameType;
     private final Map<Position, Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
@@ -48,14 +48,13 @@ public class Board {
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
     private final Pawn enPassantPawn;
+    private final int kingsRookStartCoordinateX;
+    private final int queensRookStartCoordinateX;
 
     private Board(final Builder builder){
-        /*for(int y = 0; y < BOARD_SIZE; ++y){
-            for(int x = 0; x < BOARD_SIZE; ++x){
-                System.out.print(getAlgebraicNotationFromPosition(this.positions[y][x]) + " ");
-            }
-            System.out.println("\n");
-        }*/
+        this.gameType = builder.gameType;
+        this.kingsRookStartCoordinateX = builder.kingsRookStartCoordinateX;
+        this.queensRookStartCoordinateX = builder.queensRookStartCoordinateX;
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = detectActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = detectActivePieces(this.gameBoard, Alliance.BLACK);
@@ -63,22 +62,26 @@ public class Board {
         this.enPassantPawn = builder.enPassantPawn;
         this.legalMovesWhitePieces = calculateLegalMoves(this.whitePieces);
         this.legalMovesBlackPieces = calculateLegalMoves(this.blackPieces);
-        whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
-        blackPlayer = new BlackPlayer(this, this.legalMovesBlackPieces, this.legalMovesWhitePieces);
+        this.whitePlayer = new WhitePlayer(this, this.legalMovesWhitePieces, this.legalMovesBlackPieces);
+        this.blackPlayer = new BlackPlayer(this, this.legalMovesBlackPieces, this.legalMovesWhitePieces);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
+
+    }
+
+    public GameType getGameType(){
+        return this.gameType;
+    }
+
+    public int getKingsRookStartCoordinateX() {
+        return this.kingsRookStartCoordinateX;
+    }
+
+    public int getQueensRookStartCoordinateX() {
+        return this.queensRookStartCoordinateX;
     }
 
     public Pawn getEnPassantPawn(){
         return this.enPassantPawn;
-    }
-
-    public static boolean isValidPosition(final Position position) {
-        return position.getX() >= 0 && position.getX() < BOARD_SIZE && position.getY() >= 0 &&
-                position.getY() < BOARD_SIZE;
-    }
-
-    public static boolean isValidPosition(final int x, final int y) {
-        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
     }
 
     public Collection<Piece> getWhitePieces() {
@@ -101,6 +104,35 @@ public class Board {
 
     public Player getCurrentPlayer(){
         return this.currentPlayer;
+    }
+
+    public Tile getTile(final Position candidateDestination) {
+        return isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
+    }
+
+    public Tile getTile(final int x, final int y){
+        return isValidPosition(x,y) ? gameBoard.get(this.positions[y][x]) : null;
+    }
+
+    public Tile getTile(final char file, final int rank){
+        return gameBoard.get(getPosition(file, rank));
+    }
+
+    public Tile getTile(final String algebraicNotation){
+        return gameBoard.get(getPosition(algebraicNotation));
+    }
+
+    public Iterable<Move> getAllLegalMoves() {
+        return Iterables.unmodifiableIterable(Iterables.concat(this.legalMovesWhitePieces, this.legalMovesBlackPieces));
+    }
+
+    public static boolean isValidPosition(final Position position) {
+        return position.getX() >= 0 && position.getX() < BOARD_SIZE && position.getY() >= 0 &&
+                position.getY() < BOARD_SIZE;
+    }
+
+    public static boolean isValidPosition(final int x, final int y) {
+        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
     }
 
     public static int getAlgebraicNotationForCoordinateY(final int y){
@@ -140,30 +172,13 @@ public class Board {
         return getPosition(String.valueOf(file) + String.valueOf(rank));
     }
 
-    public Tile getTile(final Position candidateDestination) {
-        return isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
-    }
-
-    public Tile getTile(final int x, final int y){
-        return isValidPosition(x,y) ? gameBoard.get(this.positions[y][x]) : null;
-    }
-
-    public Tile getTile(final char file, final int rank){
-        return gameBoard.get(getPosition(file, rank));
-    }
-
-    public Tile getTile(final String algebraicNotation){
-        return gameBoard.get(getPosition(algebraicNotation));
-    }
-
-    public Iterable<Move> getAllLegalMoves() {
-        return Iterables.unmodifiableIterable(Iterables.concat(this.legalMovesWhitePieces, this.legalMovesBlackPieces));
-    }
-
     public static class Builder {
         private Map<Position, Piece> boardPattern;
         private Alliance nextMoveMaker;
         private Pawn enPassantPawn;
+        private GameType gameType;
+        public int kingsRookStartCoordinateX;
+        public int queensRookStartCoordinateX;
 
         public Builder(){
             this.boardPattern = new HashMap<>();
@@ -180,6 +195,18 @@ public class Board {
             return this;
         }
 
+        public void setGameType(GameType gameType) {
+            this.gameType = gameType;
+        }
+
+        public void setKingsRookStartCoordinateX(int kingsRookStartCoordinateX) {
+            this.kingsRookStartCoordinateX = kingsRookStartCoordinateX;
+        }
+
+        public void setQueensRookStartCoordinateX(int queensRookStartCoordinateX) {
+            this.queensRookStartCoordinateX = queensRookStartCoordinateX;
+        }
+
         public Board build(){
             return new Board(this);
         }
@@ -191,10 +218,11 @@ public class Board {
 
     public static Board createStandardBoard(){
         Builder builder = new Builder();
+        builder.setGameType(GameType.CLASSIC_CHESS);
 
         //White pieces
-
         builder.setPiece(Rook.createRook("a1", Alliance.WHITE, true));
+        builder.setKingsRookStartCoordinateX(Board.getCoordinateXForAlgebraicNotation('a'));
         builder.setPiece(Knight.createKnight("b1",  Alliance.WHITE, true));
         builder.setPiece(Bishop.createBishop("c1",Alliance.WHITE, true));
         builder.setPiece(Queen.createQueen("d1", Alliance.WHITE, true));
@@ -202,15 +230,9 @@ public class Board {
         builder.setPiece(Bishop.createBishop("f1", Alliance.WHITE, true));
         builder.setPiece(Knight.createKnight("g1", Alliance.WHITE, true));
         builder.setPiece(Rook.createRook("h1",  Alliance.WHITE, true));
-
-        //White pawns
-
-        for(int i = 0; i < BOARD_SIZE; ++i) {
-            builder.setPiece(Pawn.createPawn(i, SECOND_RANK, Alliance.WHITE, true));
-        }
+        builder.setQueensRookStartCoordinateX(Board.getCoordinateXForAlgebraicNotation('h'));
 
         //Black pieces
-
         builder.setPiece(Rook.createRook("a8", Alliance.BLACK, true));
         builder.setPiece(Knight.createKnight("b8", Alliance.BLACK, true));
         builder.setPiece(Bishop.createBishop("c8", Alliance.BLACK, true));
@@ -220,9 +242,9 @@ public class Board {
         builder.setPiece(Knight.createKnight("g8", Alliance.BLACK, true));
         builder.setPiece(Rook.createRook("h8", Alliance.BLACK, true));
 
-        //Black pawns
-
+        //Pawns
         for(int i = 0; i < BOARD_SIZE; ++i) {
+            builder.setPiece(Pawn.createPawn(i, SECOND_RANK, Alliance.WHITE, true));
             builder.setPiece(Pawn.createPawn(i, SEVENTH_RANK, Alliance.BLACK, true));
         }
 
@@ -231,19 +253,80 @@ public class Board {
         return builder.build();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n-----------------------\n");
-        for(int y = 0; y < BOARD_SIZE; ++y){
-            for(int x = 0; x < BOARD_SIZE; ++x){
-                final String tileText = this.getTile(x,y).toString();
-                stringBuilder.append(String.format("%3s", tileText));
-            }
-            stringBuilder.append("\n");
+    public static Board createBoardForChess960(){
+        Builder builder = new Builder();
+        builder.setGameType(GameType.RANDOM_FISHER_CHESS);
+        Random random = new Random();
+        final boolean[] rowOccupation = new boolean[BOARD_SIZE];
+        for (boolean positionX : rowOccupation) {
+            positionX = false;
         }
-        stringBuilder.append("\n-----------------------\n");
-        return stringBuilder.toString();
+        //Bishops
+        final int[] lightSquareBishopPossibleCoordinateX = {1,3,5,7};
+        final int[] darkSquareBishopPossibleCoordinateX = {0,2,4,6};
+
+        final int randomLightSquareBishopCoordinateX =
+                lightSquareBishopPossibleCoordinateX[random.nextInt( lightSquareBishopPossibleCoordinateX.length)];
+        builder.setPiece(Bishop.createBishop(randomLightSquareBishopCoordinateX, Board.FIRST_RANK,Alliance.WHITE,true));
+        builder.setPiece(Bishop.createBishop(randomLightSquareBishopCoordinateX, Board.EIGHTH_RANK,Alliance.BLACK,true));
+        rowOccupation[randomLightSquareBishopCoordinateX] = true;
+        final int randomDarkSquareBishopCoordinateX =
+                darkSquareBishopPossibleCoordinateX[random.nextInt(darkSquareBishopPossibleCoordinateX.length)];
+        builder.setPiece(Bishop.createBishop(randomDarkSquareBishopCoordinateX, Board.FIRST_RANK, Alliance.WHITE, true));
+        builder.setPiece(Bishop.createBishop(randomDarkSquareBishopCoordinateX, Board.EIGHTH_RANK, Alliance.BLACK, true));
+        rowOccupation[randomDarkSquareBishopCoordinateX] = true;
+
+        //Knights
+        for(int i = 0; i < 2; ++i){
+            int knightRandomCoordinateX = random.nextInt(BOARD_SIZE);
+            while (rowOccupation[knightRandomCoordinateX]){
+                knightRandomCoordinateX = random.nextInt(BOARD_SIZE);
+            }
+            builder.setPiece(Knight.createKnight(knightRandomCoordinateX, Board.FIRST_RANK,Alliance.WHITE,true));
+            builder.setPiece(Knight.createKnight(knightRandomCoordinateX, Board.EIGHTH_RANK,Alliance.BLACK,true));
+            rowOccupation[knightRandomCoordinateX] = true;
+        }
+
+        //Queens
+        int queenRandomCoordinateX = random.nextInt(BOARD_SIZE);
+        while (rowOccupation[queenRandomCoordinateX]){
+            queenRandomCoordinateX = random.nextInt(BOARD_SIZE);
+        }
+        builder.setPiece(Queen.createQueen(queenRandomCoordinateX, Board.FIRST_RANK,Alliance.WHITE,true));
+        builder.setPiece(Queen.createQueen(queenRandomCoordinateX, Board.EIGHTH_RANK,Alliance.BLACK,true));
+        rowOccupation[queenRandomCoordinateX] = true;
+
+        final int[] emptyPositions = new int[3];
+        int counter = 0;
+        for (int x = 0; x < rowOccupation.length; ++x) {
+            if(!rowOccupation[x]){
+                emptyPositions[counter++] = x;
+            }
+        }
+
+        //Kings and rooks
+        builder.setPiece(Rook.createRook(emptyPositions[0], Board.FIRST_RANK, Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook(emptyPositions[0], Board.EIGHTH_RANK, Alliance.BLACK, true));
+        builder.setQueensRookStartCoordinateX(emptyPositions[0]);
+        builder.setPiece(King.createKing(emptyPositions[1], Board.FIRST_RANK, Alliance.WHITE, true));
+        builder.setPiece(King.createKing(emptyPositions[1], Board.EIGHTH_RANK, Alliance.BLACK, true));
+        builder.setPiece(Rook.createRook(emptyPositions[2], Board.FIRST_RANK, Alliance.WHITE, true));
+        builder.setPiece(Rook.createRook(emptyPositions[2], Board.EIGHTH_RANK, Alliance.BLACK, true));
+        builder.setKingsRookStartCoordinateX(emptyPositions[2]);
+
+
+        //Pawns
+        for(int i = 0; i < BOARD_SIZE; ++i) {
+            builder.setPiece(Pawn.createPawn(i, SECOND_RANK, Alliance.WHITE, true));
+            builder.setPiece(Pawn.createPawn(i, SEVENTH_RANK, Alliance.BLACK, true));
+        }
+
+        builder.setMoveMaker(Alliance.WHITE);
+
+        return builder.build();
     }
+
+
 
     private static Position[][] createAllPossiblePositions(){
         Position[][] allPossiblePositions = new Position[BOARD_SIZE][BOARD_SIZE];
@@ -341,5 +424,19 @@ public class Board {
             }
         }
         return ImmutableMap.copyOf(tiles);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("\n-----------------------\n");
+        for(int y = 0; y < BOARD_SIZE; ++y){
+            for(int x = 0; x < BOARD_SIZE; ++x){
+                final String tileText = this.getTile(x,y).toString();
+                stringBuilder.append(String.format("%3s", tileText));
+            }
+            stringBuilder.append("\n");
+        }
+        stringBuilder.append("\n-----------------------\n");
+        return stringBuilder.toString();
     }
 }
