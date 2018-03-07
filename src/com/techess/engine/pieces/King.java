@@ -3,6 +3,7 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 
@@ -33,21 +34,21 @@ public class King extends Piece {
     }
 
     public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createKing(Board.getPosition(x,y), alliance, isFirstMove);
+        return createKing(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     public static King createKing(final char file, final int rank, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createKing(Board.getPosition(file,rank), alliance, isFirstMove);
+        return createKing(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
     }
 
     public static King createKing(final String algebraicNotationForPosition, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createKing(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createKing(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private King(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.getPosition(x, y), alliance, isFirstMove);
+        this(BoardUtils.getPosition(x, y), alliance, isFirstMove);
     }
 
     private King(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -79,17 +80,17 @@ public class King extends Piece {
     private static Map<Position, King> createAllPossibleKings(final Alliance alliance, final boolean isFirstMove) {
         Map<Position, King> kings = new HashMap<>();
         if(isFirstMove){
-            final int backRank = alliance.isWhite() ? Board.FIRST_RANK : Board.EIGHTH_RANK;
-            for(int x = 1; x < Board.BOARD_SIZE - 1; ++x){
+            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+            for(int x = 1; x < BoardUtils.BOARD_SIZE - 1; ++x){
                 /*We did not include first and last positions(corners -a1 and h1) because in Random Fisher Chess
                  the king must be located between rooks*/
-                final Position currentPosition = Board.getPosition(x, backRank);
-                kings.put(currentPosition, new King(Board.getPosition(x, backRank), alliance, true));
+                final Position currentPosition = BoardUtils.getPosition(x, backRank);
+                kings.put(currentPosition, new King(BoardUtils.getPosition(x, backRank), alliance, true));
             }
         } else {
-            for (int y = 0; y < Board.BOARD_SIZE; ++y) {
-                for (int x = 0; x < Board.BOARD_SIZE; ++x) {
-                    final Position currentPosition = Board.getPosition(x, y);
+            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Position currentPosition = BoardUtils.getPosition(x, y);
                     kings.put(currentPosition, new King(currentPosition, alliance, false));
                 }
             }

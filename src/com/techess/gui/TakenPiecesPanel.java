@@ -9,7 +9,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.util.*;
 
-import static com.techess.engine.board.Board.BOARD_SIZE;
+import static com.techess.engine.board.BoardUtils.BOARD_SIZE;
 
 /**
  * Created by igor on 03.03.18.

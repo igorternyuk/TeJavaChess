@@ -3,6 +3,7 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableList;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 import com.techess.engine.board.Tile;
@@ -55,7 +56,7 @@ public abstract class Piece{
     }
 
     public Piece(PieceType pieceType, final int x, final int y, final Alliance alliance){
-        this(pieceType, Board.getPosition(x,y), alliance);
+        this(pieceType, BoardUtils.getPosition(x,y), alliance);
     }
 
     public abstract Collection<Move> getLegalMoves(final Board board);
@@ -94,8 +95,8 @@ public abstract class Piece{
     private boolean checkAndAddMoveIfLegal(final Board board, List<Move> legalMoves, final int destX,
                                            final int destY){
         boolean hasMoreMovesInTheCurrentDirection = true;
-        if(Board.isValidPosition(destX, destY)){
-            final Position candidateDestination = Board.getPosition(destX, destY);
+        if(BoardUtils.isValidPosition(destX, destY)){
+            final Position candidateDestination = BoardUtils.getPosition(destX, destY);
             final Tile destinationTile = board.getTile(destX, destY);
             if(destinationTile.isOccupied()){
                 final Piece capturedPiece = destinationTile.getPiece();

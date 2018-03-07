@@ -1,10 +1,10 @@
 package com.techess.gui;
 
 import com.techess.engine.Alliance;
+import com.techess.engine.Game;
 import com.techess.engine.board.*;
 import com.techess.engine.moves.Move;
 import com.techess.engine.moves.MoveLog;
-import com.techess.engine.moves.MoveTransition;
 import com.techess.engine.pieces.*;
 
 import javax.swing.*;
@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-import static com.techess.engine.board.Board.*;
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
@@ -27,19 +26,19 @@ public class View {
     private static final int DX = 3;
     private static final int DY = 48;
     private static final int TILE_SIZE = 64;
-    private static final int MAIN_WINDOW_WIDTH = TILE_SIZE * BOARD_SIZE + TakenPiecesPanel.PANEL_WIDTH +
+    private static final int MAIN_WINDOW_WIDTH = TILE_SIZE * BoardUtils.BOARD_SIZE + TakenPiecesPanel.PANEL_WIDTH +
             GameHistoryPanel.PANEL_WIDTH + DX;
-    private static final int MAIN_WINDOW_HEIGHT = TILE_SIZE * BOARD_SIZE + DY;
-    private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(TILE_SIZE * BOARD_SIZE,
-            TILE_SIZE * BOARD_SIZE);
+    private static final int MAIN_WINDOW_HEIGHT = TILE_SIZE * BoardUtils.BOARD_SIZE + DY;
+    private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(TILE_SIZE * BoardUtils.BOARD_SIZE,
+            TILE_SIZE * BoardUtils.BOARD_SIZE);
     private static final int LEGAL_MOVE_HIGHLIGHT_CIRCLE_RADIUS = 5;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_ANGLE = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH = 5;
     final String[] PROMOTED_PIECE_OPTIONS = {"Rook", "Bishop", "Knight", "Queen"};
     private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
+    private final Game game = new Game(GameType.CLASSIC_CHESS);
     private Board chessBoard;
-    private MoveLog moveLog;
     private Tile startTile;
     private Tile destinationTile;
     private Move lastMove;
@@ -55,8 +54,7 @@ public class View {
     private boolean isAutoQueenEnabled = false;
 
     public View(){
-        this.chessBoard = Board.createStandardBoard();
-        this.moveLog = new MoveLog();
+        this.chessBoard = this.game.getChessBoard();
         this.mainWindow = new JFrame(TITLE_OF_MAIN_WINDOW);
         this.mainWindow.setLayout(new BorderLayout());
         this.mainWindow.setSize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
@@ -167,19 +165,20 @@ public class View {
     private void cleanAllUpForNewGame(){
         this.takenPiecesPanel.clear();
         this.gameHistoryPanel.clear();
+        this.lastMove = null;
         cleanMoveTilesUp();
-        moveLog.clear();
-        lastMove = null;
     }
 
     private void prepareNewClassicChessGame(){
         cleanAllUpForNewGame();
-        chessBoard = Board.createStandardBoard();
+        this.game.prepareNewGame(GameType.CLASSIC_CHESS);
+        this.chessBoard = this.game.getChessBoard();
     }
 
     private void prepareNewRandomFisherChessGame(){
         cleanAllUpForNewGame();
-        chessBoard = Board.createBoardForChess960();
+        this.game.prepareNewGame(GameType.RANDOM_FISHER_CHESS);
+        this.chessBoard = this.game.getChessBoard();
     }
 
     private Piece choosePromotedPiece() {
@@ -214,15 +213,12 @@ public class View {
             this.setPreferredSize(BOARD_PANEL_DIMENSION);
             this.addMouseMotionListener(this);
             this.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
-                }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     if(isRightMouseButton(e)){
                         cleanMoveTilesUp();
+                        redraw();
                     } else if(isLeftMouseButton(e)) {
                         int x = e.getX() / TILE_SIZE;
                         int y = e.getY() / TILE_SIZE;
@@ -243,23 +239,19 @@ public class View {
                             if(destinationTile != null){
                                 //System.out.println("Destination tile = " + destinationTile.getTilePosition());
                                 final Move move = detectMove();
-                                System.out.println("From View move.getMovedPiece() = " + (move.getMovedPiece() == null));
-                                //System.out.println("From view move is - " + move);
-                                System.out.println("Moving piece - " + move.getMovedPiece().getPieceType().getName());
-                                final MoveTransition moveTransition = chessBoard.getCurrentPlayer().makeMove(move);
-                                if(moveTransition.getMoveStatus().isDone()){
-                                    //System.out.println("Legal move from " + startTile.getTilePosition() + " to " +
-                                    //        destinationTile.getTilePosition());
-                                    chessBoard = moveTransition.getTransitedBoard();
+                                if(game.tryToMakeTheMove(move)){
+                                    chessBoard = game.getChessBoard();
                                     lastMove = move;
-                                    moveLog.addMove(move);
-                                    gameHistoryPanel.update(chessBoard, moveLog);
+                                    gameHistoryPanel.update(chessBoard, game.getMoveLog());
                                     if(move.isCapturingMove()) {
-                                        takenPiecesPanel.update(moveLog);
+                                        takenPiecesPanel.update(game.getMoveLog());
                                     }
                                 }
                                 cleanMoveTilesUp();
-                                checkForMate();
+
+                               if(game.isGameOver()){
+                                   showGameOverMessageAndAskUserAboutNewGame();
+                               }
                                 redraw();
                             } else {
                                 cleanMoveTilesUp();
@@ -269,47 +261,65 @@ public class View {
 
                     super.mouseReleased(e);
                 }
+
+                private void showGameOverMessageAndAskUserAboutNewGame() {
+                    final String[] options = {"Classic chess", "Chess960", "Exit"};
+                    int userAnswer = JOptionPane.showOptionDialog(
+                            null,
+                            game.getGameStatus().getMessage() + "\nDo you want play again?",
+                            "Select option",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                    );
+                    switch (userAnswer){
+                        case 0:
+                            prepareNewClassicChessGame();
+                            break;
+                        case 1:
+                            prepareNewRandomFisherChessGame();
+                            break;
+                        default:
+                            System.exit(0);
+                            break;
+                    }
+                }
             });
         }
 
         private Move detectMove(){
+            if(humanMovedPiece == null || destinationTile == null) return Move.NULL_MOVE;
             if (chessBoard.getGameType().isRandomFisherChess() &&
                     humanMovedPiece.getPieceType().isKing()){
                 final int kingsRookStartCoordinateX = chessBoard.getKingsRookStartCoordinateX();
                 final int queensRookStartCoordinateX = chessBoard.getQueensRookStartCoordinateX();
-                System.out.println("kingsRookStartPosition = " + kingsRookStartCoordinateX);
-                System.out.println("queensRookStartPosition = " + queensRookStartCoordinateX);
                 final Alliance currentPlayerAlliance = chessBoard.getCurrentPlayer().getAlliance();
                 final int backRankCoordinateY =
                         chessBoard.getCurrentPlayer().getAlliance().isWhite() ?
-                                Board.FIRST_RANK : Board.EIGHTH_RANK;
+                                BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 final Position kingSideRookStartPosition =
-                        Board.getPosition(kingsRookStartCoordinateX, backRankCoordinateY);
+                        BoardUtils.getPosition(kingsRookStartCoordinateX, backRankCoordinateY);
                 final Position queenSideRookStartPosition =
-                        Board.getPosition(queensRookStartCoordinateX, backRankCoordinateY);
-                final Position kingsSideKingPosition = currentPlayerAlliance.isWhite() ?
-                                chessBoard.getTile("g1").getTilePosition() :
-                                chessBoard.getTile("g8").getTilePosition();
-
-                final Position queensSideKingPosition = currentPlayerAlliance.isWhite() ?
-                                chessBoard.getTile("c1").getTilePosition() :
-                                chessBoard.getTile("c8").getTilePosition();
-
-                final Position kingsSideRookTargetPosition = currentPlayerAlliance.isWhite() ?
-                        chessBoard.getTile("f1").getTilePosition() :
-                        chessBoard.getTile("f8").getTilePosition();
-
-                final Position queensSideRookTargetPosition = currentPlayerAlliance.isWhite() ?
-                        chessBoard.getTile("d1").getTilePosition() :
-                        chessBoard.getTile("d8").getTilePosition();
+                        BoardUtils.getPosition(queensRookStartCoordinateX, backRankCoordinateY);
+                final Position kingsSideKingPosition =
+                        BoardUtils.getKingsSideCastlingKingTargetPosition(currentPlayerAlliance);
+                final Position queensSideKingPosition =
+                        BoardUtils.getQueensSideCastlingKingTargetPosition(currentPlayerAlliance);
+                final Position kingsSideRookTargetPosition =
+                        BoardUtils.getKingsSideCastlingRookTargetPosition(currentPlayerAlliance);
+                final Position queensSideRookTargetPosition =
+                        BoardUtils.getQueensSideCastlingRookTargetPosition(currentPlayerAlliance);
 
                 if(destinationTile.getTilePosition().equals(kingSideRookStartPosition)) {
                     Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartPosition);
                     if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)kingsRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
-                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard, startTile.getTilePosition(),
-                                    kingsSideKingPosition, castlingRook, kingsSideRookTargetPosition);
+                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
+                                    startTile.getTilePosition(), kingsSideKingPosition, castlingRook,
+                                    kingsSideRookTargetPosition);
                         }
                     }
 
@@ -318,8 +328,9 @@ public class View {
                     if(queensRookStartTile.isOccupied() && queensRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)queensRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
-                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard, startTile.getTilePosition(),
-                                    queensSideKingPosition, castlingRook, queensSideRookTargetPosition);
+                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
+                                    startTile.getTilePosition(), queensSideKingPosition, castlingRook,
+                                    queensSideRookTargetPosition);
                         }
                     }
                 }
@@ -338,7 +349,6 @@ public class View {
                        promotedPiece);
 
             }
-            System.out.println("from move factory isStartTileEmpty = " + startTile.isEmpty());
             return Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
                     destinationTile.getTilePosition());
         }
@@ -359,7 +369,7 @@ public class View {
         }
 
         int calculateFlippedCoordinate(final int coordinate){
-            return BOARD_SIZE - 1 - coordinate;
+            return BoardUtils.BOARD_SIZE - 1 - coordinate;
         }
 
         int toBoardCoordinate(final int coordinate){
@@ -376,8 +386,8 @@ public class View {
         }
 
         private void drawChessField(Graphics2D g2D){
-            for(int y = 0; y < BOARD_SIZE; ++y){
-                for(int x = 0; x < BOARD_SIZE; ++x){
+            for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
+                for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
                     g2D.setColor((x + y) % 2 == 0 ? Color.WHITE : new Color(0, 202, 255));
                     g2D.fillRect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE);
                     final Tile currentTile = chessBoard.getTile(x, y);
@@ -502,7 +512,6 @@ public class View {
             g2D.drawLine(arrowHeadRightPointX, arrowHeadRightPointY, arrowEndPointX, arrowEndPointY);
         }
 
-
         @Override
         protected void paintComponent(Graphics g){
             super.paintComponent(g);
@@ -520,27 +529,4 @@ public class View {
             }
         }
     }
-
-    private void checkForMate() {
-        if(chessBoard.getCurrentPlayer().isCheckMate()){
-            boardPanel.redraw();
-            final Alliance alliance = chessBoard.getCurrentPlayer().getOpponentAlliance();
-            final String message = alliance + " wins by checkmate!";
-            System.out.println(message);
-            int userAnswer = JOptionPane.showConfirmDialog(
-                    null,
-                    message + "\nDo you want play again?",
-                    message,
-                    JOptionPane.YES_NO_OPTION
-            );
-            if(userAnswer == JOptionPane.YES_OPTION){
-                chessBoard  = Board.createStandardBoard();
-                lastMove = null;
-                moveLog.clear();
-            } else {
-                System.exit(0);
-            }
-        }
-    }
-
 }

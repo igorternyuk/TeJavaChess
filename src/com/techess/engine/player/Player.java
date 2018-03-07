@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.board.Position;
 import com.techess.engine.board.Tile;
 import com.techess.engine.moves.Move;
@@ -14,7 +15,6 @@ import com.techess.engine.moves.MoveTransition;
 import com.techess.engine.pieces.King;
 import com.techess.engine.pieces.Piece;
 import com.techess.engine.pieces.Rook;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,16 +34,19 @@ public abstract class Player {
     public Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
         this.board = board;
         this.king = establishKing();
-        //Don't forget to concatenate castles
         this.opponentLegalMoves = opponentMoves;
         this.isInCheck = !Player.calculateAttacksOnTile(this.king.getPosition(), opponentMoves).isEmpty();
-        final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
-        System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
-                " has castles = " + castles.size());
-        final Alliance currentAlliance = this.getAlliance();
-        System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
-        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
-        System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
+        if (!this.isCastled()) {
+            final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
+            //System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
+            //        " has castles = " + castles.size());
+            final Alliance currentAlliance = this.getAlliance();
+            //System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
+            this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
+        } else {
+            this.legalMoves = ImmutableList.copyOf(legalMoves);
+        }
+        //System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
     }
 
     public King getPlayerKing() {
@@ -75,31 +78,21 @@ public abstract class Player {
     }
 
     public boolean isCastled(){
-        return false;
+        return !this.king.isFirstMove();
     }
 
     public MoveTransition makeMove(final Move move){
-        System.out.println("is castling = " + move.isCastlingMove());
         if(!isMoveLegal(move)){
             System.out.println("Illegal move");
             return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
         }
-        final Board transitedBoard = move.execute(); //This method transfer the turn to the opponent
+        final Board transitedBoard = move.execute(); //This method transfers the turn to the opponent
         final Player playerWhoseMoveIsGoingToBeChecked = transitedBoard.getCurrentPlayer().getOpponent();
         final Position currentPlayerPosition = playerWhoseMoveIsGoingToBeChecked.getPlayerKing().getPosition();
         final Collection<Move> opponentLegalMoves = playerWhoseMoveIsGoingToBeChecked.getOpponentLegalMoves();
         final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerPosition, opponentLegalMoves);
 
         if(!kingAttacks.isEmpty()){
-            System.out.println("Trying to execute " + move);
-            System.out.println("Moving piece - " + move.getMovedPiece().getPieceType().getName());
-            System.out.println("Start position " + move.getMovedPiece().getPosition());
-            System.out.println("Target position " + move.getDestination());
-            System.out.println("Is pawn promotion - " + move.isPawnPromotionMove());
-            System.out.println("King is under check");
-            kingAttacks.forEach(attack -> {
-                System.out.println("attack = " + attack.toString());
-            });
             return new MoveTransition(transitedBoard, move, MoveStatus.KING_IS_UNDER_CHECK);
         }
         return new MoveTransition(transitedBoard, move, MoveStatus.DONE);
@@ -112,20 +105,12 @@ public abstract class Player {
     public abstract Alliance getOpponentAlliance();
 
     private Collection<Move> calculateCastles(final Collection<Move> playerLegalMoves,
-                                                final Collection<Move> opponentLegalMoves) {
-        //this.board.getCurrentPlayer().getAlliance().equals(Alliance.WHITE)
-        if(this.board.getGameType().isRandomFisherChess() && this.getAlliance().isWhite()){
-            System.out.println("");
-        }
-        final int lastRank = this.getAlliance().isWhite() ? Board.getAlgebraicNotationForCoordinateY(Board.FIRST_RANK) :
-                Board.getAlgebraicNotationForCoordinateY(Board.EIGHTH_RANK);
+                                              final Collection<Move> opponentLegalMoves) {
         List<Move> castles = new ArrayList<>();
-        if(this.king.getAlliance().isWhite()){
-            //System.out.println("CASTLING CALCULATION FOR WHITE KING!");
-        } else {
-            //System.out.println("CASTLING CALCULATION FOR BLACK KING!");
-        }
         if(this.king.isFirstMove() && !this.isUnderCheck()){
+            final int lastRank = this.getAlliance().isWhite() ?
+                    BoardUtils.getAlgebraicNotationForCoordinateY(BoardUtils.FIRST_RANK) :
+                    BoardUtils.getAlgebraicNotationForCoordinateY(BoardUtils.EIGHTH_RANK);
             //King's side castling
             //System.out.println("King is not under check and not moved yet");
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
@@ -157,7 +142,7 @@ public abstract class Player {
                 }
             } else if(this.board.getGameType().isRandomFisherChess()){
                 //System.out.println("King's side castling");
-                final int backRankCoordinateY = this.getAlliance().isWhite()? Board.FIRST_RANK : Board.EIGHTH_RANK;
+                final int backRankCoordinateY = this.getAlliance().isWhite()? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 final int kingX = this.king.getPosition().getX();
                 final int rookX = this.board.getKingsRookStartCoordinateX();
                 final Tile kingsRookStartTile = this.board.getTile(rookX, backRankCoordinateY);
@@ -187,7 +172,8 @@ public abstract class Player {
                                 //System.out.println("Checking between tile x = " + x);
                                 final boolean isCurrentTileOccupiedNotByCastlingRook = currentTile.isOccupied() &&
                                         !currentTile.getPiece().equals(castlingRook);
-                                final boolean isCurrentTileUnderCheck = !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
+                                final boolean isCurrentTileUnderCheck =
+                                        !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
                                         opponentLegalMoves).isEmpty();
                                 //System.out.println("isCurrentTileOccupiedNotByCastlingRook = " +
                                         //isCurrentTileOccupiedNotByCastlingRook);
@@ -238,7 +224,8 @@ public abstract class Player {
                 }
             } else {
                 //System.out.println("Queen's side castling");
-                final int backRankCoordinateY = this.getAlliance().isWhite()? Board.FIRST_RANK : Board.EIGHTH_RANK;
+                final int backRankCoordinateY = this.getAlliance().isWhite()? BoardUtils.FIRST_RANK :
+                        BoardUtils.EIGHTH_RANK;
                 final int kingX = this.king.getPosition().getX();
                 final int rookX = this.board.getQueensRookStartCoordinateX();
                 final Tile queensRookStartTile = this.board.getTile(rookX, backRankCoordinateY);
@@ -270,7 +257,8 @@ public abstract class Player {
                                 final boolean isCurrentTileOccupiedNotByCastlingRook = currentTile.isOccupied() &&
                                         !currentTile.getPiece().equals(castlingRook);
                                 //System.out.println("isCurrentTileOccupiedByCastlingRook = " + isCurrentTileOccupiedNotByCastlingRook);
-                                final boolean isCurrentTileUnderCheck = !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
+                                final boolean isCurrentTileUnderCheck =
+                                        !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
                                         opponentLegalMoves).isEmpty();
                                 //System.out.println("isCurrentTileUnderCheck = " + isCurrentTileUnderCheck);
                                 if(isCurrentTileOccupiedNotByCastlingRook || isCurrentTileUnderCheck){

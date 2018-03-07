@@ -1,9 +1,10 @@
 package com.techess.engine.pieces;
 
-import com.google.common.collect.ImmutableList;
+import                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 import com.techess.engine.board.Tile;
@@ -32,21 +33,21 @@ public class Pawn extends Piece {
     }
 
     public static Pawn createPawn(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createPawn(Board.getPosition(x,y), alliance, isFirstMove);
+        return createPawn(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     public static Pawn createPawn(final char file, final int rank, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createPawn(Board.getPosition(file,rank), alliance, isFirstMove);
+        return createPawn(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
     }
 
     public static Pawn createPawn(final String algebraicNotationForPosition, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createPawn(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createPawn(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Pawn(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.getPosition(x,y), alliance, isFirstMove);
+        this(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     private Pawn(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -60,28 +61,16 @@ public class Pawn extends Piece {
             final int destX = this.position.getX() + DX[i];
             final int destY = this.position.getY() + this.getAlliance().getDirectionY();
 
-            if(!Board.isValidPosition(destX, destY)){
+            if(!BoardUtils.isValidPosition(destX, destY)){
                 continue;
             }
 
-            final Position candidateDestination = Board.getPosition(destX, destY);
+            final Position candidateDestination = BoardUtils.getPosition(destX, destY);
             if(DX[i] == 0){
                 if(!board.getTile(candidateDestination).isOccupied()) {
                     //Regular move
-                    // TODO regular pawn promotion
                     if(this.getAlliance().isPawnPromotionSquare(candidateDestination)){
-                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                 this, candidateDestination), Queen.createQueen(candidateDestination,
-                                this.alliance, false)));
-                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                this, candidateDestination), Rook.createRook(candidateDestination,
-                                this.alliance, false)));
-                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                this, candidateDestination), Knight.createKnight(candidateDestination,
-                                this.alliance, false)));
-                        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                this, candidateDestination), Bishop.createBishop(candidateDestination,
-                                this.alliance, false)));
+                        addAllPossiblePawnPromotions(board, candidateDestination, legalMoves);
                     } else {
                         legalMoves.add(new Move.PawnMove(board, this, candidateDestination));
                     }
@@ -90,7 +79,7 @@ public class Pawn extends Piece {
                         //Pawn jump
                         final int jumpDestY = candidateDestination.getY() + this.getAlliance().getDirectionY();
                         if(!board.getTile(destX, jumpDestY).isOccupied()){
-                            legalMoves.add(new Move.PawnJump(board, this, Board.getPosition(destX, jumpDestY)));
+                            legalMoves.add(new Move.PawnJump(board, this, BoardUtils.getPosition(destX, jumpDestY)));
                         }
                     }
                 }
@@ -102,18 +91,7 @@ public class Pawn extends Piece {
                     if(capturedPiece.getAlliance() != this.alliance){
                         // Pawn promotion by capturing
                         if(this.getAlliance().isPawnPromotionSquare(candidateDestination)){
-                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                    this, candidateDestination), Queen.createQueen(candidateDestination,
-                                    this.alliance, false)));
-                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                    this, candidateDestination), Rook.createRook(candidateDestination,
-                                    this.alliance, false)));
-                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                    this, candidateDestination), Knight.createKnight(candidateDestination,
-                                    this.alliance, false)));
-                            legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
-                                    this, candidateDestination), Bishop.createBishop(candidateDestination,
-                                    this.alliance, false)));
+                            addAllPossiblePawnPromotions(board, candidateDestination, legalMoves);
                         } else {
                             legalMoves.add(new Move.PawnCapturingMove(board, this, candidateDestination,
                                     capturedPiece));
@@ -134,6 +112,22 @@ public class Pawn extends Piece {
             }
         }
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    private void addAllPossiblePawnPromotions(final Board board, final Position candidateDestination,
+                                              final List<Move> legalMoves){
+        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                this, candidateDestination), Queen.createQueen(candidateDestination,
+                this.alliance, false)));
+        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                this, candidateDestination), Rook.createRook(candidateDestination,
+                this.alliance, false)));
+        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                this, candidateDestination), Knight.createKnight(candidateDestination,
+                this.alliance, false)));
+        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+                this, candidateDestination), Bishop.createBishop(candidateDestination,
+                this.alliance, false)));
     }
 
     @Override
@@ -157,17 +151,17 @@ public class Pawn extends Piece {
                                                                     final boolean isFirstMove){
         Map<Position, Pawn> pawns = new HashMap<>();
         if(isFirstMove){
-            final int startRank = alliance.equals(Alliance.WHITE) ? Board.SECOND_RANK : Board.SEVENTH_RANK;
-            for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                final Position currentPosition = Board.getPosition(x, startRank);
+            final int startRank = alliance.equals(Alliance.WHITE) ? BoardUtils.SECOND_RANK : BoardUtils.SEVENTH_RANK;
+            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+                final Position currentPosition = BoardUtils.getPosition(x, startRank);
                 pawns.put(currentPosition, new Pawn(currentPosition, alliance, true));
             }
         } else {
-            final int from = alliance.equals(Alliance.WHITE) ? Board.EIGHTH_RANK : Board.SIXTH_RANK;
-            final int to = alliance.equals(Alliance.WHITE) ? Board.THIRD_RANK : Board.FIRST_RANK;
+            final int from = alliance.equals(Alliance.WHITE) ? BoardUtils.EIGHTH_RANK : BoardUtils.SIXTH_RANK;
+            final int to = alliance.equals(Alliance.WHITE) ? BoardUtils.THIRD_RANK : BoardUtils.FIRST_RANK;
             for (int y = from; y <= to; ++y) {
-                for (int x = 0; x < Board.BOARD_SIZE; ++x) {
-                    final Position currentPosition = Board.getPosition(x, y);
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Position currentPosition = BoardUtils.getPosition(x, y);
                     pawns.put(currentPosition, new Pawn(currentPosition, alliance, false));
                 }
             }
@@ -177,6 +171,6 @@ public class Pawn extends Piece {
 
     @Override
     public String toString() {
-        return String.valueOf(Board.getAlgebraicNotationForCoordinateX(this.position.getX()));
+        return String.valueOf(BoardUtils.getAlgebraicNotationForCoordinateX(this.position.getX()));
     }
 }

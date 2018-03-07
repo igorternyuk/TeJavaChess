@@ -19,11 +19,11 @@ import java.util.List;
 public class GameHistoryPanel extends JPanel{
     private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
     private static final Color PANEL_COLOR = Color.decode("0xFDF5E6");
-    public static final int PANEL_WIDTH = 128;
+    public static final int PANEL_WIDTH = 140;
     public static final int PANEL_HEIGHT = 512;
     private static final Dimension PANEL_DIMENSION = new Dimension(PANEL_WIDTH, PANEL_HEIGHT);
     private static final int TABLE_ROW_HEIGHT = 15;
-
+    private static final int MOVE_NUMBER_COLUMN_WIDTH = 50;
     private final DataModel dataModel;
     private final JTable table;
     private final JScrollPane scrollPane;
@@ -36,7 +36,7 @@ public class GameHistoryPanel extends JPanel{
         this.dataModel = new DataModel();
         this.table = new JTable(this.dataModel);
         this.table.setRowHeight(TABLE_ROW_HEIGHT);
-        //this.table.getColumn(0).setPreferredWidth(10);
+        this.table.getColumnModel().getColumn(DataModel.MOVE_NUMBER_COLUMN).setPreferredWidth(MOVE_NUMBER_COLUMN_WIDTH);
         this.scrollPane = new JScrollPane(this.table);
         this.scrollPane.setColumnHeaderView(this.table.getTableHeader());
         this.add(this.scrollPane, BorderLayout.CENTER);
@@ -52,14 +52,14 @@ public class GameHistoryPanel extends JPanel{
     }
 
     public void update(final Board chessBoard, final MoveLog moveLog){
-        //System.out.println("Move history updating ");
         this.dataModel.clear();
         final List<Move> moves = moveLog.getMoves();
-        //System.out.println("moves.size() = " + moves.size());
         int currentRow = 0;
         for(final Move currentMove: moves){
             final String moveText = currentMove.toString();
             if(currentMove.getMovedPiece().getAlliance().isWhite()){
+                int number = currentRow + 1;
+                this.dataModel.setValueAt(number, currentRow, DataModel.MOVE_NUMBER_COLUMN);
                 this.dataModel.setValueAt(moveText, currentRow, DataModel.WHITE_MOVE_COLUMN);
             } else {
                 this.dataModel.setValueAt(moveText, currentRow, DataModel.BLACK_MOVE_COLUMN);
@@ -98,16 +98,27 @@ public class GameHistoryPanel extends JPanel{
     }
 
     private class MoveRecord{
+        private int moveNumber;
         private String whiteMove, blackMove;
 
         public MoveRecord() {
+            this.moveNumber = 0;
             this.whiteMove = "";
             this.blackMove = "";
         }
 
-        public MoveRecord(String whiteMove, String blackMove) {
+        public MoveRecord(final int moveNumber, final String whiteMove, final String blackMove) {
+            this.moveNumber = moveNumber;
             this.whiteMove = whiteMove;
             this.blackMove = blackMove;
+        }
+
+        public int getMoveNumber() {
+            return moveNumber;
+        }
+
+        public void setMoveNumber(int moveNumber) {
+            this.moveNumber = moveNumber;
         }
 
         public String getWhiteMove() {
@@ -128,10 +139,11 @@ public class GameHistoryPanel extends JPanel{
     }
 
     private class DataModel /*extends DefaultTableModel */implements TableModel{
-        private static final int WHITE_MOVE_COLUMN = 0;
-        private static final int BLACK_MOVE_COLUMN = 1;
+        private static final int MOVE_NUMBER_COLUMN = 0;
+        private static final int WHITE_MOVE_COLUMN = 1;
+        private static final int BLACK_MOVE_COLUMN = 2;
         private List<MoveRecord> records;
-        private String[] HEADERS = {"White", "Black"};
+        private String[] HEADERS = {"№", "White", "Black"};
 
         public DataModel(){
             this.records = new ArrayList<>();
@@ -180,6 +192,9 @@ public class GameHistoryPanel extends JPanel{
             String result = null;
 
             switch (columnIndex){
+                case MOVE_NUMBER_COLUMN:
+                    result = String.valueOf(record.getMoveNumber());
+                    break;
                 case WHITE_MOVE_COLUMN:
                     result = record.getWhiteMove();
                     break;
@@ -207,6 +222,9 @@ public class GameHistoryPanel extends JPanel{
                 throw new IllegalArgumentException("Invalid column index");
             }
             switch (columnIndex){
+                case MOVE_NUMBER_COLUMN:
+                    this.records.get(rowIndex).setMoveNumber((int)aValue);
+                    break;
                 case WHITE_MOVE_COLUMN:
                     this.records.get(rowIndex).setWhiteMove((String)aValue);
                     break;

@@ -23,9 +23,9 @@ public abstract class Tile {
 
     private static Map<Position,EmptyTile> createAllPossibleEmptyTiles() {
         final Map<Position,EmptyTile> emptyTilesMap = new HashMap<>();
-        for(int y = 0; y < Board.BOARD_SIZE; ++y){
-            for (int x = 0; x < Board.BOARD_SIZE; ++x){
-                emptyTilesMap.put(Board.getPosition(x,y), new EmptyTile(Board.getPosition(x,y)));
+        for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
+            for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+                emptyTilesMap.put(BoardUtils.getPosition(x,y), new EmptyTile(BoardUtils.getPosition(x,y)));
             }
         }
         return ImmutableMap.copyOf(emptyTilesMap);

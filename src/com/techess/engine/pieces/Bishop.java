@@ -3,6 +3,7 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 
@@ -34,21 +35,21 @@ public class Bishop extends Piece {
     }
 
     public static Bishop createBishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createBishop(Board.getPosition(x,y), alliance, isFirstMove);
+        return createBishop(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     public static Bishop createBishop(final char file, final int rank, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createBishop(Board.getPosition(file,rank), alliance, isFirstMove);
+        return createBishop(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
     }
 
     public static Bishop createBishop(final String algebraicNotationForPosition, final Alliance alliance,
                                       final boolean isFirstMove){
-        return createBishop(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createBishop(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Bishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.getPosition(x,y), alliance, isFirstMove);
+        this(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     private Bishop(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -81,16 +82,16 @@ public class Bishop extends Piece {
                                                                        final boolean isFirstMove){
         Map<Position, Bishop> bishops = new HashMap<>();
         if(isFirstMove){
-            final int backRank = alliance.isWhite() ? Board.FIRST_RANK : Board.EIGHTH_RANK;
-            for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                final Position currentPosition = Board.getPosition(x,backRank);
+            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+                final Position currentPosition = BoardUtils.getPosition(x,backRank);
                 bishops.put(currentPosition, new Bishop(currentPosition, alliance, true));
             }
 
         } else {
-            for(int y = 0; y < Board.BOARD_SIZE; ++y){
-                for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                    final Position currentPosition = Board.getPosition(x,y);
+            for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
+                for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+                    final Position currentPosition = BoardUtils.getPosition(x,y);
                     bishops.put(currentPosition, new Bishop(currentPosition, alliance, false));
                 }
             }

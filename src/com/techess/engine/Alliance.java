@@ -1,6 +1,6 @@
 package com.techess.engine;
 
-import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.board.Position;
 import com.techess.engine.player.BlackPlayer;
 import com.techess.engine.player.Player;
@@ -34,7 +34,7 @@ public enum Alliance {
 
         @Override
         public boolean isPawnPromotionSquare(final Position position) {
-            return position.getY() == Board.EIGHTH_RANK;
+            return position.getY() == BoardUtils.EIGHTH_RANK;
         }
 
         @Override
@@ -70,7 +70,7 @@ public enum Alliance {
 
         @Override
         public boolean isPawnPromotionSquare(final Position position) {
-            return position.getY() == Board.FIRST_RANK;
+            return position.getY() == BoardUtils.FIRST_RANK;
         }
 
         @Override

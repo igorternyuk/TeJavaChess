@@ -1,6 +1,7 @@
 package com.techess.engine.moves;
 
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.board.Position;
 import com.techess.engine.pieces.Pawn;
 import com.techess.engine.pieces.Piece;
@@ -20,7 +21,7 @@ public abstract class Move {
     protected final Piece movedPiece;
     protected final Position destination;
     protected final boolean isFirstMove;
-    private static final Move NULL_MOVE = new NullMove();
+    public static final Move NULL_MOVE = new NullMove();
 
     private Move(final Board board, final Piece movingPiece, final Position destination) {
         this.board = board;
@@ -53,6 +54,8 @@ public abstract class Move {
     }
 
     public boolean isPawnPromotionMove() { return false; }
+
+    public boolean isPawnMove() { return this.movedPiece.getPieceType().isPawn(); }
 
     public Piece getCapturedPiece(){
         return null;
@@ -91,7 +94,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + Board.getAlgebraicNotationFromPosition(destination);
+            return movedPiece.toString() + BoardUtils.getAlgebraicNotationFromPosition(destination);
         }
     }
 
@@ -143,7 +146,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
+            return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromPosition(destination);
         }
     }
 
@@ -160,7 +163,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
+            return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromPosition(destination);
         }
     }
 
@@ -176,7 +179,7 @@ public abstract class Move {
 
         @Override
         public String toString(){
-            return movedPiece.toString() + Board.getAlgebraicNotationForCoordinateY(destination.getY());
+            return movedPiece.toString() + BoardUtils.getAlgebraicNotationForCoordinateY(destination.getY());
         }
     }
 
@@ -187,7 +190,7 @@ public abstract class Move {
         }
 
         public String toString(){
-            return movedPiece.toString() + "x" + Board.getAlgebraicNotationFromPosition(destination);
+            return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromPosition(destination);
         }
 
         @Override
@@ -209,7 +212,7 @@ public abstract class Move {
             this.board.getCurrentPlayer().getOpponentActivePieces().forEach(piece -> builder.setPiece(piece));
             Pawn jumpedPawn = (Pawn) this.movedPiece.move(this);
             System.out.println("Setting en passant pawn " +
-                    Board.getAlgebraicNotationFromPosition(jumpedPawn.getPosition()));
+                    BoardUtils.getAlgebraicNotationFromPosition(jumpedPawn.getPosition()));
             builder.setEnPassantPawn(jumpedPawn);
             builder.setPiece(jumpedPawn);
             builder.setGameType(this.board.getGameType());
@@ -413,7 +416,7 @@ public abstract class Move {
 
     public static final class NullMove extends Move {
         public NullMove() {
-            super(null, Board.NULL_POSITION);
+            super(null, BoardUtils.NULL_POSITION);
         }
 
         @Override

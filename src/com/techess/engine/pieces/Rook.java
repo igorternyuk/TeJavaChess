@@ -3,6 +3,7 @@ package com.techess.engine.pieces;
 import com.google.common.collect.ImmutableMap;
 import com.techess.engine.Alliance;
 import com.techess.engine.board.Board;
+import com.techess.engine.board.BoardUtils;
 import com.techess.engine.moves.Move;
 import com.techess.engine.board.Position;
 
@@ -33,21 +34,21 @@ public class Rook extends Piece {
     }
 
     public static Rook createRook(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createRook(Board.getPosition(x,y), alliance, isFirstMove);
+        return createRook(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
     public static Rook createRook(final char file, final int rank, final Alliance alliance,
                                     final boolean isFirstMove){
-        return createRook(Board.getPosition(file,rank), alliance, isFirstMove);
+        return createRook(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
     }
 
     public static Rook createRook(final String algebraicNotationForPosition, final Alliance alliance,
                                   final boolean isFirstMove){
-        return createRook(Board.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createRook(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Rook(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(Board.getPosition(x,y),alliance, isFirstMove);
+        this(BoardUtils.getPosition(x,y),alliance, isFirstMove);
     }
 
     private Rook(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -79,15 +80,15 @@ public class Rook extends Piece {
     private static final Map<Position, Rook> createAllPossibleRooks(final Alliance alliance, final boolean isFirstMove){
         Map<Position, Rook> rooks = new HashMap<>();
         if(isFirstMove){
-            final int backRank = alliance.isWhite() ? Board.FIRST_RANK : Board.EIGHTH_RANK;
-            for(int x = 0; x < Board.BOARD_SIZE; ++x){
-                final Position currentPosition = Board.getPosition(x,backRank);
+            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+                final Position currentPosition = BoardUtils.getPosition(x,backRank);
                 rooks.put(currentPosition, new Rook(currentPosition, alliance, true));
             }
         } else {
-            for (int y = 0; y < Board.BOARD_SIZE; ++y) {
-                for (int x = 0; x < Board.BOARD_SIZE; ++x) {
-                    final Position currentPosition = Board.getPosition(x, y);
+            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Position currentPosition = BoardUtils.getPosition(x, y);
                     rooks.put(currentPosition, new Rook(currentPosition, alliance, false));
                 }
             }
