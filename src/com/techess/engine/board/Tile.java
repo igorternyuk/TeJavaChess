@@ -14,11 +14,14 @@ import java.util.Objects;
 public abstract class Tile {
 
     protected final Position tilePosition;
+    protected final boolean isLight;
 
     private static final Map<Position, EmptyTile> EMPTY_TILES = createAllPossibleEmptyTiles();
 
     private Tile(final Position tilePosition) {
+
         this.tilePosition = tilePosition;
+        this.isLight = (this.tilePosition.getX() + this.tilePosition.getY()) % 2 == 0;
     }
 
     private static Map<Position,EmptyTile> createAllPossibleEmptyTiles() {
@@ -37,6 +40,14 @@ public abstract class Tile {
 
     public Position getTilePosition(){
         return this.tilePosition;
+    }
+
+    public boolean isTileLight(){
+        return this.isLight;
+    }
+
+    public boolean isTileDark(){
+        return !this.isLight;
     }
 
     public abstract boolean isOccupied();

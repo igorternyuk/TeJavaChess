@@ -42,6 +42,11 @@ public class WhitePlayer extends Player{
         return Alliance.BLACK;
     }
 
+    @Override
+    public String toString(){
+        return "White";
+    }
+
     /*public Collection<Move> calculateCastles(final Collection<Move> thisPlayerLegalMoves,
                                                 final Collection<Move> opponentLegalMoves) {
         return super.calculateCastles(thisPlayerLegalMoves, opponentLegalMoves, Alliance.WHITE);

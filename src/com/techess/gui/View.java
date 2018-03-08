@@ -164,6 +164,8 @@ public class View {
 
     private void cleanAllUpForNewGame(){
         this.takenPiecesPanel.clear();
+        this.takenPiecesPanel.validate();
+        this.takenPiecesPanel.repaint();
         this.gameHistoryPanel.clear();
         this.lastMove = null;
         cleanMoveTilesUp();
