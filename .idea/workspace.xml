@@ -2,18 +2,107 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Game.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$1.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$2.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View.class" afterPath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/App.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Alliance.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/Game.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/GameStatus.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Board$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Board$Builder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Board.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/BoardUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/GameType$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/GameType$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/GameType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Position.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Tile$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Tile$EmptyTile.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Tile$OccupiedTile.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/board/Tile.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$CapturingMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$Castling.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$KingsSideCastling.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$MoveFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$NullMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnCapturingMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnEnPassantCapture.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnJump.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PawnPromotion.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$PieceCapturingMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$QueensSideCastling.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move$RegularMove.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/Move.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveLog.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveStatus$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveStatus$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveStatus$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveStatus.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/moves/MoveTransition.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Bishop.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/King.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Knight.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Pawn.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Piece.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/PieceType.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Queen.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/pieces/Rook.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/player/BlackPlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/player/Player.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/engine/player/WhitePlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/BoardOrientation$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/BoardOrientation$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/BoardOrientation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$DataModel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel$MoveRecord.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/GameHistoryPanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/ResourceManager.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/TakenPiecesPanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View$BoardPanel.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/techess/gui/View.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/TeChess/com/tests/techess/engine/board/BoardTest.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/App.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/App.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/Alliance.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/Alliance.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/Game.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/Game.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/GameStatus.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/GameStatus.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Board.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/BoardUtils.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/GameType.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/GameType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Position.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Position.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Tile.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/moves/Move.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/moves/MoveLog.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveLog.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/moves/MoveStatus.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveStatus.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/moves/MoveTransition.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveTransition.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Bishop.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Bishop.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/King.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/King.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Knight.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Knight.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Pawn.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Piece.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Queen.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Queen.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Rook.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/BlackPlayer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/Player.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/Player.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/WhitePlayer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/gui/BoardOrientation.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/BoardOrientation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/GameHistoryPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/ResourceManager.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/TakenPiecesPanel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/techess/gui/View.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/BoardTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TeChess.iml" afterPath="$PROJECT_DIR$/TeChess.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" afterPath="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/techess/gui/View.java" afterPath="$PROJECT_DIR$/src/com/techess/gui/View.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,119 +115,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameHistoryPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2196">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResourceManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Tile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="4440">
+              <caret line="352" column="11" lean-forward="false" selection-start-line="352" selection-start-column="11" selection-end-line="352" selection-end-column="11" />
               <folding>
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="e#1341#1342#0" expanded="true" />
-                <element signature="e#1376#1377#0" expanded="true" />
-                <element signature="e#1411#1412#0" expanded="true" />
-                <element signature="e#1445#1446#0" expanded="true" />
-                <element signature="e#1481#1482#0" expanded="true" />
+                <element signature="e#5585#5586#0" expanded="true" />
+                <element signature="e#5865#5866#0" expanded="true" />
+                <element signature="e#6135#6136#0" expanded="true" />
+                <element signature="e#6178#6179#0" expanded="true" />
+                <element signature="e#6216#6217#0" expanded="true" />
+                <element signature="e#6293#6294#0" expanded="true" />
+                <element signature="e#6372#6373#0" expanded="true" />
+                <element signature="e#6812#6813#0" expanded="true" />
+                <element signature="e#9220#9221#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PieceType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1170">
-              <caret line="88" column="76" lean-forward="false" selection-start-line="88" selection-start-column="76" selection-end-line="88" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WhitePlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="47" selection-end-column="5" />
-              <folding>
-                <element signature="e#1097#1098#0" expanded="true" />
-                <element signature="e#1127#1128#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlackPlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="45" column="21" lean-forward="false" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
-              <folding>
-                <element signature="e#1097#1098#0" expanded="true" />
-                <element signature="e#1127#1128#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Board.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="372" column="52" lean-forward="false" selection-start-line="372" selection-start-column="52" selection-end-line="372" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3240">
-              <caret line="222" column="24" lean-forward="false" selection-start-line="222" selection-start-column="24" selection-end-line="222" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TakenPiecesPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="62" column="63" lean-forward="false" selection-start-line="62" selection-start-column="63" selection-end-line="62" selection-end-column="79" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -251,6 +243,8 @@
         <option value="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" />
         <option value="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" />
         <option value="$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java" />
+        <option value="$PROJECT_DIR$/src/com/techess/tests/engine/board/BoardTest.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
       </list>
     </option>
   </component>
@@ -261,9 +255,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="width" value="1286" />
-    <option name="height" value="769" />
+    <option name="width" value="1284" />
+    <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -283,9 +276,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -326,11 +317,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="board" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -348,11 +335,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
+              <option name="myItemId" value="gui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,11 +357,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -396,41 +379,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeChess" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeChess" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -456,11 +405,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -486,11 +431,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="techess" />
+              <option name="myItemId" value="igorternyuk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -502,26 +443,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeChess" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TeChess" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -569,15 +494,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest">
+  <component name="RunManager" selected="Application.App">
     <configuration default="false" name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.techess.*" />
+          <option name="PATTERN" value="com.igorternyuk.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.techess.App" />
+      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.App" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -628,6 +553,32 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.tests.techess.engine.board" />
       <option name="MAIN_CLASS_NAME" value="com.tests.techess.engine.board.BoardTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.igorternyuk.tests.engine.board.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="TeChess" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.igorternyuk.tests.engine.board" />
+      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.tests.engine.board.BoardTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -976,6 +927,44 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1032,18 +1021,44 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="3">
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Application.App" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.BoardTest.initialStandardBoard" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.BoardTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.BoardTest" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.BoardTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.BoardTest.initialStandardBoard" />
-        <item index="2" class="java.lang.String" itemvalue="Application.App" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Application.App" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.BoardTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.BoardTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.BoardTest.initialStandardBoard" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -1074,7 +1089,10 @@
       <workItem from="1520225835597" duration="31042000" />
       <workItem from="1520317099823" duration="31684000" />
       <workItem from="1520404268252" duration="20292000" />
-      <workItem from="1520485586183" duration="9637000" />
+      <workItem from="1520485586183" duration="10409000" />
+      <workItem from="1520577126396" duration="1543000" />
+      <workItem from="1521272812036" duration="2458000" />
+      <workItem from="1532940235482" duration="1614000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -1094,9 +1112,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BoardTest - 2018.03.08 at 13h 02m 52s.xml">
-      <configuration name="BoardTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="BoardTest - 2018.03.08 at 13h 26m 26s.xml">
       <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
@@ -1108,6 +1123,9 @@
     </history-entry>
     <history-entry file="BoardTest - 2018.03.08 at 13h 57m 39s.xml">
       <configuration name="BoardTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BoardTest_(1) - 2018.03.09 at 09h 19m 29s.xml">
+      <configuration name="BoardTest (1)" configurationId="JUnit" />
     </history-entry>
     <history-entry file="BoardTest_initialStandardBoard - 2018.03.08 at 12h 18m 25s.xml">
       <configuration name="BoardTest.initialStandardBoard" configurationId="JUnit" />
@@ -1126,7 +1144,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="329614000" />
+    <option name="totallyTimeSpent" value="336001000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1138,7 +1156,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1286" height="769" extended-state="6" />
+    <frame x="0" y="0" width="1284" height="768" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="6" side_tool="false" content_ui="tabs" />
@@ -1150,12 +1168,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41885626" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27357033" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27272728" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21486267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22455573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1224,14 +1242,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Tile.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
@@ -1287,14 +1305,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/App.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#155#156#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1330,7 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="73" column="16" lean-forward="false" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,7 +1358,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="581" column="43" lean-forward="false" selection-start-line="581" selection-start-column="43" selection-end-line="581" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1360,7 +1372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3394">
           <caret line="920" column="28" lean-forward="false" selection-start-line="920" selection-start-column="28" selection-end-line="920" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1371,7 +1382,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/MoveLog.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveLog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
@@ -1389,89 +1400,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Knight.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Knight.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="39" column="4" lean-forward="false" selection-start-line="39" selection-start-column="4" selection-end-line="42" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/Alliance.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/Alliance.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/BoardOrientation.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/BoardOrientation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/King.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/King.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="41" column="5" lean-forward="false" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Piece.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
           <caret line="62" column="26" lean-forward="false" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Pawn.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/GameStatus.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/GameStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
           <caret line="81" column="9" lean-forward="false" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
-          <folding>
-            <element signature="e#161#162#0" expanded="false" />
-            <element signature="e#210#211#0" expanded="false" />
-            <element signature="e#267#268#0" expanded="false" />
-            <element signature="e#303#304#0" expanded="false" />
-            <element signature="e#381#382#0" expanded="false" />
-            <element signature="e#439#440#0" expanded="false" />
-            <element signature="e#496#497#0" expanded="false" />
-            <element signature="e#531#532#0" expanded="false" />
-            <element signature="e#609#610#0" expanded="false" />
-            <element signature="e#667#668#0" expanded="false" />
-            <element signature="e#724#725#0" expanded="false" />
-            <element signature="e#759#760#0" expanded="false" />
-            <element signature="e#845#846#0" expanded="false" />
-            <element signature="e#895#896#0" expanded="false" />
-            <element signature="e#952#953#0" expanded="false" />
-            <element signature="e#987#988#0" expanded="false" />
-            <element signature="e#1085#1086#0" expanded="false" />
-            <element signature="e#1148#1149#0" expanded="false" />
-            <element signature="e#1205#1206#0" expanded="false" />
-            <element signature="e#1240#1241#0" expanded="false" />
-            <element signature="e#1337#1338#0" expanded="false" />
-            <element signature="e#1399#1400#0" expanded="false" />
-            <element signature="e#1456#1457#0" expanded="false" />
-            <element signature="e#1491#1492#0" expanded="false" />
-            <element signature="e#1584#1585#0" expanded="false" />
-            <element signature="e#1642#1643#0" expanded="false" />
-            <element signature="e#1699#1700#0" expanded="false" />
-            <element signature="e#1734#1735#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1482,125 +1456,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4806">
-          <caret line="55" column="15" lean-forward="false" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/BoardUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-441">
           <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/GameType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding>
-            <element signature="e#277#278#0" expanded="false" />
-            <element signature="e#313#314#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-          <folding>
-            <element signature="e#858#859#0" expanded="true" />
-            <element signature="e#904#905#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="474" column="13" lean-forward="true" selection-start-line="474" selection-start-column="13" selection-end-line="474" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/MoveStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/moves/MoveTransition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Bishop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="36" column="36" lean-forward="false" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Rook.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/Queen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2010">
-          <caret line="142" column="44" lean-forward="false" selection-start-line="142" selection-start-column="27" selection-end-line="142" selection-end-column="44" />
-          <folding>
             <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/GameHistoryPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2196">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="474">
+          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/TakenPiecesPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
+        <state relative-caret-position="774">
+          <caret line="474" column="13" lean-forward="true" selection-start-line="474" selection-start-column="13" selection-end-line="474" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveTransition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Bishop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="36" column="36" lean-forward="false" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Rook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Queen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2010">
+          <caret line="142" column="44" lean-forward="false" selection-start-line="142" selection-start-column="27" selection-end-line="142" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/GameHistoryPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4643#4644#0" expanded="false" />
+            <element signature="e#4827#4828#0" expanded="false" />
+            <element signature="e#5265#5266#0" expanded="false" />
+            <element signature="e#5321#5322#0" expanded="false" />
+            <element signature="e#5612#5613#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/TakenPiecesPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
           <caret line="62" column="63" lean-forward="false" selection-start-line="62" selection-start-column="63" selection-end-line="62" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/pieces/PieceType.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="26" lean-forward="false" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
@@ -1608,75 +1553,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/gui/ResourceManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="47" column="23" lean-forward="false" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+        <state relative-caret-position="540">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Tile.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="e#1341#1342#0" expanded="true" />
-            <element signature="e#1376#1377#0" expanded="true" />
-            <element signature="e#1411#1412#0" expanded="true" />
-            <element signature="e#1445#1446#0" expanded="true" />
-            <element signature="e#1481#1482#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="372" column="52" lean-forward="false" selection-start-line="372" selection-start-column="52" selection-end-line="372" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1170">
+        <state relative-caret-position="810">
           <caret line="88" column="76" lean-forward="false" selection-start-line="88" selection-start-column="76" selection-end-line="88" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/WhitePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="47" selection-end-column="5" />
-          <folding>
-            <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/BlackPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="435">
           <caret line="45" column="21" lean-forward="false" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/BoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
           <folding>
-            <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3240">
-          <caret line="222" column="24" lean-forward="false" selection-start-line="222" selection-start-column="24" selection-end-line="222" selection-end-column="24" />
+        <state relative-caret-position="705">
+          <caret line="62" column="40" lean-forward="false" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/ResourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="76" column="39" lean-forward="false" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/GameType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4440">
+          <caret line="352" column="11" lean-forward="false" selection-start-line="352" selection-start-column="11" selection-end-line="352" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#5585#5586#0" expanded="true" />
+            <element signature="e#5865#5866#0" expanded="true" />
+            <element signature="e#6135#6136#0" expanded="true" />
+            <element signature="e#6178#6179#0" expanded="true" />
+            <element signature="e#6216#6217#0" expanded="true" />
+            <element signature="e#6293#6294#0" expanded="true" />
+            <element signature="e#6372#6373#0" expanded="true" />
+            <element signature="e#6812#6813#0" expanded="true" />
+            <element signature="e#9220#9221#0" expanded="true" />
           </folding>
         </state>
       </provider>
