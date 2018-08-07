@@ -6,14 +6,14 @@ import java.util.Objects;
  * Created by igor on 01.12.17.
  */
 
-public class Position {
+public class Location {
     private int x,y;
 
-    public Position(){
+    public Location() {
         this(0,0);
     }
 
-    public Position(int x, int y) {
+    public Location(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -28,9 +28,9 @@ public class Position {
 
     @Override
     public boolean equals(Object that) {
-        if (that == null || !(that instanceof Position)) return false;
+        if (that == null || !(that instanceof Location)) return false;
         if (this == that) return true;
-        Position other = (Position) that;
+        Location other = (Location) that;
         return Objects.equals(this.x, other.getX()) && Objects.equals(this.y, other.getY());
     }
 

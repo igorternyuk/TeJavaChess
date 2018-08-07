@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
@@ -22,7 +23,7 @@ public class BoardTest {
     public void initialStandardBoard(){
         Board standardBoard = Board.createStandardBoard();
 
-        assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().size(), 20);
+        assertThat(standardBoard.getCurrentPlayer().getLegalMoves().size(), is(20));
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().size(), 20);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
                 .filter(move -> move.isPawnMove()).count(), 16);
@@ -184,15 +185,15 @@ public class BoardTest {
         });
 
         assertTrue(randomBoard.getQueensRookStartCoordinateX() <
-                randomBoard.getCurrentPlayer().getPlayerKing().getPosition().getX());
+                randomBoard.getCurrentPlayer().getPlayerKing().getLocation().getX());
         assertTrue(randomBoard.getKingsRookStartCoordinateX() >
-                randomBoard.getCurrentPlayer().getPlayerKing().getPosition().getX());
+                randomBoard.getCurrentPlayer().getPlayerKing().getLocation().getX());
         assertTrue(randomBoard.getQueensRookStartCoordinateX() <
-                randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPosition().getX());
+                randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getLocation().getX());
         assertTrue(randomBoard.getKingsRookStartCoordinateX() >
-                randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPosition().getX());
-        assertEquals(randomBoard.getCurrentPlayer().getPlayerKing().getPosition().getX(),
-        randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPosition().getX());
+                randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getLocation().getX());
+        assertEquals(randomBoard.getCurrentPlayer().getPlayerKing().getLocation().getX(),
+                randomBoard.getCurrentPlayer().getOpponent().getPlayerKing().getLocation().getX());
 
         for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
             final Piece currentWhitePiece =
@@ -211,10 +212,10 @@ public class BoardTest {
         });
 
         assertEquals(whiteBishops.size(), 2);
-        assertTrue((randomBoard.getTile(whiteBishops.get(0).getPosition()).isTileLight() &&
-                             randomBoard.getTile(whiteBishops.get(1).getPosition()).isTileDark())   ||
-                             (randomBoard.getTile(whiteBishops.get(0).getPosition()).isTileDark() &&
-                             randomBoard.getTile(whiteBishops.get(1).getPosition()).isTileLight()));
+        assertTrue((randomBoard.getTile(whiteBishops.get(0).getLocation()).isTileLight() &&
+                randomBoard.getTile(whiteBishops.get(1).getLocation()).isTileDark()) ||
+                (randomBoard.getTile(whiteBishops.get(0).getLocation()).isTileDark() &&
+                        randomBoard.getTile(whiteBishops.get(1).getLocation()).isTileLight()));
 
         final List<Piece> blackBishops = new ArrayList<>();
         randomBoard.getCurrentPlayer().getOpponent().getActivePieces().stream()
@@ -223,18 +224,9 @@ public class BoardTest {
         });
 
         assertEquals(blackBishops.size(), 2);
-        assertTrue((randomBoard.getTile(blackBishops.get(0).getPosition()).isTileLight() &&
-                              randomBoard.getTile(blackBishops.get(1).getPosition()).isTileDark())   ||
-                              (randomBoard.getTile(blackBishops.get(0).getPosition()).isTileDark() &&
-                              randomBoard.getTile(blackBishops.get(1).getPosition()).isTileLight()));
+        assertTrue((randomBoard.getTile(blackBishops.get(0).getLocation()).isTileLight() &&
+                randomBoard.getTile(blackBishops.get(1).getLocation()).isTileDark()) ||
+                (randomBoard.getTile(blackBishops.get(0).getLocation()).isTileDark() &&
+                        randomBoard.getTile(blackBishops.get(1).getLocation()).isTileLight()));
     }
-
-    @Test
-    public void getGameBoard() throws Exception {
-    }
-
-    @Test
-    public void isInsufficientMaterial() throws Exception {
-    }
-
 }

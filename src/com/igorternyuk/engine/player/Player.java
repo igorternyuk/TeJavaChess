@@ -5,7 +5,7 @@ import com.google.common.collect.Iterables;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
-import com.igorternyuk.engine.board.Position;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.moves.Move.KingsSideCastling;
@@ -35,11 +35,11 @@ public abstract class Player {
         this.board = board;
         this.king = establishKing();
         this.opponentLegalMoves = opponentMoves;
-        this.isInCheck = !Player.calculateAttacksOnTile(this.king.getPosition(), opponentMoves).isEmpty();
+        this.isInCheck = !Player.calculateAttacksOnTile(this.king.getLocation(), opponentMoves).isEmpty();
         if (!this.isCastled()) {
             final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
-            //System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
-            //        " has castles = " + castles.size());
+            /*System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
+                    " has castles = " + castles.size());*/
             final Alliance currentAlliance = this.getAlliance();
             //System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
             this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
@@ -70,6 +70,9 @@ public abstract class Player {
     }
 
     public boolean isCheckMate(){
+        System.out.println("//////////////Checking if checkmated///////////////");
+        System.out.println("this.isInCheck = " + this.isInCheck);
+        System.out.println("hasEscapeMoves() = " + hasEscapeMoves());
         return this.isInCheck && !hasEscapeMoves();
     }
 
@@ -88,9 +91,9 @@ public abstract class Player {
         }
         final Board transitedBoard = move.execute(); //This method transfers the turn to the opponent
         final Player playerWhoseMoveIsGoingToBeChecked = transitedBoard.getCurrentPlayer().getOpponent();
-        final Position currentPlayerPosition = playerWhoseMoveIsGoingToBeChecked.getPlayerKing().getPosition();
+        final Location currentPlayerLocation = playerWhoseMoveIsGoingToBeChecked.getPlayerKing().getLocation();
         final Collection<Move> opponentLegalMoves = playerWhoseMoveIsGoingToBeChecked.getOpponentLegalMoves();
-        final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerPosition, opponentLegalMoves);
+        final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(currentPlayerLocation, opponentLegalMoves);
 
         if(!kingAttacks.isEmpty()){
             return new MoveTransition(transitedBoard, move, MoveStatus.KING_IS_UNDER_CHECK);
@@ -128,22 +131,22 @@ public abstract class Player {
                     final Tile kingsRookStartTile = this.board.getTile('h', lastRank);
                     if (kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook() &&
                             kingsRookStartTile.getPiece().isFirstMove()) {
-                        if (Player.calculateAttacksOnTile(kingsRookDestinationTile.getTilePosition(),
+                        if (Player.calculateAttacksOnTile(kingsRookDestinationTile.getTileLocation(),
                                 opponentLegalMoves).isEmpty() &&
-                                Player.calculateAttacksOnTile(kingsSideKingsDestinationTile.getTilePosition(),
+                                Player.calculateAttacksOnTile(kingsSideKingsDestinationTile.getTileLocation(),
                                         opponentLegalMoves).isEmpty()) {
                             castles.add(new KingsSideCastling(this.board, this.king,
-                                    kingsSideKingsDestinationTile.getTilePosition(),
+                                    kingsSideKingsDestinationTile.getTileLocation(),
                                     (Rook) kingsRookStartTile.getPiece(),
-                                    kingsRookStartTile.getTilePosition(),
-                                    kingsRookDestinationTile.getTilePosition()));
+                                    kingsRookStartTile.getTileLocation(),
+                                    kingsRookDestinationTile.getTileLocation()));
                         }
                     }
                 }
             } else if(this.board.getGameType().isRandomFisherChess()){
                 //System.out.println("King's side castling");
                 final int backRankCoordinateY = this.getAlliance().isWhite()? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-                final int kingX = this.king.getPosition().getX();
+                final int kingX = this.king.getLocation().getX();
                 final int rookX = this.board.getKingsRookStartCoordinateX();
                 final Tile kingsRookStartTile = this.board.getTile(rookX, backRankCoordinateY);
                 final boolean isRookStartTileOK = kingsRookStartTile.isOccupied() &&
@@ -166,14 +169,14 @@ public abstract class Player {
                         //System.out.println("isCastlingRookDestinationOK = " + isCastlingRookDestinationOK);
                         if(isCastlingRookDestinationOK){
                             boolean isAllBetweenTilesOK = true;
-                            final int kingDestinationX =  kingsSideKingsDestinationTile.getTilePosition().getX();
+                            final int kingDestinationX = kingsSideKingsDestinationTile.getTileLocation().getX();
                             for(int x = kingX + 1; x <= kingDestinationX; ++x){
                                 final Tile currentTile = this.board.getTile(x, backRankCoordinateY);
                                 //System.out.println("Checking between tile x = " + x);
                                 final boolean isCurrentTileOccupiedNotByCastlingRook = currentTile.isOccupied() &&
                                         !currentTile.getPiece().equals(castlingRook);
                                 final boolean isCurrentTileUnderCheck =
-                                        !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
+                                        !Player.calculateAttacksOnTile(currentTile.getTileLocation(),
                                         opponentLegalMoves).isEmpty();
                                 //System.out.println("isCurrentTileOccupiedNotByCastlingRook = " +
                                         //isCurrentTileOccupiedNotByCastlingRook);
@@ -186,10 +189,10 @@ public abstract class Player {
                             //System.out.println("isAllBetweenTilesOK = " + isAllBetweenTilesOK);
                             if(isAllBetweenTilesOK){
                                 castles.add(new KingsSideCastling(this.board, this.king,
-                                        kingsSideKingsDestinationTile.getTilePosition(),
+                                        kingsSideKingsDestinationTile.getTileLocation(),
                                         castlingRook,
-                                        kingsRookStartTile.getTilePosition(),
-                                        kingsRookDestinationTile.getTilePosition()));
+                                        kingsRookStartTile.getTileLocation(),
+                                        kingsRookDestinationTile.getTileLocation()));
                             }
                         }
                     }
@@ -210,15 +213,15 @@ public abstract class Player {
                     if(queensSideKnightsTile.isEmpty() && queensRookStartTile.isOccupied() &&
                             queensRookStartTile.getPiece().getPieceType().isRook() &&
                             queensRookStartTile.getPiece().isFirstMove()) {
-                        if (Player.calculateAttacksOnTile(queensSideKingsDestinationTile.getTilePosition(),
+                        if (Player.calculateAttacksOnTile(queensSideKingsDestinationTile.getTileLocation(),
                                 this.getOpponentLegalMoves()).isEmpty() &&
-                                Player.calculateAttacksOnTile(queensRookDestinationTile.getTilePosition(),
+                                Player.calculateAttacksOnTile(queensRookDestinationTile.getTileLocation(),
                                         this.getOpponentLegalMoves()).isEmpty()) {
                             castles.add(new QueensSideCastling(this.board, this.king,
-                                    queensSideKingsDestinationTile.getTilePosition(),
+                                    queensSideKingsDestinationTile.getTileLocation(),
                                     (Rook) queensRookStartTile.getPiece(),
-                                    queensRookStartTile.getTilePosition(),
-                                    queensRookDestinationTile.getTilePosition()));
+                                    queensRookStartTile.getTileLocation(),
+                                    queensRookDestinationTile.getTileLocation()));
                         }
                     }
                 }
@@ -226,7 +229,7 @@ public abstract class Player {
                 //System.out.println("Queen's side castling");
                 final int backRankCoordinateY = this.getAlliance().isWhite()? BoardUtils.FIRST_RANK :
                         BoardUtils.EIGHTH_RANK;
-                final int kingX = this.king.getPosition().getX();
+                final int kingX = this.king.getLocation().getX();
                 final int rookX = this.board.getQueensRookStartCoordinateX();
                 final Tile queensRookStartTile = this.board.getTile(rookX, backRankCoordinateY);
                 final boolean isRookStartTileOK = queensRookStartTile.isOccupied() &&
@@ -250,7 +253,7 @@ public abstract class Player {
                         //System.out.println("isCastlingRookDestinationOK = " + isCastlingRookDestinationOK);
                         if(isCastlingRookDestinationOK){
                             boolean isAllBetweenTilesOK = true;
-                            final int kingDestinationX =  queensSideKingsDestinationTile.getTilePosition().getX();
+                            final int kingDestinationX = queensSideKingsDestinationTile.getTileLocation().getX();
                             for(int x = kingX - 1; x >= kingDestinationX; --x){
                                 //System.out.println("Checking between tile x = " + x);
                                 final Tile currentTile = this.board.getTile(x, backRankCoordinateY);
@@ -258,7 +261,7 @@ public abstract class Player {
                                         !currentTile.getPiece().equals(castlingRook);
                                 //System.out.println("isCurrentTileOccupiedByCastlingRook = " + isCurrentTileOccupiedNotByCastlingRook);
                                 final boolean isCurrentTileUnderCheck =
-                                        !Player.calculateAttacksOnTile(currentTile.getTilePosition(),
+                                        !Player.calculateAttacksOnTile(currentTile.getTileLocation(),
                                         opponentLegalMoves).isEmpty();
                                 //System.out.println("isCurrentTileUnderCheck = " + isCurrentTileUnderCheck);
                                 if(isCurrentTileOccupiedNotByCastlingRook || isCurrentTileUnderCheck){
@@ -269,10 +272,10 @@ public abstract class Player {
                             //System.out.println("isAllBetweenTilesOK = " + isAllBetweenTilesOK);
                             if(isAllBetweenTilesOK){
                                 castles.add(new QueensSideCastling(this.board, this.king,
-                                        queensSideKingsDestinationTile.getTilePosition(),
+                                        queensSideKingsDestinationTile.getTileLocation(),
                                         castlingRook,
-                                        queensRookStartTile.getTilePosition(),
-                                        queensRookDestinationTile.getTilePosition()));
+                                        queensRookStartTile.getTileLocation(),
+                                        queensRookDestinationTile.getTileLocation()));
                             }
                         }
                     }
@@ -292,24 +295,20 @@ public abstract class Player {
         throw new RuntimeException("\nPlayer should have the king!\n");
     }
 
-    protected static Collection<Move> calculateAttacksOnTile(final Position position,
+    protected static Collection<Move> calculateAttacksOnTile(final Location location,
                                                              final Collection<Move> opponentMoves) {
         final List<Move> attackMoves = new ArrayList<>();
-        opponentMoves.forEach(move -> {
-            if(move.getDestination().equals(position)){
-                attackMoves.add(move);
-            }
+        opponentMoves.stream().filter(move -> move.getDestination().equals(location)).forEach(move -> {
+            attackMoves.add(move);
         });
         return attackMoves;
     }
 
     private boolean hasEscapeMoves(){
-        for(final Move move: this.legalMoves) {
+        System.out.println("hasEscapeMoves(): this.legalMoves.size() = " + this.legalMoves.size());
+        return this.legalMoves.stream().anyMatch(move -> {
             final MoveTransition transition = makeMove(move);
-            if(transition.getMoveStatus().isDone()){
-                return true;
-            }
-        }
-        return false;
+            return transition.getMoveStatus().isDone();
+        });
     }
 }

@@ -4,20 +4,166 @@ package com.igorternyuk.engine.pieces;
  * Created by igor on 05.03.18.
  */
 public enum PieceType {
-    KING("k", 10000, true, false, false),
-    QUEEN("q", 900, false, false, false),
-    BISHOP("b", 300, false, false, false),
-    KNIGHT("n", 300, false, false, false),
-    ROOK("r", 500, false, true, false),
-    PAWN("p", 100, false, false, true);
+    KING("k", 10000) {
+        @Override
+        public boolean isKing() {
+            return true;
+        }
 
-    private PieceType(final String name, final int value, final boolean isKing, final boolean isRook,
-                      final boolean isPawn) {
+        @Override
+        public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return false;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return false;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return false;
+        }
+    },
+    QUEEN("q", 900) {
+        @Override
+        public boolean isKing() {
+            return false;
+        }
+
+        @Override
+        public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return false;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return false;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return true;
+        }
+    },
+    BISHOP("b", 300) {
+        @Override
+        public boolean isKing() {
+            return false;
+        }
+
+        @Override
+        public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return false;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return true;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return false;
+        }
+    },
+    KNIGHT("n", 300) {
+        @Override
+        public boolean isKing() {
+            return false;
+        }
+
+        @Override
+        public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return false;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return true;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return false;
+        }
+    },
+    ROOK("r", 500) {
+        @Override
+        public boolean isKing() {
+            return false;
+        }
+
+        @Override
+        public boolean isRook() {
+            return true;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return false;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return false;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return true;
+        }
+    },
+    PAWN("p", 100) {
+        @Override
+        public boolean isKing() {
+            return false;
+        }
+
+        @Override
+        public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isPawn() {
+            return true;
+        }
+
+        @Override
+        public boolean isMinorPiece() {
+            return false;
+        }
+
+        @Override
+        public boolean isMajorPiece() {
+            return false;
+        }
+    };
+
+    private PieceType(final String name, final int value) {
         this.name = name;
         this.value = value;
-        this.isKing = isKing;
-        this.isRook = isRook;
-        this.isPawn = isPawn;
     }
 
     public String getName() {
@@ -28,21 +174,16 @@ public enum PieceType {
         return this.value;
     }
 
-    public boolean isKing() {
-        return this.isKing;
-    }
+    public abstract boolean isKing();
 
-    public boolean isRook() {
-        return this.isRook;
-    }
+    public abstract boolean isRook();
 
-    public boolean isPawn() {
-        return this.isPawn;
-    }
+    public abstract boolean isPawn();
+
+    public abstract boolean isMinorPiece();
+
+    public abstract boolean isMajorPiece();
 
     private String name;
     private int value;
-    private boolean isKing;
-    private boolean isRook;
-    private boolean isPawn;
 }

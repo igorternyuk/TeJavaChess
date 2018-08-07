@@ -23,7 +23,7 @@ public class Board {
     private final Pawn enPassantPawn;
     private final int kingsRookStartCoordinateX;
     private final int queensRookStartCoordinateX;
-    private final Map<Position, Tile> gameBoard;
+    private final Map<Location, Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
     private final Collection<Piece> allActivePieces;
@@ -51,7 +51,7 @@ public class Board {
         this.isInsufficientMaterial = checkIfInsufficientMaterial();
     }
 
-    public Map<Position, Tile> getGameBoard() {
+    public Map<Location, Tile> getGameBoard() {
         return this.gameBoard;
     }
 
@@ -152,12 +152,12 @@ public class Board {
         return this.currentPlayer;
     }
 
-    public Tile getTile(final Position candidateDestination) {
+    public Tile getTile(final Location candidateDestination) {
         return BoardUtils.isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
     }
 
     public Tile getTile(final int x, final int y) {
-        return BoardUtils.isValidPosition(x, y) ? gameBoard.get(BoardUtils.positions[y][x]) : null;
+        return BoardUtils.isValidPosition(x, y) ? gameBoard.get(BoardUtils.LOCATIONS[y][x]) : null;
     }
 
     public Tile getTile(final char file, final int rank) {
@@ -173,7 +173,7 @@ public class Board {
     }
 
     public static class Builder {
-        private Map<Position, Piece> boardPattern;
+        private Map<Location, Piece> boardPattern;
         private Alliance nextMoveMaker;
         private Pawn enPassantPawn;
         private GameType gameType;
@@ -190,7 +190,7 @@ public class Board {
         }
 
         public Builder setPiece(final Piece piece) {
-            this.boardPattern.put(piece.getPosition(), piece);
+            this.boardPattern.put(piece.getLocation(), piece);
             return this;
         }
 
@@ -354,7 +354,7 @@ public class Board {
         return ImmutableList.copyOf(legalMoves);
     }
 
-    private static Collection<Piece> detectActivePieces(final Map<Position, Tile> gameBoard,
+    private static Collection<Piece> detectActivePieces(final Map<Location, Tile> gameBoard,
                                                         final Alliance alliance) {
         final List<Piece> pieces = gameBoard.values().stream()
                 .filter(tile -> tile.isOccupied() && tile.getPiece().getAlliance().equals(alliance))
@@ -362,14 +362,14 @@ public class Board {
         return ImmutableList.copyOf(pieces);
     }
 
-    private static Map<Position, Tile> createGameBoard(final Builder builder) {
-        final Map<Position, Tile> tiles = new HashMap<>();
+    private static Map<Location, Tile> createGameBoard(final Builder builder) {
+        final Map<Location, Tile> tiles = new HashMap<>();
         for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
             for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                final Position position = BoardUtils.getPosition(x, y);
-                final Piece piece = builder.boardPattern.get(position);
-                final Tile tile = Tile.createTile(position, piece);
-                tiles.put(position, tile);
+                final Location location = BoardUtils.getPosition(x, y);
+                final Piece piece = builder.boardPattern.get(location);
+                final Tile tile = Tile.createTile(location, piece);
+                tiles.put(location, tile);
             }
         }
         return ImmutableMap.copyOf(tiles);

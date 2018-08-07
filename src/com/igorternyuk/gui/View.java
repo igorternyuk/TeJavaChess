@@ -189,19 +189,19 @@ public class View {
                 PROMOTED_PIECE_OPTIONS, PROMOTED_PIECE_OPTIONS[0]);
         switch (userAnswer){
             case 0:
-                newPiece = Rook.createRook(destinationTile.getTilePosition(),
+                newPiece = Rook.createRook(destinationTile.getTileLocation(),
                         humanMovedPiece.getAlliance(),false);
                 break;
             case 1:
-                newPiece = Bishop.createBishop(destinationTile.getTilePosition(),
+                newPiece = Bishop.createBishop(destinationTile.getTileLocation(),
                         humanMovedPiece.getAlliance(),false);
                 break;
             case 2:
-                newPiece = Knight.createKnight(destinationTile.getTilePosition(),
+                newPiece = Knight.createKnight(destinationTile.getTileLocation(),
                         humanMovedPiece.getAlliance(),false);
                 break;
             default:
-                newPiece = Queen.createQueen(destinationTile.getTilePosition(),
+                newPiece = Queen.createQueen(destinationTile.getTileLocation(),
                         humanMovedPiece.getAlliance(),false);
                 break;
         }
@@ -238,9 +238,9 @@ public class View {
                         } else {
                             destinationTile = chessBoard.getTile(x,y);
                             if(destinationTile != null){
-                                //System.out.println("Destination tile = " + destinationTile.getTilePosition());
+                                //System.out.println("Destination tile = " + destinationTile.getTileLocation());
                                 final Move move = detectMove();
-                                if(game.tryToMakeTheMove(move)){
+                                if (game.tryToMakeMove(move)) {
                                     chessBoard = game.getChessBoard();
                                     lastMove = move;
                                     gameHistoryPanel.update(chessBoard, game.getMoveLog());
@@ -300,38 +300,38 @@ public class View {
                 final int backRankCoordinateY =
                         chessBoard.getCurrentPlayer().getAlliance().isWhite() ?
                                 BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-                final Position kingSideRookStartPosition =
+                final Location kingSideRookStartLocation =
                         BoardUtils.getPosition(kingsRookStartCoordinateX, backRankCoordinateY);
-                final Position queenSideRookStartPosition =
+                final Location queenSideRookStartLocation =
                         BoardUtils.getPosition(queensRookStartCoordinateX, backRankCoordinateY);
-                final Position kingsSideKingPosition =
+                final Location kingsSideKingLocation =
                         BoardUtils.getKingsSideCastlingKingTargetPosition(currentPlayerAlliance);
-                final Position queensSideKingPosition =
+                final Location queensSideKingLocation =
                         BoardUtils.getQueensSideCastlingKingTargetPosition(currentPlayerAlliance);
-                final Position kingsSideRookTargetPosition =
+                final Location kingsSideRookTargetLocation =
                         BoardUtils.getKingsSideCastlingRookTargetPosition(currentPlayerAlliance);
-                final Position queensSideRookTargetPosition =
+                final Location queensSideRookTargetLocation =
                         BoardUtils.getQueensSideCastlingRookTargetPosition(currentPlayerAlliance);
 
-                if(destinationTile.getTilePosition().equals(kingSideRookStartPosition)) {
-                    Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartPosition);
+                if (destinationTile.getTileLocation().equals(kingSideRookStartLocation)) {
+                    Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartLocation);
                     if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)kingsRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
                             return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
-                                    startTile.getTilePosition(), kingsSideKingPosition, castlingRook,
-                                    kingsSideRookTargetPosition);
+                                    startTile.getTileLocation(), kingsSideKingLocation, castlingRook,
+                                    kingsSideRookTargetLocation);
                         }
                     }
 
-                } else if(destinationTile.getTilePosition().equals(queenSideRookStartPosition)){
-                    Tile queensRookStartTile = chessBoard.getTile(queenSideRookStartPosition);
+                } else if (destinationTile.getTileLocation().equals(queenSideRookStartLocation)) {
+                    Tile queensRookStartTile = chessBoard.getTile(queenSideRookStartLocation);
                     if(queensRookStartTile.isOccupied() && queensRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)queensRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
                             return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
-                                    startTile.getTilePosition(), queensSideKingPosition, castlingRook,
-                                    queensSideRookTargetPosition);
+                                    startTile.getTileLocation(), queensSideKingLocation, castlingRook,
+                                    queensSideRookTargetLocation);
                         }
                     }
                 }
@@ -339,19 +339,19 @@ public class View {
 
             if(humanMovedPiece.getPieceType().isPawn() &&
                     chessBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
-                            .getTilePosition())){
+                            .getTileLocation())) {
                 final Piece promotedPiece = isAutoQueenEnabled ?
-                        Queen.createQueen(destinationTile.getTilePosition(),
+                        Queen.createQueen(destinationTile.getTileLocation(),
                                 humanMovedPiece.getAlliance(),false) :
                         choosePromotedPiece();
                 return Move.MoveFactory.createPawnPromotionMove(chessBoard,
-                       startTile.getTilePosition(),
-                       destinationTile.getTilePosition(),
+                        startTile.getTileLocation(),
+                        destinationTile.getTileLocation(),
                        promotedPiece);
 
             }
-            return Move.MoveFactory.createMove(chessBoard, startTile.getTilePosition(),
-                    destinationTile.getTilePosition());
+            return Move.MoveFactory.createMove(chessBoard, startTile.getTileLocation(),
+                    destinationTile.getTileLocation());
         }
 
         @Override
@@ -413,8 +413,8 @@ public class View {
             chessBoard.getAllActivePieces().stream().filter(piece -> !piece.equals(humanMovedPiece))
                     .forEach((Piece piece) -> {
                         final BufferedImage bufferedImage = RESOURCE_MANAGER.getPieceImage(piece);
-                        final int pieceX = piece.getPosition().getX();
-                        final int pieceY = piece.getPosition().getY();
+                        final int pieceX = piece.getLocation().getX();
+                        final int pieceY = piece.getLocation().getY();
                         if(boardOrientation.isOpposite()){
                             final int flippedX = calculateFlippedCoordinate(pieceX);
                             final int flippedY = calculateFlippedCoordinate(pieceY);
@@ -457,8 +457,8 @@ public class View {
             //This part of code draw arrow which highlights last move
             g2D.setColor(Color.RED);
             g2D.setStroke(new BasicStroke(LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH));
-            int arrowStartPointX = lastMove.getMovedPiece().getPosition().getX();
-            int arrowStartPointY = lastMove.getMovedPiece().getPosition().getY();
+            int arrowStartPointX = lastMove.getMovedPiece().getLocation().getX();
+            int arrowStartPointY = lastMove.getMovedPiece().getLocation().getY();
             int arrowEndPointX = lastMove.getDestination().getX();
             int arrowEndPointY = lastMove.getDestination().getY();
 

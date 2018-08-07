@@ -2,7 +2,7 @@ package com.igorternyuk.engine;
 
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.GameType;
-import com.igorternyuk.engine.board.Position;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.moves.MoveLog;
@@ -63,7 +63,7 @@ public class Game {
         gameStatus = GameStatus.RUNNING;
     }
 
-    public boolean tryToMakeTheMove(final Move move){
+    public boolean tryToMakeMove(final Move move) {
         final MoveTransition moveTransition = this.chessBoard.getCurrentPlayer().makeMove(move);
         final Alliance currentPlayerAlliance = this.chessBoard.getCurrentPlayer().getAlliance();
         if(moveTransition.getMoveStatus().isDone()){
@@ -140,10 +140,10 @@ public class Game {
     }
 
     private boolean checkThresholdRepetition(){
-        Map<Position,Tile> currentGameBoard = this.chessBoard.getGameBoard();
+        Map<Location, Tile> currentGameBoard = this.chessBoard.getGameBoard();
         long occurenceCount = this.moveLog.getMoves().stream().filter( move ->
                 move.getBoard().getGameBoard().equals(currentGameBoard)).count();
-        System.out.println("Current position occurence count = " + occurenceCount);
+        System.out.println("Current location occurence count = " + occurenceCount);
         return (occurenceCount + 1) >= REPETITION_THRESHOLD;
     }
 

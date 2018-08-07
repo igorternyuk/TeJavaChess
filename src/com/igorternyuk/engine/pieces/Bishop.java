@@ -4,9 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.moves.Move;
-import com.igorternyuk.engine.board.Position;
 
+import java.awt.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,19 +19,19 @@ import java.util.Map;
 public class Bishop extends Piece {
     private static final int[] DX = { -1, -1, 1, 1 };
     private static final int[] DY = { -1, 1, -1, 1 };
-    private static final Map<Position, Bishop> WHITE_ALREADY_MOVED_BISHOPS = createAllPossibleWhiteBishops(false);
-    private static final Map<Position, Bishop> WHITE_NOT_MOVED_BISHOPS = createAllPossibleWhiteBishops(true);
-    private static final Map<Position, Bishop> BLACK_ALREADY_MOVED_BISHOPS = createAllPossibleBlackBishops(false);
-    private static final Map<Position, Bishop> BLACK_NOT_MOVED_BISHOPS = createAllPossibleBlackBishops(true);
+    private static final Map<Location, Bishop> WHITE_ALREADY_MOVED_BISHOPS = createAllPossibleWhiteBishops(false);
+    private static final Map<Location, Bishop> WHITE_NOT_MOVED_BISHOPS = createAllPossibleWhiteBishops(true);
+    private static final Map<Location, Bishop> BLACK_ALREADY_MOVED_BISHOPS = createAllPossibleBlackBishops(false);
+    private static final Map<Location, Bishop> BLACK_NOT_MOVED_BISHOPS = createAllPossibleBlackBishops(true);
 
 
-    public static Bishop createBishop(final Position position, final Alliance alliance, final boolean isFirstMove){
+    public static Bishop createBishop(final Location location, final Alliance alliance, final boolean isFirstMove) {
         if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_BISHOPS.get(position) :
-                    BLACK_NOT_MOVED_BISHOPS.get(position);
+            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_BISHOPS.get(location) :
+                    BLACK_NOT_MOVED_BISHOPS.get(location);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_BISHOPS.get(position) :
-                    BLACK_ALREADY_MOVED_BISHOPS.get(position);
+            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_BISHOPS.get(location) :
+                    BLACK_ALREADY_MOVED_BISHOPS.get(location);
         }
     }
 
@@ -52,13 +53,21 @@ public class Bishop extends Piece {
         this(BoardUtils.getPosition(x,y), alliance, isFirstMove);
     }
 
-    private Bishop(final Position piecePosition, final Alliance pieceAlliance, final boolean isFirstMove) {
-        super(PieceType.BISHOP, piecePosition, pieceAlliance, isFirstMove);
+    private Bishop(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
+        super(PieceType.BISHOP, pieceLocation, pieceAlliance, isFirstMove);
+    }
+
+    @Override
+    public void setPossibleOffsets() {
+        this.moveOffsets.add(new Point(-1, -1));
+        this.moveOffsets.add(new Point(-1, 1));
+        this.moveOffsets.add(new Point(1, -1));
+        this.moveOffsets.add(new Point(1, 1));
     }
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return getLinearlyMovingPiecesLegalMoves(board, DX, DY);
+        return getLinearlyMovingPiecesLegalMoves(board);
     }
 
     @Override
@@ -70,29 +79,29 @@ public class Bishop extends Piece {
         }
     }
 
-    private static final Map<Position,Bishop> createAllPossibleWhiteBishops(final boolean isFirstMove) {
+    private static final Map<Location, Bishop> createAllPossibleWhiteBishops(final boolean isFirstMove) {
         return createAllPossibleBishops(Alliance.WHITE, isFirstMove);
     }
 
-    private static final Map<Position,Bishop> createAllPossibleBlackBishops(final boolean isFirstMove) {
+    private static final Map<Location, Bishop> createAllPossibleBlackBishops(final boolean isFirstMove) {
         return createAllPossibleBishops(Alliance.BLACK, isFirstMove);
     }
 
-    private static final Map<Position,Bishop> createAllPossibleBishops(final Alliance alliance,
-                                                                       final boolean isFirstMove){
-        Map<Position, Bishop> bishops = new HashMap<>();
+    private static final Map<Location, Bishop> createAllPossibleBishops(final Alliance alliance,
+                                                                        final boolean isFirstMove){
+        Map<Location, Bishop> bishops = new HashMap<>();
         if(isFirstMove){
             final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
             for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                final Position currentPosition = BoardUtils.getPosition(x,backRank);
-                bishops.put(currentPosition, new Bishop(currentPosition, alliance, true));
+                final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                bishops.put(currentLocation, new Bishop(currentLocation, alliance, true));
             }
 
         } else {
             for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
                 for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                    final Position currentPosition = BoardUtils.getPosition(x,y);
-                    bishops.put(currentPosition, new Bishop(currentPosition, alliance, false));
+                    final Location currentLocation = BoardUtils.getPosition(x, y);
+                    bishops.put(currentLocation, new Bishop(currentLocation, alliance, false));
                 }
             }
         }
@@ -101,6 +110,6 @@ public class Bishop extends Piece {
 
     /*@Override
     public String toString() {
-        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.getPosition);
+        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.getLocation);
     }*/
 }

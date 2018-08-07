@@ -1,7 +1,7 @@
 package com.igorternyuk.engine;
 
 import com.igorternyuk.engine.board.BoardUtils;
-import com.igorternyuk.engine.board.Position;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.player.BlackPlayer;
 import com.igorternyuk.engine.player.Player;
 import com.igorternyuk.engine.player.WhitePlayer;
@@ -33,8 +33,8 @@ public enum Alliance {
         }
 
         @Override
-        public boolean isPawnPromotionSquare(final Position position) {
-            return position.getY() == BoardUtils.EIGHTH_RANK;
+        public boolean isPawnPromotionSquare(final Location location) {
+            return location.getY() == BoardUtils.EIGHTH_RANK;
         }
 
         @Override
@@ -69,8 +69,8 @@ public enum Alliance {
         }
 
         @Override
-        public boolean isPawnPromotionSquare(final Position position) {
-            return position.getY() == BoardUtils.FIRST_RANK;
+        public boolean isPawnPromotionSquare(final Location location) {
+            return location.getY() == BoardUtils.FIRST_RANK;
         }
 
         @Override
@@ -87,7 +87,8 @@ public enum Alliance {
     public abstract int getOppositeDirectionY();
     public abstract boolean isWhite();
     public abstract boolean isBlack();
-    public abstract boolean isPawnPromotionSquare(final Position position);
+
+    public abstract boolean isPawnPromotionSquare(final Location location);
 
     public abstract Player choosePlayer(final WhitePlayer whitePlayer, final BlackPlayer blackPlayer);
 }

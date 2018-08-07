@@ -4,10 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
-import com.igorternyuk.engine.moves.Move;
-import com.igorternyuk.engine.board.Position;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
+import com.igorternyuk.engine.moves.Move;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,20 +18,49 @@ import java.util.Objects;
  * Created by igor on 26.11.17.
  */
 
-public abstract class Piece{
+public abstract class Piece {
     protected final PieceType pieceType;
-    protected final Position position;
+    protected final Location location;
     protected final boolean isFirstMove;
+    protected Alliance alliance;
+    protected final List<Point> moveOffsets = new ArrayList<>();
     private final int cachedHashCode;
+
+
+    protected Piece(final PieceType pieceType, final Location location, final Alliance alliance,
+                    final boolean isFirstMove) {
+        this.pieceType = pieceType;
+        this.location = location;
+        this.alliance = alliance;
+        this.isFirstMove = isFirstMove;
+        this.cachedHashCode = computeHashCode();
+        setPossibleOffsets();
+    }
+
+    public Piece(final PieceType pieceType, final Location location, final Alliance alliance) {
+        this(pieceType, location, alliance, false);
+    }
+
+    public Piece(PieceType pieceType, final int x, final int y, final Alliance alliance) {
+        this(pieceType, BoardUtils.getPosition(x, y), alliance);
+    }
+
+    public abstract void setPossibleOffsets();
+
+    public abstract Collection<Move> getLegalMoves(final Board board);
+
+    public abstract Piece move(final Move move);
 
     public PieceType getPieceType() {
         return this.pieceType;
     }
 
-    public int getValue() { return this.pieceType.getValue(); }
+    public int getValue() {
+        return this.pieceType.getValue();
+    }
 
-    public Position getPosition() {
-        return this.position;
+    public Location getLocation() {
+        return this.location;
     }
 
     public Alliance getAlliance() {
@@ -41,81 +71,69 @@ public abstract class Piece{
         return this.isFirstMove;
     }
 
-    protected Alliance alliance;
-
-    public Piece(final PieceType pieceType, final Position position, final Alliance alliance, boolean isFirstMove){
-        this.pieceType = pieceType;
-        this.position = position;
-        this.alliance = alliance;
-        this.isFirstMove = isFirstMove;
-        this.cachedHashCode = computeHashCode();
-    }
-
-    public Piece(final PieceType pieceType, final Position position, final Alliance alliance) {
-        this(pieceType, position, alliance, false);
-    }
-
-    public Piece(PieceType pieceType, final int x, final int y, final Alliance alliance){
-        this(pieceType, BoardUtils.getPosition(x,y), alliance);
-    }
-
-    public abstract Collection<Move> getLegalMoves(final Board board);
-    public abstract Piece move(final Move move);
-
-    protected final Collection<Move> getLinearlyMovingPiecesLegalMoves(final Board board, final int[] DX,
-                                                                       final int[] DY){
+    protected final Collection<Move> getLinearlyMovingPiecesLegalMoves(final Board board) {
         List<Move> legalMoves = new ArrayList<>();
-        for(int i = 0; i < DX.length; ++i){
-            //int counter = 0;
-            int destX = this.position.getX() + DX[i];
-            int destY = this.position.getY() + DY[i];
-            while (checkAndAddMoveIfLegal(board, legalMoves, destX, destY)){
-                //++counter;
-                //System.out.println("Infinite loop -> " + counter);
-                destX += DX[i];
-                destY += DY[i];
-            }
-        }
+        this.moveOffsets.forEach(offset -> {
+            int destX = this.location.getX() + offset.x;
+            int destY = this.location.getY() + offset.y;
+            if (BoardUtils.isValidPosition(destX, destY)) {
+                Location candidateDestination = BoardUtils.getPosition(destX, destY);
+                while (true) {
+                    Move move = getNextMove(board, candidateDestination);
+                    if (move.equals(Move.NULL_MOVE)) {
+                        break;
+                    } else {
+                        legalMoves.add(move);
+                        if (move.isCapturingMove()) {
+                            break;
+                        } else {
+                            destX += offset.x;
+                            destY += offset.y;
+                            if (BoardUtils.isValidPosition(destX, destY)) {
+                                candidateDestination = BoardUtils.getPosition(destX, destY);
+                            } else {
+                                break;
+                            }
+                        }
 
-        return ImmutableList.copyOf(legalMoves);
-    }
-
-    protected final Collection<Move> getOneStepMovingPieceLegalMoves(final Board board, final int[] DX,
-                                                                     final int[] DY) {
-        List<Move> legalMoves = new ArrayList<>();
-        for(int i = 0; i < DX.length; ++i){
-            final int destX = this.position.getX() + DX[i];
-            final int destY = this.position.getY() + DY[i];
-            checkAndAddMoveIfLegal(board, legalMoves, destX, destY);
-        }
-
-        return ImmutableList.copyOf(legalMoves);
-    }
-
-    private boolean checkAndAddMoveIfLegal(final Board board, List<Move> legalMoves, final int destX,
-                                           final int destY){
-        boolean hasMoreMovesInTheCurrentDirection = true;
-        if(BoardUtils.isValidPosition(destX, destY)){
-            final Position candidateDestination = BoardUtils.getPosition(destX, destY);
-            final Tile destinationTile = board.getTile(destX, destY);
-            if(destinationTile.isOccupied()){
-                final Piece capturedPiece = destinationTile.getPiece();
-                if(!this.getAlliance().equals(capturedPiece.getAlliance())){
-                    legalMoves.add(new Move.PieceCapturingMove(board, this, candidateDestination,
-                            capturedPiece));
+                    }
                 }
-                hasMoreMovesInTheCurrentDirection = false;
             }
-            else {
-                legalMoves.add(new Move.RegularMove(board, this, candidateDestination));
-            }
-        } else {
-            hasMoreMovesInTheCurrentDirection = false;
-        }
-        return hasMoreMovesInTheCurrentDirection;
+        });
+        return ImmutableList.copyOf(legalMoves);
     }
 
+    protected final Collection<Move> getOneStepMovingPieceLegalMoves(final Board board) {
+        List<Move> legalMoves = new ArrayList<>();
+        this.moveOffsets.forEach(offset -> {
+            int destX = this.location.getX() + offset.x;
+            int destY = this.location.getY() + offset.y;
+            if (BoardUtils.isValidPosition(destX, destY)) {
+                final Location candidateDestination = BoardUtils.getPosition(destX, destY);
+                Move move = getNextMove(board, candidateDestination);
+                if (!move.equals(Move.NULL_MOVE)) {
+                    legalMoves.add(move);
+                }
+            }
+        });
+        return ImmutableList.copyOf(legalMoves);
+    }
 
+    private Move getNextMove(final Board board, final Location candidateDestination) {
+        if (BoardUtils.isValidPosition(candidateDestination)) {
+            final Tile destinationTile = board.getTile(candidateDestination);
+            if (destinationTile.isOccupied()) {
+                final Piece capturedPiece = destinationTile.getPiece();
+                if (!this.getAlliance().equals(capturedPiece.getAlliance())) {
+                    return new Move.PieceCapturingMove(board, this, candidateDestination,
+                            capturedPiece);
+                }
+            } else {
+                return new Move.RegularMove(board, this, candidateDestination);
+            }
+        }
+        return Move.NULL_MOVE;
+    }
 
     @Override
     public boolean equals(final Object other) {
@@ -125,7 +143,7 @@ public abstract class Piece{
         final Piece otherPiece = (Piece) other;
         return Objects.equals(this.isFirstMove, otherPiece.isFirstMove()) &&
                 Objects.equals(this.pieceType, otherPiece.getPieceType()) &&
-                Objects.equals(this.position, otherPiece.getPosition()) &&
+                Objects.equals(this.location, otherPiece.getLocation()) &&
                 Objects.equals(this.getAlliance(), otherPiece.getAlliance());
     }
 
@@ -135,14 +153,14 @@ public abstract class Piece{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.pieceType.getName().toUpperCase();
     }
 
-    private int computeHashCode(){
+    private int computeHashCode() {
         final int hash = 31;
         int result = getPieceType() != null ? getPieceType().hashCode() : 0;
-        result = hash * result + (getPosition() != null ? getPosition().hashCode() : 0);
+        result = hash * result + (getLocation() != null ? getLocation().hashCode() : 0);
         result = hash * result + (isFirstMove() ? 1 : 0);
         result = hash * result + (getAlliance() != null ? getAlliance().hashCode() : 0);
         return result;
