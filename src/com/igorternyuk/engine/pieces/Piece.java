@@ -7,6 +7,8 @@ import com.igorternyuk.engine.board.BoardUtils;
 import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
 import com.igorternyuk.engine.moves.Move;
+import com.igorternyuk.engine.moves.PieceCapturingMove;
+import com.igorternyuk.engine.moves.RegularMove;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.Objects;
  */
 
 public abstract class Piece {
+    public static final Piece NULL_PIECE = Pawn.createPawn(BoardUtils.NULL_LOCATION, Alliance.WHITE, false);
     protected final PieceType pieceType;
     protected final Location location;
     protected final boolean isFirstMove;
@@ -125,11 +128,11 @@ public abstract class Piece {
             if (destinationTile.isOccupied()) {
                 final Piece capturedPiece = destinationTile.getPiece();
                 if (!this.getAlliance().equals(capturedPiece.getAlliance())) {
-                    return new Move.PieceCapturingMove(board, this, candidateDestination,
+                    return new PieceCapturingMove(board, this, candidateDestination,
                             capturedPiece);
                 }
             } else {
-                return new Move.RegularMove(board, this, candidateDestination);
+                return new RegularMove(board, this, candidateDestination);
             }
         }
         return Move.NULL_MOVE;

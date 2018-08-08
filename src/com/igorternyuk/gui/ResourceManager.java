@@ -28,10 +28,9 @@ public class ResourceManager {
             this.piecesSpriteSet = ImageIO.read(new File(DEFAULT_PATH_TO_SPRITE_SET));
             this.pieceImages = createPieceImages();
             this.scaledPieceIcons = createScaledPieceIcons();
-            System.out.println("The sprite set of chess pieces has been successfully loaded");
+            //System.out.println("The sprite set of chess pieces has been successfully loaded");
         } catch (IOException e) {
             System.out.println("Could not load image");
-            //e.printStackTrace();
         }
     }
 

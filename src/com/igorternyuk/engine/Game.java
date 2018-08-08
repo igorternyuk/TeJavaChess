@@ -143,7 +143,7 @@ public class Game {
         Map<Location, Tile> currentGameBoard = this.chessBoard.getGameBoard();
         long occurenceCount = this.moveLog.getMoves().stream().filter( move ->
                 move.getBoard().getGameBoard().equals(currentGameBoard)).count();
-        System.out.println("Current location occurence count = " + occurenceCount);
+        //System.out.println("Current position occurence count = " + occurenceCount);
         return (occurenceCount + 1) >= REPETITION_THRESHOLD;
     }
 

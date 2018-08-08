@@ -7,11 +7,7 @@ import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
 import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
-import com.igorternyuk.engine.moves.Move;
-import com.igorternyuk.engine.moves.Move.KingsSideCastling;
-import com.igorternyuk.engine.moves.Move.QueensSideCastling;
-import com.igorternyuk.engine.moves.MoveStatus;
-import com.igorternyuk.engine.moves.MoveTransition;
+import com.igorternyuk.engine.moves.*;
 import com.igorternyuk.engine.pieces.King;
 import com.igorternyuk.engine.pieces.Piece;
 import com.igorternyuk.engine.pieces.Rook;
@@ -60,6 +56,18 @@ public abstract class Player {
 
     public Collection<Move> getOpponentLegalMoves(){
         return this.opponentLegalMoves;
+    }
+
+    public boolean canCastleKingSide() {
+        return this.legalMoves.stream().anyMatch(Move::isKingSideCastling);
+    }
+
+    public boolean canCastleQueenSide() {
+        return this.legalMoves.stream().anyMatch(Move::isQueenSideCastling);
+    }
+
+    public boolean canCastle() {
+        return this.legalMoves.stream().anyMatch(Move::isCastlingMove);
     }
 
     private boolean isMoveLegal(final Move move) {

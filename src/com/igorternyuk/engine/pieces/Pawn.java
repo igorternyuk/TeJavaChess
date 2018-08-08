@@ -8,7 +8,7 @@ import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
 import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.board.Tile;
-import com.igorternyuk.engine.moves.Move;
+import com.igorternyuk.engine.moves.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -103,14 +103,14 @@ public class Pawn extends Piece {
                     if (this.getAlliance().isPawnPromotionSquare(candidateDestination)) {
                         addAllPossiblePawnPromotions(board, candidateDestination, legalMoves);
                     } else {
-                        legalMoves.add(new Move.PawnMove(board, this, candidateDestination));
+                        legalMoves.add(new PawnMove(board, this, candidateDestination));
                     }
 
                     if (this.isFirstMove) {
                         //Pawn jump
                         final int jumpDestY = candidateDestination.getY() + this.getAlliance().getDirectionY();
                         if (!board.getTile(destX, jumpDestY).isOccupied()) {
-                            legalMoves.add(new Move.PawnJump(board, this, BoardUtils.getLocation(destX, jumpDestY)));
+                            legalMoves.add(new PawnJump(board, this, BoardUtils.getLocation(destX, jumpDestY)));
                         }
                     }
                 }
@@ -124,7 +124,7 @@ public class Pawn extends Piece {
                         if (this.getAlliance().isPawnPromotionSquare(candidateDestination)) {
                             addAllPossiblePawnPromotions(board, candidateDestination, legalMoves);
                         } else {
-                            legalMoves.add(new Move.PawnCapturingMove(board, this, candidateDestination,
+                            legalMoves.add(new PawnCapturingMove(board, this, candidateDestination,
                                     capturedPiece));
                         }
                     }
@@ -135,7 +135,7 @@ public class Pawn extends Piece {
                             enPassantPawn.getAlliance().getDirectionY() == this.alliance.getOppositeDirectionY() &&
                             enPassantPawn.getLocation().getY() == this.location.getY()) {
                         if (enPassantPawn.getLocation().getX() - this.location.getX() == offset.x) {
-                            legalMoves.add(new Move.PawnEnPassantCapture(board, this, candidateDestination,
+                            legalMoves.add(new PawnEnPassantCapture(board, this, candidateDestination,
                                     enPassantPawn));
                         }
                     }
@@ -148,16 +148,16 @@ public class Pawn extends Piece {
 
     private void addAllPossiblePawnPromotions(final Board board, final Location candidateDestination,
                                               final List<Move> legalMoves) {
-        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+        legalMoves.add(new PawnPromotion(new PawnMove(board,
                 this, candidateDestination), Queen.createQueen(candidateDestination,
                 this.alliance, false)));
-        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+        legalMoves.add(new PawnPromotion(new PawnMove(board,
                 this, candidateDestination), Rook.createRook(candidateDestination,
                 this.alliance, false)));
-        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+        legalMoves.add(new PawnPromotion(new PawnMove(board,
                 this, candidateDestination), Knight.createKnight(candidateDestination,
                 this.alliance, false)));
-        legalMoves.add(new Move.PawnPromotion(new Move.PawnMove(board,
+        legalMoves.add(new PawnPromotion(new PawnMove(board,
                 this, candidateDestination), Bishop.createBishop(candidateDestination,
                 this.alliance, false)));
     }
