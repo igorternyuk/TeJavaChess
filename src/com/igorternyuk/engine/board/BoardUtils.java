@@ -21,21 +21,21 @@ public class BoardUtils {
     public static final int SEVENTH_RANK = 1;
     public static final int EIGHTH_RANK = 0;
     public static final Location NULL_LOCATION = new Location(-1, -1);
-    static final Location[][] LOCATIONS = BoardUtils.createAllPossiblePositions();
-    static final Map<Character, Integer> ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X =
+    static final Location[][] LOCATIONS = BoardUtils.createAllPossibleLocations();
+    private static final Map<Character, Integer> ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X =
             BoardUtils.createAlgebraicNotationFileToCoordinateX();
-    static final char[] COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE = BoardUtils.createCoordinateXToAlgebraicNotationFile();
-    static final int[] COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK = BoardUtils.createCoordinateYToAlgebraicNotationRank();
-    static final int[] ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y = BoardUtils.createAlgebraicNotationRankToCoordinateY();
-    static final Map<String, Location> ALGEBRAIC_NOTATION_TO_POSITION = BoardUtils.createAlgebraicNotationToPositionMap();
-    static final Map<Location, String> POSITION_TO_ALGEBRAIC_NOTATION = BoardUtils.createPositionToAlgebraicNotationMap();
+    private static final char[] COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE = BoardUtils.createCoordinateXToAlgebraicNotationFile();
+    private static final int[] COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK = BoardUtils.createCoordinateYToAlgebraicNotationRank();
+    private static final int[] ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y = BoardUtils.createAlgebraicNotationRankToCoordinateY();
+    private static final Map<String, Location> ALGEBRAIC_NOTATION_TO_LOCATION = BoardUtils.createAlgebraicNotationToLocationMap();
+    private static final Map<Location, String> LOCATION_TO_ALGEBRAIC_NOTATION = BoardUtils.createLocationToAlgebraicNotationMap();
 
-    public static boolean isValidPosition(final Location location) {
+    public static boolean isValidLocation(final Location location) {
         return location.getX() >= 0 && location.getX() < BOARD_SIZE && location.getY() >= 0 &&
                 location.getY() < BOARD_SIZE;
     }
 
-    public static boolean isValidPosition(final int x, final int y) {
+    public static boolean isValidLocation(final int x, final int y) {
         return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
     }
 
@@ -56,43 +56,43 @@ public class BoardUtils {
     }
 
     public static String getAlgebraicNotationFromPosition(final Location location) {
-        return POSITION_TO_ALGEBRAIC_NOTATION.get(location);
+        return LOCATION_TO_ALGEBRAIC_NOTATION.get(location);
     }
 
     public static String getAlgebraicNotationFromCoordinates(final int x, final int y){
 
-        return POSITION_TO_ALGEBRAIC_NOTATION.get(getPosition(x,y));
+        return LOCATION_TO_ALGEBRAIC_NOTATION.get(getLocation(x, y));
     }
 
-    public static final Location getPosition(final int x, final int y) {
+    public static Location getLocation(final int x, final int y) {
         return LOCATIONS[y][x];
     }
 
-    public static Location getPosition(final String algebraicNotation) {
-        return ALGEBRAIC_NOTATION_TO_POSITION.get(algebraicNotation);
+    public static Location getLocation(final String algebraicNotation) {
+        return ALGEBRAIC_NOTATION_TO_LOCATION.get(algebraicNotation);
     }
 
-    public static Location getPosition(final char file, final int rank) {
-        return getPosition(String.valueOf(file) + String.valueOf(rank));
+    public static Location getLocation(final char file, final int rank) {
+        return getLocation(String.valueOf(file) + String.valueOf(rank));
     }
 
-    public static Location getKingsSideCastlingKingTargetPosition(final Alliance alliance) {
-        return alliance.isWhite() ? getPosition("g1") : getPosition("g8");
+    public static Location getKingsSideCastlingKingTargetLocation(final Alliance alliance) {
+        return alliance.isWhite() ? getLocation("g1") : getLocation("g8");
     }
 
-    public static Location getKingsSideCastlingRookTargetPosition(final Alliance alliance) {
-        return alliance.isWhite() ? getPosition("f1") : getPosition("f8");
+    public static Location getKingsSideCastlingRookTargetLocation(final Alliance alliance) {
+        return alliance.isWhite() ? getLocation("f1") : getLocation("f8");
     }
 
-    public static Location getQueensSideCastlingKingTargetPosition(final Alliance alliance) {
-        return alliance.isWhite() ? getPosition("c1") : getPosition("c8");
+    public static Location getQueensSideCastlingKingTargetLocation(final Alliance alliance) {
+        return alliance.isWhite() ? getLocation("c1") : getLocation("c8");
     }
 
-    public static Location getQueensSideCastlingRookTargetPosition(final Alliance alliance) {
-        return alliance.isWhite() ? getPosition("d1") : getPosition("d8");
+    public static Location getQueensSideCastlingRookTargetLocation(final Alliance alliance) {
+        return alliance.isWhite() ? getLocation("d1") : getLocation("d8");
     }
 
-    private static Location[][] createAllPossiblePositions() {
+    private static Location[][] createAllPossibleLocations() {
         Location[][] allPossibleLocations = new Location[BoardUtils.BOARD_SIZE][BoardUtils.BOARD_SIZE];
         for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
             for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
@@ -112,9 +112,7 @@ public class BoardUtils {
 
     private static char[] createCoordinateXToAlgebraicNotationFile() {
         char[] array = new char[BoardUtils.BOARD_SIZE];
-        ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X.forEach((k,v) -> {
-            array[v] = k;
-        });
+        ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X.forEach((k, v) -> array[v] = k);
         return array;
     }
 
@@ -134,7 +132,7 @@ public class BoardUtils {
         return array;
     }
 
-    private static Map<String, Location> createAlgebraicNotationToPositionMap() {
+    private static Map<String, Location> createAlgebraicNotationToLocationMap() {
         Map<String, Location> map = new HashMap<>();
         for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
             for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
@@ -147,11 +145,9 @@ public class BoardUtils {
         return map;
     }
 
-    private static Map<Location, String> createPositionToAlgebraicNotationMap() {
+    private static Map<Location, String> createLocationToAlgebraicNotationMap() {
         Map<Location, String> map = new HashMap<>();
-        ALGEBRAIC_NOTATION_TO_POSITION.forEach((k,v) -> {
-            map.put(v,k);
-        });
+        ALGEBRAIC_NOTATION_TO_LOCATION.forEach((k, v) -> map.put(v, k));
         return map;
     }
 }

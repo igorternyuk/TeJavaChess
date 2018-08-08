@@ -34,7 +34,7 @@ public class View {
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_HEIGHT = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_ANGLE = 30;
     private static final int LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH = 5;
-    final String[] PROMOTED_PIECE_OPTIONS = {"Rook", "Bishop", "Knight", "Queen"};
+    private final String[] PROMOTED_PIECE_OPTIONS = {"Rook", "Bishop", "Knight", "Queen"};
     private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
     private final Game game = new Game(GameType.CLASSIC_CHESS);
     private Board chessBoard;
@@ -57,7 +57,7 @@ public class View {
         this.mainWindow = new JFrame(TITLE_OF_MAIN_WINDOW);
         this.mainWindow.setLayout(new BorderLayout());
         this.mainWindow.setSize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
-        this.mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainWindow.setLocationRelativeTo(null);
         this.mainWindow.setResizable(false);
         final JMenuBar tableMenuBar = createMenuBar();
@@ -83,23 +83,17 @@ public class View {
         final JMenu fileMenu = new JMenu("File");
 
         final JMenuItem newClassicChessGameMenuItem = new JMenuItem("New classic chess game");
-        newClassicChessGameMenuItem.addActionListener(event->{
-            this.prepareNewClassicChessGame();
-        });
+        newClassicChessGameMenuItem.addActionListener(event -> this.prepareNewClassicChessGame());
 
         fileMenu.add(newClassicChessGameMenuItem);
 
         final JMenuItem newRandomFisherChessGameMenuItem = new JMenuItem("New random Fisher chess game");
-        newRandomFisherChessGameMenuItem.addActionListener(event->{
-            this.prepareNewRandomFisherChessGame();
-        });
+        newRandomFisherChessGameMenuItem.addActionListener(event -> this.prepareNewRandomFisherChessGame());
 
         fileMenu.add(newRandomFisherChessGameMenuItem);
 
         final JMenuItem openPGN = new JMenuItem("Load pgn file");
-        openPGN.addActionListener(event -> {
-            System.out.println("Open up that pgn file!!!");
-        });
+        openPGN.addActionListener(event -> System.out.println("Open up that pgn file!!!"));
         fileMenu.add(openPGN);
 
         final JMenuItem exitMenuItem = new JMenuItem("Exit");
@@ -139,15 +133,11 @@ public class View {
 
         final JCheckBoxMenuItem highlightLastMoveMenuItem = new JCheckBoxMenuItem("Highlight last move",
                 false);
-        highlightLastMoveMenuItem.addActionListener(event ->{
-            highlightLastMove = highlightLastMoveMenuItem.isSelected();
-        });
+        highlightLastMoveMenuItem.addActionListener(event -> highlightLastMove = highlightLastMoveMenuItem.isSelected());
         preferencesMenu.add(highlightLastMoveMenuItem);
 
         final JCheckBoxMenuItem setAutoQueenMenuItem = new JCheckBoxMenuItem("Set autoqueen");
-        setAutoQueenMenuItem.addActionListener(event->{
-            isAutoQueenEnabled = setAutoQueenMenuItem.isSelected();
-        });
+        setAutoQueenMenuItem.addActionListener(event -> isAutoQueenEnabled = setAutoQueenMenuItem.isSelected());
 
         preferencesMenu.add(setAutoQueenMenuItem);
         return preferencesMenu;
@@ -210,7 +200,7 @@ public class View {
 
 
     private class BoardPanel extends JPanel implements MouseMotionListener{
-        public BoardPanel(){
+        protected BoardPanel() {
             this.setPreferredSize(BOARD_PANEL_DIMENSION);
             this.addMouseMotionListener(this);
             this.addMouseListener(new MouseAdapter() {
@@ -301,17 +291,17 @@ public class View {
                         chessBoard.getCurrentPlayer().getAlliance().isWhite() ?
                                 BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 final Location kingSideRookStartLocation =
-                        BoardUtils.getPosition(kingsRookStartCoordinateX, backRankCoordinateY);
+                        BoardUtils.getLocation(kingsRookStartCoordinateX, backRankCoordinateY);
                 final Location queenSideRookStartLocation =
-                        BoardUtils.getPosition(queensRookStartCoordinateX, backRankCoordinateY);
+                        BoardUtils.getLocation(queensRookStartCoordinateX, backRankCoordinateY);
                 final Location kingsSideKingLocation =
-                        BoardUtils.getKingsSideCastlingKingTargetPosition(currentPlayerAlliance);
+                        BoardUtils.getKingsSideCastlingKingTargetLocation(currentPlayerAlliance);
                 final Location queensSideKingLocation =
-                        BoardUtils.getQueensSideCastlingKingTargetPosition(currentPlayerAlliance);
+                        BoardUtils.getQueensSideCastlingKingTargetLocation(currentPlayerAlliance);
                 final Location kingsSideRookTargetLocation =
-                        BoardUtils.getKingsSideCastlingRookTargetPosition(currentPlayerAlliance);
+                        BoardUtils.getKingsSideCastlingRookTargetLocation(currentPlayerAlliance);
                 final Location queensSideRookTargetLocation =
-                        BoardUtils.getQueensSideCastlingRookTargetPosition(currentPlayerAlliance);
+                        BoardUtils.getQueensSideCastlingRookTargetLocation(currentPlayerAlliance);
 
                 if (destinationTile.getTileLocation().equals(kingSideRookStartLocation)) {
                     Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartLocation);
@@ -378,12 +368,7 @@ public class View {
         }
 
         private void redraw(){
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    boardPanel.repaint();
-                }
-            });
+            SwingUtilities.invokeLater(boardPanel::repaint);
         }
 
         private void drawChessField(Graphics2D g2D){
@@ -430,7 +415,7 @@ public class View {
         private void drawLegalMovesHints(Graphics2D g2D){
             //Draw current player's legal moves
             if(highlightLegalMoves){
-                chessBoard.getCurrentPlayer().getLegalMoves().stream()
+                chessBoard.getCurrentPlayer().calcEscapeMoves().stream()
                         .filter(move -> move.getMovedPiece().equals(humanMovedPiece)).forEach(move -> {
                     g2D.setColor(Color.GREEN.brighter());
                     int x = move.getDestination().getX();
@@ -455,7 +440,7 @@ public class View {
 
         private void drawLastMoveHighlight(Graphics2D g2D){
             //This part of code draw arrow which highlights last move
-            g2D.setColor(Color.RED);
+            g2D.setColor(new Color(255, 0, 0, 127));
             g2D.setStroke(new BasicStroke(LAST_MOVE_HIGHLIGHT_ARROW_LINE_WIDTH));
             int arrowStartPointX = lastMove.getMovedPiece().getLocation().getX();
             int arrowStartPointY = lastMove.getMovedPiece().getLocation().getY();
@@ -476,7 +461,7 @@ public class View {
 
             final int dx = arrowEndPointX - arrowStartPointX;
             final int dy = arrowEndPointY - arrowStartPointY;
-            int arrowHeadLeftPointX = 0,arrowHeadLeftPointY = 0,arrowHeadRightPointX = 0,arrowHeadRightPointY = 0;
+            int arrowHeadLeftPointX, arrowHeadLeftPointY, arrowHeadRightPointX, arrowHeadRightPointY;
 
             final double arrowHalfAngle = Math.toRadians(LAST_MOVE_HIGHLIGHT_ARROW_ANGLE / 2);
             //Horizontal move

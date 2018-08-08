@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 /**
  * Created by igor on 08.03.18.
  */
-public class BoardTest {
+public class TestBoard {
 
     @Test
     public void initialStandardBoard(){
@@ -26,25 +26,25 @@ public class BoardTest {
         assertThat(standardBoard.getCurrentPlayer().getLegalMoves().size(), is(20));
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().size(), 20);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isPawnMove()).count(), 16);
+                .filter(Move::isPawnMove).count(), 16);
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isPawnMove()).count(), 16);
+                .filter(Move::isPawnMove).count(), 16);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
                 .filter(move -> move.getMovedPiece().getPieceType().equals(PieceType.KNIGHT)).count(), 4);
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
                 .filter(move -> move.getMovedPiece().getPieceType().equals(PieceType.KNIGHT)).count(), 4);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter( move->move.isCastlingMove()).count(), 0);
+                .filter(Move::isCastlingMove).count(), 0);
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move->move.isCastlingMove()).count(), 0);
+                .filter(Move::isCastlingMove).count(), 0);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isCapturingMove()).count(), 0);
+                .filter(Move::isCapturingMove).count(), 0);
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isCapturingMove()).count(), 0);
+                .filter(Move::isCapturingMove).count(), 0);
         assertEquals(standardBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isPawnPromotionMove()).count(), 0);
+                .filter(Move::isPawnPromotionMove).count(), 0);
         assertEquals(standardBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isPawnPromotionMove()).count(), 0);
+                .filter(Move::isPawnPromotionMove).count(), 0);
 
         assertFalse(standardBoard.getCurrentPlayer().isUnderCheck());
         assertFalse(standardBoard.getCurrentPlayer().isCheckMate());
@@ -133,9 +133,9 @@ public class BoardTest {
         assertTrue(opponentLegalMovesCount >= 18 && opponentLegalMovesCount <= 20);
 
         assertEquals(randomBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isPawnMove()).count(), 16);
+                .filter(Move::isPawnMove).count(), 16);
         assertEquals(randomBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isPawnMove()).count(), 16);
+                .filter(Move::isPawnMove).count(), 16);
 
         final long whiteKnightMoveCount = randomBoard.getCurrentPlayer().getLegalMoves().stream()
                 .filter(move -> move.getMovedPiece().getPieceType().equals(PieceType.KNIGHT)).count();
@@ -145,13 +145,13 @@ public class BoardTest {
         assertTrue(blackKnightMoveCount >= 2 && blackKnightMoveCount <= 4);
 
         assertEquals(randomBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isCapturingMove()).count(), 0);
+                .filter(Move::isCapturingMove).count(), 0);
         assertEquals(randomBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isCapturingMove()).count(), 0);
+                .filter(Move::isCapturingMove).count(), 0);
         assertEquals(randomBoard.getCurrentPlayer().getLegalMoves().stream()
-                .filter(move -> move.isPawnPromotionMove()).count(), 0);
+                .filter(Move::isPawnPromotionMove).count(), 0);
         assertEquals(randomBoard.getCurrentPlayer().getOpponentLegalMoves().stream()
-                .filter(move -> move.isPawnPromotionMove()).count(), 0);
+                .filter(Move::isPawnPromotionMove).count(), 0);
 
         assertFalse(randomBoard.getCurrentPlayer().isUnderCheck());
         assertFalse(randomBoard.getCurrentPlayer().isCheckMate());
@@ -207,9 +207,7 @@ public class BoardTest {
 
         final List<Piece> whiteBishops = new ArrayList<>();
         randomBoard.getCurrentPlayer().getActivePieces().stream()
-                .filter(piece -> piece.getPieceType().equals(PieceType.BISHOP)).forEach(bishop ->{
-                    whiteBishops.add(bishop);
-        });
+                .filter(piece -> piece.getPieceType().equals(PieceType.BISHOP)).forEach(whiteBishops::add);
 
         assertEquals(whiteBishops.size(), 2);
         assertTrue((randomBoard.getTile(whiteBishops.get(0).getLocation()).isTileLight() &&
@@ -219,9 +217,7 @@ public class BoardTest {
 
         final List<Piece> blackBishops = new ArrayList<>();
         randomBoard.getCurrentPlayer().getOpponent().getActivePieces().stream()
-                .filter(piece -> piece.getPieceType().equals(PieceType.BISHOP)).forEach(bishop ->{
-            blackBishops.add(bishop);
-        });
+                .filter(piece -> piece.getPieceType().equals(PieceType.BISHOP)).forEach(blackBishops::add);
 
         assertEquals(blackBishops.size(), 2);
         assertTrue((randomBoard.getTile(blackBishops.get(0).getLocation()).isTileLight() &&

@@ -26,14 +26,14 @@ public class Rook extends Piece {
             if (isFirstMove) {
                 final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    final Location currentLocation = BoardUtils.getLocation(x, backRank);
                     rooks.put(currentLocation, alliance, new Rook(currentLocation, alliance, true));
                 }
 
             } else {
                 for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
                     for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        final Location currentLocation = BoardUtils.getLocation(x, y);
                         rooks.put(currentLocation, alliance, new Rook(currentLocation, alliance, false));
                     }
                 }
@@ -51,21 +51,21 @@ public class Rook extends Piece {
     }
 
     public static Rook createRook(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createRook(BoardUtils.getPosition(x,y), alliance, isFirstMove);
+        return createRook(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     public static Rook createRook(final char file, final int rank, final Alliance alliance,
                                     final boolean isFirstMove){
-        return createRook(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
+        return createRook(BoardUtils.getLocation(file, rank), alliance, isFirstMove);
     }
 
     public static Rook createRook(final String algebraicNotationForPosition, final Alliance alliance,
                                   final boolean isFirstMove){
-        return createRook(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createRook(BoardUtils.getLocation(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Rook(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(BoardUtils.getPosition(x,y),alliance, isFirstMove);
+        this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     private Rook(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -74,10 +74,10 @@ public class Rook extends Piece {
 
     @Override
     public void setPossibleOffsets() {
-        this.moveOffsets.add(new Point(-1, 0));
-        this.moveOffsets.add(new Point(1, 0));
-        this.moveOffsets.add(new Point(0, -1));
-        this.moveOffsets.add(new Point(0, 1));
+        this.moveVectors.add(new Point(-1, 0));
+        this.moveVectors.add(new Point(1, 0));
+        this.moveVectors.add(new Point(0, -1));
+        this.moveVectors.add(new Point(0, 1));
     }
 
     @Override

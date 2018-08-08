@@ -140,19 +140,19 @@ public class Board {
     }
 
     public Tile getTile(final Location candidateDestination) {
-        return BoardUtils.isValidPosition(candidateDestination) ? gameBoard.get(candidateDestination) : null;
+        return BoardUtils.isValidLocation(candidateDestination) ? gameBoard.get(candidateDestination) : null;
     }
 
     public Tile getTile(final int x, final int y) {
-        return BoardUtils.isValidPosition(x, y) ? gameBoard.get(BoardUtils.LOCATIONS[y][x]) : null;
+        return BoardUtils.isValidLocation(x, y) ? gameBoard.get(BoardUtils.LOCATIONS[y][x]) : null;
     }
 
     public Tile getTile(final char file, final int rank) {
-        return gameBoard.get(BoardUtils.getPosition(file, rank));
+        return gameBoard.get(BoardUtils.getLocation(file, rank));
     }
 
     public Tile getTile(final String algebraicNotation) {
-        return gameBoard.get(BoardUtils.getPosition(algebraicNotation));
+        return gameBoard.get(BoardUtils.getLocation(algebraicNotation));
     }
 
     public Iterable<Move> getAllLegalMoves() {
@@ -265,9 +265,7 @@ public class Board {
         builder.setGameType(GameType.RANDOM_FISHER_CHESS);
         final Random random = new Random();
         final boolean[] rowOccupation = new boolean[BoardUtils.BOARD_SIZE];
-        for (boolean positionX : rowOccupation) {
-            positionX = false;
-        }
+        Arrays.fill(rowOccupation, false);
         //Bishops
         final int[] lightSquareBishopPossibleCoordinateX = {1, 3, 5, 7};
         final int[] darkSquareBishopPossibleCoordinateX = {0, 2, 4, 6};
@@ -335,9 +333,7 @@ public class Board {
 
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
-        pieces.forEach(piece -> {
-            legalMoves.addAll(piece.getLegalMoves(this));
-        });
+        pieces.forEach(piece -> legalMoves.addAll(piece.getLegalMoves(this)));
         return ImmutableList.copyOf(legalMoves);
     }
 
@@ -353,7 +349,7 @@ public class Board {
         final Map<Location, Tile> tiles = new HashMap<>();
         for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
             for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                final Location location = BoardUtils.getPosition(x, y);
+                final Location location = BoardUtils.getLocation(x, y);
                 final Piece piece = builder.boardPattern.get(location);
                 final Tile tile = Tile.createTile(location, piece);
                 tiles.put(location, tile);

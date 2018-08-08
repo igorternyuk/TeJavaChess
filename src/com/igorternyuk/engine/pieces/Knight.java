@@ -29,14 +29,14 @@ public class Knight extends Piece {
             if (isFirstMove) {
                 final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    final Location currentLocation = BoardUtils.getLocation(x, backRank);
                     knights.put(currentLocation, alliance, new Knight(currentLocation, alliance, true));
                 }
 
             } else {
                 for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
                     for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        final Location currentLocation = BoardUtils.getLocation(x, y);
                         knights.put(currentLocation, alliance, new Knight(currentLocation, alliance, false));
                     }
                 }
@@ -54,21 +54,21 @@ public class Knight extends Piece {
     }
 
     public static Knight createKnight(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        return createKnight(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        return createKnight(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     public static Knight createKnight(final char file, final int rank, final Alliance alliance,
                                       final boolean isFirstMove) {
-        return createKnight(BoardUtils.getPosition(file, rank), alliance, isFirstMove);
+        return createKnight(BoardUtils.getLocation(file, rank), alliance, isFirstMove);
     }
 
     public static Knight createKnight(final String algebraicNotationForPosition, final Alliance alliance,
                                       final boolean isFirstMove) {
-        return createKnight(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createKnight(BoardUtils.getLocation(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Knight(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     private Knight(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -78,14 +78,14 @@ public class Knight extends Piece {
     @Override
     public void setPossibleOffsets() {
 
-        this.moveOffsets.add(new Point(-2, -1));
-        this.moveOffsets.add(new Point(-2, 1));
-        this.moveOffsets.add(new Point(-1, -2));
-        this.moveOffsets.add(new Point(-1, 2));
-        this.moveOffsets.add(new Point(1, -2));
-        this.moveOffsets.add(new Point(1, 2));
-        this.moveOffsets.add(new Point(2, -1));
-        this.moveOffsets.add(new Point(2, 1));
+        this.moveVectors.add(new Point(-2, -1));
+        this.moveVectors.add(new Point(-2, 1));
+        this.moveVectors.add(new Point(-1, -2));
+        this.moveVectors.add(new Point(-1, 2));
+        this.moveVectors.add(new Point(1, -2));
+        this.moveVectors.add(new Point(1, 2));
+        this.moveVectors.add(new Point(2, -1));
+        this.moveVectors.add(new Point(2, 1));
     }
 
     @Override
@@ -98,11 +98,11 @@ public class Knight extends Piece {
         return ALL_MOVED_KNIGHTS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
-    private static final Map<Location, Knight> createAllPossibleWhiteKnights(final boolean isFirstMove) {
+    private static Map<Location, Knight> createAllPossibleWhiteKnights(final boolean isFirstMove) {
         return createAllPossibleKnights(Alliance.WHITE, isFirstMove);
     }
 
-    private static final Map<Location, Knight> createAllPossibleBlackKnights(final boolean isFirstMove) {
+    private static Map<Location, Knight> createAllPossibleBlackKnights(final boolean isFirstMove) {
         return createAllPossibleKnights(Alliance.BLACK, isFirstMove);
     }
 
@@ -111,14 +111,14 @@ public class Knight extends Piece {
         if (isFirstMove) {
             final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
             for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                final Location currentLocation = BoardUtils.getLocation(x, backRank);
                 knights.put(currentLocation, new Knight(currentLocation, alliance, true));
             }
 
         } else {
             for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
                 for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, y);
+                    final Location currentLocation = BoardUtils.getLocation(x, y);
                     knights.put(currentLocation, new Knight(currentLocation, alliance, false));
                 }
             }

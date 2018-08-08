@@ -26,14 +26,14 @@ public class King extends Piece {
             if (isFirstMove) {
                 final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    final Location currentLocation = BoardUtils.getLocation(x, backRank);
                     kings.put(currentLocation, alliance, new King(currentLocation, alliance, true));
                 }
 
             } else {
                 for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
                     for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        final Location currentLocation = BoardUtils.getLocation(x, y);
                         kings.put(currentLocation, alliance, new King(currentLocation, alliance, false));
                     }
                 }
@@ -51,21 +51,21 @@ public class King extends Piece {
     }
 
     public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        return createKing(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        return createKing(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     public static King createKing(final char file, final int rank, final Alliance alliance,
                                   final boolean isFirstMove) {
-        return createKing(BoardUtils.getPosition(file, rank), alliance, isFirstMove);
+        return createKing(BoardUtils.getLocation(file, rank), alliance, isFirstMove);
     }
 
     public static King createKing(final String algebraicNotationForPosition, final Alliance alliance,
                                   final boolean isFirstMove) {
-        return createKing(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createKing(BoardUtils.getLocation(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private King(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     private King(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -74,14 +74,14 @@ public class King extends Piece {
 
     @Override
     public void setPossibleOffsets() {
-        this.moveOffsets.add(new Point(-1, -1));
-        this.moveOffsets.add(new Point(-1, 1));
-        this.moveOffsets.add(new Point(1, -1));
-        this.moveOffsets.add(new Point(1, 1));
-        this.moveOffsets.add(new Point(-1, 0));
-        this.moveOffsets.add(new Point(0, 1));
-        this.moveOffsets.add(new Point(1, 0));
-        this.moveOffsets.add(new Point(0, -1));
+        this.moveVectors.add(new Point(-1, -1));
+        this.moveVectors.add(new Point(-1, 1));
+        this.moveVectors.add(new Point(1, -1));
+        this.moveVectors.add(new Point(1, 1));
+        this.moveVectors.add(new Point(-1, 0));
+        this.moveVectors.add(new Point(0, 1));
+        this.moveVectors.add(new Point(1, 0));
+        this.moveVectors.add(new Point(0, -1));
     }
 
     @Override
@@ -93,8 +93,6 @@ public class King extends Piece {
     public King move(final Move move) {
         return ALL_MOVED_KINGS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
-
-
 
     /*@Override
     public String toString() {

@@ -19,6 +19,7 @@ import com.igorternyuk.engine.pieces.Rook;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by igor on 03.12.17.
@@ -26,12 +27,12 @@ import java.util.List;
 
 public abstract class Player {
     protected final Board board;
-    protected final King king;
-    protected final Collection<Move> legalMoves;
-    protected final Collection<Move> opponentLegalMoves;
+    private final King king;
+    private final Collection<Move> legalMoves;
+    private final Collection<Move> opponentLegalMoves;
     private final boolean isInCheck;
 
-    public Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
+    protected Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
         this.board = board;
         this.king = establishKing();
         this.opponentLegalMoves = opponentMoves;
@@ -61,7 +62,7 @@ public abstract class Player {
         return this.opponentLegalMoves;
     }
 
-    public boolean isMoveLegal(final Move move){
+    private boolean isMoveLegal(final Move move) {
         return this.legalMoves.contains(move);
     }
 
@@ -70,9 +71,6 @@ public abstract class Player {
     }
 
     public boolean isCheckMate(){
-        System.out.println("//////////////Checking if checkmated///////////////");
-        System.out.println("this.isInCheck = " + this.isInCheck);
-        System.out.println("hasEscapeMoves() = " + hasEscapeMoves());
         return this.isInCheck && !hasEscapeMoves();
     }
 
@@ -161,7 +159,7 @@ public abstract class Player {
 
                     //System.out.println("isKingDestinationOK = " + isKingDestinationOK);
                     //System.out.println("isRookStartTileOK = " + isRookStartTileOK);
-                    if(isKingDestinationOK && isRookStartTileOK ){
+                    if (isKingDestinationOK) {
                         final boolean isCastlingRookDestinationOK = kingsRookDestinationTile.isEmpty() ||
                                 (kingsRookDestinationTile.isOccupied() &&
                                         (kingsRookDestinationTile.getPiece().equals(castlingRook) ||
@@ -244,7 +242,7 @@ public abstract class Player {
 
                     //System.out.println("isKingDestinationOK = " + isKingDestinationOK);
                     //System.out.println("isRookStartTileOK = " + isRookStartTileOK);
-                    if(isKingDestinationOK && isRookStartTileOK){
+                    if (isKingDestinationOK) {
 
                         final boolean isCastlingRookDestinationOK = queensRookDestinationTile.isEmpty() ||
                                 (queensRookDestinationTile.isOccupied() &&
@@ -295,20 +293,21 @@ public abstract class Player {
         throw new RuntimeException("\nPlayer should have the king!\n");
     }
 
-    protected static Collection<Move> calculateAttacksOnTile(final Location location,
-                                                             final Collection<Move> opponentMoves) {
+    private static Collection<Move> calculateAttacksOnTile(final Location location,
+                                                           final Collection<Move> opponentMoves) {
         final List<Move> attackMoves = new ArrayList<>();
-        opponentMoves.stream().filter(move -> move.getDestination().equals(location)).forEach(move -> {
-            attackMoves.add(move);
-        });
+        opponentMoves.stream().filter(move -> move.getDestination().equals(location)).forEach(attackMoves::add);
         return attackMoves;
     }
 
-    private boolean hasEscapeMoves(){
-        System.out.println("hasEscapeMoves(): this.legalMoves.size() = " + this.legalMoves.size());
-        return this.legalMoves.stream().anyMatch(move -> {
+    public List<Move> calcEscapeMoves() {
+        return this.legalMoves.stream().filter(move -> {
             final MoveTransition transition = makeMove(move);
             return transition.getMoveStatus().isDone();
-        });
+        }).collect(Collectors.toList());
+    }
+
+    private boolean hasEscapeMoves(){
+        return !calcEscapeMoves().isEmpty();
     }
 }

@@ -29,7 +29,7 @@ public class Pawn extends Piece {
             if (isFirstMove) {
                 final int startRank = alliance.equals(Alliance.WHITE) ? BoardUtils.SECOND_RANK : BoardUtils.SEVENTH_RANK;
                 for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, startRank);
+                    final Location currentLocation = BoardUtils.getLocation(x, startRank);
                     pawns.put(currentLocation, alliance, new Pawn(currentLocation, alliance, true));
                 }
             } else {
@@ -37,7 +37,7 @@ public class Pawn extends Piece {
                 final int to = alliance.equals(Alliance.WHITE) ? BoardUtils.THIRD_RANK : BoardUtils.FIRST_RANK;
                 for (int y = from; y <= to; ++y) {
                     for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        final Location currentLocation = BoardUtils.getLocation(x, y);
                         pawns.put(currentLocation, alliance, new Pawn(currentLocation, alliance, false));
                     }
                 }
@@ -56,21 +56,21 @@ public class Pawn extends Piece {
     }
 
     public static Pawn createPawn(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        return createPawn(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        return createPawn(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     public static Pawn createPawn(final char file, final int rank, final Alliance alliance,
                                   final boolean isFirstMove) {
-        return createPawn(BoardUtils.getPosition(file, rank), alliance, isFirstMove);
+        return createPawn(BoardUtils.getLocation(file, rank), alliance, isFirstMove);
     }
 
     public static Pawn createPawn(final String algebraicNotationForPosition, final Alliance alliance,
                                   final boolean isFirstMove) {
-        return createPawn(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
+        return createPawn(BoardUtils.getLocation(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Pawn(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(BoardUtils.getPosition(x, y), alliance, isFirstMove);
+        this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
     private Pawn(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -79,24 +79,24 @@ public class Pawn extends Piece {
 
     @Override
     public void setPossibleOffsets() {
-        this.moveOffsets.add(new Point(-1, this.getAlliance().getDirectionY()));
-        this.moveOffsets.add(new Point(0, this.getAlliance().getDirectionY()));
-        this.moveOffsets.add(new Point(1, this.getAlliance().getDirectionY()));
+        this.moveVectors.add(new Point(-1, this.getAlliance().getDirectionY()));
+        this.moveVectors.add(new Point(0, this.getAlliance().getDirectionY()));
+        this.moveVectors.add(new Point(1, this.getAlliance().getDirectionY()));
     }
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
         List<Move> legalMoves = new ArrayList<>();
-        this.moveOffsets.forEach(offset -> {
+        this.moveVectors.forEach(offset -> {
 
             final int destX = this.location.getX() + offset.x;
             final int destY = this.location.getY() + offset.y;
 
-            if (!BoardUtils.isValidPosition(destX, destY)) {
+            if (!BoardUtils.isValidLocation(destX, destY)) {
                 return;
             }
 
-            final Location candidateDestination = BoardUtils.getPosition(destX, destY);
+            final Location candidateDestination = BoardUtils.getLocation(destX, destY);
             if (offset.x == 0) {
                 if (!board.getTile(candidateDestination).isOccupied()) {
                     //Regular move
@@ -110,7 +110,7 @@ public class Pawn extends Piece {
                         //Pawn jump
                         final int jumpDestY = candidateDestination.getY() + this.getAlliance().getDirectionY();
                         if (!board.getTile(destX, jumpDestY).isOccupied()) {
-                            legalMoves.add(new Move.PawnJump(board, this, BoardUtils.getPosition(destX, jumpDestY)));
+                            legalMoves.add(new Move.PawnJump(board, this, BoardUtils.getLocation(destX, jumpDestY)));
                         }
                     }
                 }

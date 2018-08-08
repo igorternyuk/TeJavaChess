@@ -20,8 +20,12 @@ public abstract class Move {
     protected final Board board;
     protected final Piece movedPiece;
     protected final Location destination;
-    protected final boolean isFirstMove;
-    public static final Move NULL_MOVE = new NullMove();
+    private final boolean isFirstMove;
+    public static final Move NULL_MOVE;
+
+    static {
+        NULL_MOVE = new NullMove();
+    }
 
     private Move(final Board board, final Piece movingPiece, final Location destination) {
         this.board = board;
@@ -77,8 +81,8 @@ public abstract class Move {
         public Board execute() {
             final Builder builder = new Board.Builder();
             this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
-                    .forEach(piece -> builder.setPiece(piece));
-            this.board.getCurrentPlayer().getOpponent().getActivePieces().forEach(piece -> builder.setPiece(piece));
+                    .forEach(builder::setPiece);
+            this.board.getCurrentPlayer().getOpponent().getActivePieces().forEach(builder::setPiece);
             builder.setPiece(this.movedPiece.move(this));
             builder.setGameType(this.board.getGameType());
             builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
@@ -111,9 +115,9 @@ public abstract class Move {
         public Board execute() {
             final Builder builder = new Builder();
             this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
-                    .forEach(piece -> builder.setPiece(piece));
+                    .forEach(builder::setPiece);
             this.board.getCurrentPlayer().getOpponentActivePieces().stream()
-                    .filter(piece -> !this.capturedPiece.equals(piece)).forEach(piece -> builder.setPiece(piece));
+                    .filter(piece -> !this.capturedPiece.equals(piece)).forEach(builder::setPiece);
             builder.setPiece(this.movedPiece.move(this));
             builder.setGameType(this.board.getGameType());
             builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
@@ -209,11 +213,9 @@ public abstract class Move {
         public Board execute() {
             final Board.Builder builder = new Board.Builder();
             this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> !this.movedPiece.equals(piece))
-                    .forEach(piece -> builder.setPiece(piece));
-            this.board.getCurrentPlayer().getOpponentActivePieces().forEach(piece -> builder.setPiece(piece));
+                    .forEach(builder::setPiece);
+            this.board.getCurrentPlayer().getOpponentActivePieces().forEach(builder::setPiece);
             Pawn jumpedPawn = (Pawn) this.movedPiece.move(this);
-            System.out.println("Setting en passant pawn " +
-                    BoardUtils.getAlgebraicNotationFromPosition(jumpedPawn.getLocation()));
             builder.setEnPassantPawn(jumpedPawn);
             builder.setPiece(jumpedPawn);
             builder.setGameType(this.board.getGameType());
@@ -242,7 +244,7 @@ public abstract class Move {
         }
 
         public PawnMove getPawnMove() {
-            return pawnMove;
+            return this.pawnMove;
         }
 
         public Pawn getPromotedPawn() {
@@ -261,9 +263,9 @@ public abstract class Move {
             final Board promotedPawnBoard = pawnMove.execute();
             final Builder builder = new Board.Builder();
             promotedPawnBoard.getCurrentPlayer().getActivePieces().stream()
-                    .filter(piece -> !this.promotedPawn.equals(piece)).forEach(piece -> builder.setPiece(piece));
+                    .filter(piece -> !this.promotedPawn.equals(piece)).forEach(builder::setPiece);
             promotedPawnBoard.getCurrentPlayer().getOpponent().getActivePieces()
-                    .forEach(piece -> builder.setPiece(piece));
+                    .forEach(builder::setPiece);
             builder.setPiece(promotedPiece);
             builder.setGameType(this.board.getGameType());
             builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
@@ -345,11 +347,11 @@ public abstract class Move {
         public Board execute() {
             final Board.Builder builder = new Board.Builder();
             //Current player's pieces except castled rook and king
-            this.board.getCurrentPlayer().getActivePieces().stream().filter(piece -> {
-                return !piece.equals(this.movedPiece) && !piece.equals(this.castledRook);
-            }).forEach(piece -> builder.setPiece(piece));
+            this.board.getCurrentPlayer().getActivePieces().stream()
+                    .filter(piece -> !piece.equals(this.movedPiece) && !piece.equals(this.castledRook))
+                    .forEach(builder::setPiece);
             //Opponent's pieces
-            this.board.getCurrentPlayer().getOpponentActivePieces().forEach( piece -> builder.setPiece(piece));
+            this.board.getCurrentPlayer().getOpponentActivePieces().forEach(builder::setPiece);
             builder.setPiece(this.movedPiece.move(this));
             builder.setPiece(Rook.createRook(this.castledRookEndLocation, this.board.getCurrentPlayer().getAlliance(),
                     false));
