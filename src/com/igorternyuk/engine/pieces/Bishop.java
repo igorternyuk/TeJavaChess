@@ -1,6 +1,7 @@
 package com.igorternyuk.engine.pieces;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
@@ -9,29 +10,42 @@ import com.igorternyuk.engine.moves.Move;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by igor on 01.12.17.
  */
 
 public class Bishop extends Piece {
-    private static final int[] DX = { -1, -1, 1, 1 };
-    private static final int[] DY = { -1, 1, -1, 1 };
-    private static final Map<Location, Bishop> WHITE_ALREADY_MOVED_BISHOPS = createAllPossibleWhiteBishops(false);
-    private static final Map<Location, Bishop> WHITE_NOT_MOVED_BISHOPS = createAllPossibleWhiteBishops(true);
-    private static final Map<Location, Bishop> BLACK_ALREADY_MOVED_BISHOPS = createAllPossibleBlackBishops(false);
-    private static final Map<Location, Bishop> BLACK_NOT_MOVED_BISHOPS = createAllPossibleBlackBishops(true);
+    private static final Table<Location, Alliance, Bishop> ALL_BISHOPS = createAllPossibleBishops(true);
+    private static final Table<Location, Alliance, Bishop> ALL_MOVED_BISHOPS = createAllPossibleBishops(false);
 
+    private static final Table<Location, Alliance, Bishop> createAllPossibleBishops(final boolean isFirstMove) {
+        final ImmutableTable.Builder<Location, Alliance, Bishop> bishops = ImmutableTable.builder();
+        for (final Alliance alliance : Alliance.values()) {
+            if (isFirstMove) {
+                final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    bishops.put(currentLocation, alliance, new Bishop(currentLocation, alliance, true));
+                }
+
+            } else {
+                for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                    for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        bishops.put(currentLocation, alliance, new Bishop(currentLocation, alliance, false));
+                    }
+                }
+            }
+        }
+        return bishops.build();
+    }
 
     public static Bishop createBishop(final Location location, final Alliance alliance, final boolean isFirstMove) {
         if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_BISHOPS.get(location) :
-                    BLACK_NOT_MOVED_BISHOPS.get(location);
+            return ALL_BISHOPS.get(location, alliance);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_BISHOPS.get(location) :
-                    BLACK_ALREADY_MOVED_BISHOPS.get(location);
+            return ALL_MOVED_BISHOPS.get(location, alliance);
         }
     }
 
@@ -67,46 +81,15 @@ public class Bishop extends Piece {
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return getLinearlyMovingPiecesLegalMoves(board);
+        return getSlidingPieceLegalMoves(board);
     }
 
     @Override
     public Bishop move(final Move move) {
-        if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
-            return WHITE_ALREADY_MOVED_BISHOPS.get(move.getDestination());
-        } else {
-            return BLACK_ALREADY_MOVED_BISHOPS.get(move.getDestination());
-        }
+        return ALL_MOVED_BISHOPS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
-    private static final Map<Location, Bishop> createAllPossibleWhiteBishops(final boolean isFirstMove) {
-        return createAllPossibleBishops(Alliance.WHITE, isFirstMove);
-    }
 
-    private static final Map<Location, Bishop> createAllPossibleBlackBishops(final boolean isFirstMove) {
-        return createAllPossibleBishops(Alliance.BLACK, isFirstMove);
-    }
-
-    private static final Map<Location, Bishop> createAllPossibleBishops(final Alliance alliance,
-                                                                        final boolean isFirstMove){
-        Map<Location, Bishop> bishops = new HashMap<>();
-        if(isFirstMove){
-            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                final Location currentLocation = BoardUtils.getPosition(x, backRank);
-                bishops.put(currentLocation, new Bishop(currentLocation, alliance, true));
-            }
-
-        } else {
-            for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
-                for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                    final Location currentLocation = BoardUtils.getPosition(x, y);
-                    bishops.put(currentLocation, new Bishop(currentLocation, alliance, false));
-                }
-            }
-        }
-        return ImmutableMap.copyOf(bishops);
-    }
 
     /*@Override
     public String toString() {

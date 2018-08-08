@@ -3,7 +3,6 @@ package com.igorternyuk.engine.board;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.pieces.*;
@@ -68,44 +67,32 @@ public class Board {
             if (blackPieces.size() == 2) {
                 final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
                         blackPieces.get(1) : blackPieces.get(0);
-                if (secondBlackPiece.getPieceType().equals(PieceType.KNIGHT) ||
-                        secondBlackPiece.getPieceType().equals(PieceType.BISHOP))
+                if (secondBlackPiece.getPieceType().isMinorPiece())
                     return true;
             } else if (blackPieces.size() == 3) {
-                List<Piece> sortedBlackPieces = Lists.newArrayList(blackPieces);
-                Collections.sort(sortedBlackPieces, Comparator.comparing(Piece::getValue));
-                if (blackPieces.get(1).getPieceType().equals(PieceType.KNIGHT) &&
-                        blackPieces.get(2).getPieceType().equals(PieceType.KNIGHT)) {
-                    return true;
-                }
+                return blackPieces.stream().filter(piece -> !piece.getPieceType().isKing())
+                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
             }
         } else if (whitePieces.size() == 2) {
             if (blackPieces.size() == 1) {
                 final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
                         whitePieces.get(1) : whitePieces.get(0);
-                if (secondWhitePiece.getPieceType().equals(PieceType.KNIGHT) ||
-                        secondWhitePiece.getPieceType().equals(PieceType.BISHOP))
+                if (secondWhitePiece.getPieceType().isMinorPiece())
                     return true;
             } else if (blackPieces.size() == 2) {
                 final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
                         whitePieces.get(1) : whitePieces.get(0);
                 final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
                         blackPieces.get(1) : blackPieces.get(0);
-                if ((secondWhitePiece.getPieceType().equals(PieceType.KNIGHT) ||
-                        secondWhitePiece.getPieceType().equals(PieceType.BISHOP)) &&
-                        (secondBlackPiece.getPieceType().equals(PieceType.KNIGHT) ||
-                                secondBlackPiece.getPieceType().equals(PieceType.BISHOP))) {
+                if ((secondWhitePiece.getPieceType().isMinorPiece()) &&
+                        (secondBlackPiece.getPieceType().isMinorPiece())) {
                     return true;
                 }
             }
         } else if (whitePieces.size() == 3) {
             if (blackPieces.size() == 1) {
-                List<Piece> sortedWhitePieces = Lists.newArrayList(blackPieces);
-                Collections.sort(sortedWhitePieces, Comparator.comparing(Piece::getValue));
-                if (whitePieces.get(1).getPieceType().equals(PieceType.KNIGHT) &&
-                        whitePieces.get(2).getPieceType().equals(PieceType.KNIGHT)) {
-                    return true;
-                }
+                return whitePieces.stream().filter(piece -> !piece.getPieceType().isKing())
+                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
             }
         }
 

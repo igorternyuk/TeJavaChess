@@ -1,6 +1,7 @@
 package com.igorternyuk.engine.pieces;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
@@ -9,8 +10,6 @@ import com.igorternyuk.engine.moves.Move;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by igor on 01.12.17.
@@ -18,18 +17,36 @@ import java.util.Map;
 
 public class Rook extends Piece {
 
-    private static final Map<Location, Rook> WHITE_ALREADY_MOVED_ROOKS = createAllPossibleWhiteRooks(false);
-    private static final Map<Location, Rook> WHITE_NOT_MOVED_ROOKS = createAllPossibleWhiteRooks(true);
-    private static final Map<Location, Rook> BLACK_ALREADY_MOVED_ROOKS = createAllPossibleBlackRooks(false);
-    private static final Map<Location, Rook> BLACK_NOT_MOVED_ROOKS = createAllPossibleBlackRooks(true);
+    private static final Table<Location, Alliance, Rook> ALL_ROOKS = createAllPossibleRooks(true);
+    private static final Table<Location, Alliance, Rook> ALL_MOVED_ROOKS = createAllPossibleRooks(false);
+
+    private static Table<Location, Alliance, Rook> createAllPossibleRooks(final boolean isFirstMove) {
+        final ImmutableTable.Builder<Location, Alliance, Rook> rooks = ImmutableTable.builder();
+        for (final Alliance alliance : Alliance.values()) {
+            if (isFirstMove) {
+                final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    rooks.put(currentLocation, alliance, new Rook(currentLocation, alliance, true));
+                }
+
+            } else {
+                for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                    for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        rooks.put(currentLocation, alliance, new Rook(currentLocation, alliance, false));
+                    }
+                }
+            }
+        }
+        return rooks.build();
+    }
 
     public static Rook createRook(final Location location, final Alliance alliance, final boolean isFirstMove) {
         if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_ROOKS.get(location) :
-                    BLACK_NOT_MOVED_ROOKS.get(location);
+            return ALL_ROOKS.get(location, alliance);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_ROOKS.get(location) :
-                    BLACK_ALREADY_MOVED_ROOKS.get(location);
+            return ALL_MOVED_ROOKS.get(location, alliance);
         }
     }
 
@@ -65,43 +82,12 @@ public class Rook extends Piece {
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return getLinearlyMovingPiecesLegalMoves(board);
+        return getSlidingPieceLegalMoves(board);
     }
 
     @Override
     public Rook move(final Move move) {
-        if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
-            return WHITE_ALREADY_MOVED_ROOKS.get(move.getDestination());
-        } else {
-            return BLACK_ALREADY_MOVED_ROOKS.get(move.getDestination());
-        }
-    }
-
-    private static final Map<Location, Rook> createAllPossibleWhiteRooks(final boolean isFirstMove) {
-        return createAllPossibleRooks(Alliance.WHITE, isFirstMove);
-    }
-
-    private static final Map<Location, Rook> createAllPossibleBlackRooks(final boolean isFirstMove) {
-        return createAllPossibleRooks(Alliance.BLACK, isFirstMove);
-    }
-
-    private static final Map<Location, Rook> createAllPossibleRooks(final Alliance alliance, final boolean isFirstMove) {
-        Map<Location, Rook> rooks = new HashMap<>();
-        if(isFirstMove){
-            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                final Location currentLocation = BoardUtils.getPosition(x, backRank);
-                rooks.put(currentLocation, new Rook(currentLocation, alliance, true));
-            }
-        } else {
-            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
-                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, y);
-                    rooks.put(currentLocation, new Rook(currentLocation, alliance, false));
-                }
-            }
-        }
-        return ImmutableMap.copyOf(rooks);
+        return ALL_MOVED_ROOKS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
     /*@Override

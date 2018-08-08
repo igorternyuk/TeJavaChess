@@ -1,6 +1,7 @@
 package com.igorternyuk.engine.pieces;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
@@ -9,8 +10,6 @@ import com.igorternyuk.engine.moves.Move;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by igor on 01.12.17.
@@ -18,18 +17,36 @@ import java.util.Map;
 
 public class Queen extends Piece {
 
-    private static final Map<Location, Queen> WHITE_ALREADY_MOVED_QUEENS = createAllPossibleWhiteQueens(false);
-    private static final Map<Location, Queen> WHITE_NOT_MOVED_QUEENS = createAllPossibleWhiteQueens(true);
-    private static final Map<Location, Queen> BLACK_ALREADY_MOVED_QUEENS = createAllPossibleBlackQueens(false);
-    private static final Map<Location, Queen> BLACK_NOT_MOVED_QUEENS = createAllPossibleBlackQueens(true);
+    private static final Table<Location, Alliance, Queen> ALL_QUEENS = createAllPossibleQueens(true);
+    private static final Table<Location, Alliance, Queen> ALL_MOVED_QUEENS = createAllPossibleQueens(false);
+
+    private static Table<Location, Alliance, Queen> createAllPossibleQueens(final boolean isFirstMove) {
+        final ImmutableTable.Builder<Location, Alliance, Queen> queens = ImmutableTable.builder();
+        for (final Alliance alliance : Alliance.values()) {
+            if (isFirstMove) {
+                final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    queens.put(currentLocation, alliance, new Queen(currentLocation, alliance, true));
+                }
+
+            } else {
+                for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                    for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        queens.put(currentLocation, alliance, new Queen(currentLocation, alliance, false));
+                    }
+                }
+            }
+        }
+        return queens.build();
+    }
 
     public static Queen createQueen(final Location location, final Alliance alliance, final boolean isFirstMove) {
         if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_QUEENS.get(location) :
-                    BLACK_NOT_MOVED_QUEENS.get(location);
+            return ALL_QUEENS.get(location, alliance);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_QUEENS.get(location) :
-                    BLACK_ALREADY_MOVED_QUEENS.get(location);
+            return ALL_MOVED_QUEENS.get(location, alliance);
         }
     }
 
@@ -70,44 +87,12 @@ public class Queen extends Piece {
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return getLinearlyMovingPiecesLegalMoves(board);
+        return getSlidingPieceLegalMoves(board);
     }
 
     @Override
     public Queen move(final Move move) {
-        if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
-            return WHITE_ALREADY_MOVED_QUEENS.get(move.getDestination());
-        } else {
-            return BLACK_ALREADY_MOVED_QUEENS.get(move.getDestination());
-        }
-    }
-
-    private static final Map<Location, Queen> createAllPossibleWhiteQueens(final boolean isFirstMove) {
-        return createAllPossibleQueens(Alliance.WHITE, isFirstMove);
-    }
-
-    private static final Map<Location, Queen> createAllPossibleBlackQueens(final boolean isFirstMove) {
-        return createAllPossibleQueens(Alliance.BLACK, isFirstMove);
-    }
-
-    private static final Map<Location, Queen> createAllPossibleQueens(final Alliance alliance,
-                                                                      final boolean isFirstMove){
-        Map<Location, Queen> queens = new HashMap<>();
-        if(isFirstMove){
-            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
-                final Location currentLocation = BoardUtils.getPosition(x, backRank);
-                queens.put(currentLocation, new Queen(currentLocation, alliance, true));
-            }
-        } else {
-            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
-                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, y);
-                    queens.put(currentLocation, new Queen(currentLocation, alliance, false));
-                }
-            }
-        }
-        return ImmutableMap.copyOf(queens);
+        return ALL_MOVED_QUEENS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
    /* @Override

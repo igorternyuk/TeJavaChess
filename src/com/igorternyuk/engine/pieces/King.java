@@ -1,6 +1,7 @@
 package com.igorternyuk.engine.pieces;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
@@ -9,8 +10,6 @@ import com.igorternyuk.engine.moves.Move;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by igor on 01.12.17.
@@ -18,32 +17,50 @@ import java.util.Map;
 
 public class King extends Piece {
 
-    private static final Map<Location, King> WHITE_ALREADY_MOVED_KINGS = createAllPossibleWhiteKings(false);
-    private static final Map<Location, King> WHITE_NOT_MOVED_KINGS = createAllPossibleWhiteKings(true);
-    private static final Map<Location, King> BLACK_ALREADY_MOVED_KINGS = createAllPossibleBlackKings(false);
-    private static final Map<Location, King> BLACK_NOT_MOVED_KINGS = createAllPossibleBlackKings(true);
+    private static final Table<Location, Alliance, King> ALL_KINGS = createAllPossibleKings(true);
+    private static final Table<Location, Alliance, King> ALL_MOVED_KINGS = createAllPossibleKings(false);
+
+    private static Table<Location, Alliance, King> createAllPossibleKings(final boolean isFirstMove) {
+        final ImmutableTable.Builder<Location, Alliance, King> kings = ImmutableTable.builder();
+        for (final Alliance alliance : Alliance.values()) {
+            if (isFirstMove) {
+                final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    kings.put(currentLocation, alliance, new King(currentLocation, alliance, true));
+                }
+
+            } else {
+                for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                    for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        kings.put(currentLocation, alliance, new King(currentLocation, alliance, false));
+                    }
+                }
+            }
+        }
+        return kings.build();
+    }
 
     public static King createKing(final Location location, final Alliance alliance, final boolean isFirstMove) {
-        if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_KINGS.get(location) :
-                    BLACK_NOT_MOVED_KINGS.get(location);
+        if (isFirstMove) {
+            return ALL_KINGS.get(location, alliance);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_KINGS.get(location) :
-                    BLACK_ALREADY_MOVED_KINGS.get(location);
+            return ALL_MOVED_KINGS.get(location, alliance);
         }
     }
 
-    public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createKing(BoardUtils.getPosition(x,y), alliance, isFirstMove);
+    public static King createKing(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
+        return createKing(BoardUtils.getPosition(x, y), alliance, isFirstMove);
     }
 
     public static King createKing(final char file, final int rank, final Alliance alliance,
-                                      final boolean isFirstMove){
-        return createKing(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
+                                  final boolean isFirstMove) {
+        return createKing(BoardUtils.getPosition(file, rank), alliance, isFirstMove);
     }
 
     public static King createKing(final String algebraicNotationForPosition, final Alliance alliance,
-                                      final boolean isFirstMove){
+                                  final boolean isFirstMove) {
         return createKing(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
@@ -69,46 +86,15 @@ public class King extends Piece {
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return this.getOneStepMovingPieceLegalMoves(board);
+        return this.getJumpingPieceLegalMoves(board);
     }
 
     @Override
     public King move(final Move move) {
-        if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)) {
-            return WHITE_ALREADY_MOVED_KINGS.get(move.getDestination());
-        } else {
-            return BLACK_ALREADY_MOVED_KINGS.get(move.getDestination());
-        }
+        return ALL_MOVED_KINGS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
-    private static final Map<Location, King> createAllPossibleWhiteKings(final boolean isFirstMove) {
-        return createAllPossibleKings(Alliance.WHITE, isFirstMove);
-    }
 
-    private static final Map<Location, King> createAllPossibleBlackKings(final boolean isFirstMove) {
-        return createAllPossibleKings(Alliance.BLACK, isFirstMove);
-    }
-
-    private static Map<Location, King> createAllPossibleKings(final Alliance alliance, final boolean isFirstMove) {
-        Map<Location, King> kings = new HashMap<>();
-        if(isFirstMove){
-            final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-            for(int x = 1; x < BoardUtils.BOARD_SIZE - 1; ++x){
-                /*We did not include first and last positions(corners -a1 and h1) because in Random Fisher Chess
-                 the king must be located between rooks*/
-                final Location currentLocation = BoardUtils.getPosition(x, backRank);
-                kings.put(currentLocation, new King(BoardUtils.getPosition(x, backRank), alliance, true));
-            }
-        } else {
-            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
-                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
-                    final Location currentLocation = BoardUtils.getPosition(x, y);
-                    kings.put(currentLocation, new King(currentLocation, alliance, false));
-                }
-            }
-        }
-        return ImmutableMap.copyOf(kings);
-    }
 
     /*@Override
     public String toString() {

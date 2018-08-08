@@ -71,7 +71,7 @@ public abstract class Piece {
         return this.isFirstMove;
     }
 
-    protected final Collection<Move> getLinearlyMovingPiecesLegalMoves(final Board board) {
+    protected final Collection<Move> getSlidingPieceLegalMoves(final Board board) {
         List<Move> legalMoves = new ArrayList<>();
         this.moveOffsets.forEach(offset -> {
             int destX = this.location.getX() + offset.x;
@@ -103,7 +103,7 @@ public abstract class Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
-    protected final Collection<Move> getOneStepMovingPieceLegalMoves(final Board board) {
+    protected final Collection<Move> getJumpingPieceLegalMoves(final Board board) {
         List<Move> legalMoves = new ArrayList<>();
         this.moveOffsets.forEach(offset -> {
             int destX = this.location.getX() + offset.x;

@@ -1,6 +1,8 @@
 package com.igorternyuk.engine.pieces;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Table;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
@@ -18,38 +20,55 @@ import java.util.Map;
 
 public class Knight extends Piece {
 
+    private static final Table<Location, Alliance, Knight> ALL_KNIGHTS = createAllPossibleKnights(true);
+    private static final Table<Location, Alliance, Knight> ALL_MOVED_KNIGHTS = createAllPossibleKnights(false);
 
-    private static final Map<Location, Knight> WHITE_ALREADY_MOVED_KNIGHTS = createAllPossibleWhiteKnights(false);
-    private static final Map<Location, Knight> WHITE_NOT_MOVED_KNIGHTS = createAllPossibleWhiteKnights(true);
-    private static final Map<Location, Knight> BLACK_ALREADY_MOVED_KNIGHTS = createAllPossibleBlackKnights(false);
-    private static final Map<Location, Knight> BLACK_NOT_MOVED_KNIGHTS = createAllPossibleBlackKnights(true);
+    private static Table<Location, Alliance, Knight> createAllPossibleKnights(boolean isFirstMove) {
+        final ImmutableTable.Builder<Location, Alliance, Knight> knights = ImmutableTable.builder();
+        for (final Alliance alliance : Alliance.values()) {
+            if (isFirstMove) {
+                final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                    final Location currentLocation = BoardUtils.getPosition(x, backRank);
+                    knights.put(currentLocation, alliance, new Knight(currentLocation, alliance, true));
+                }
+
+            } else {
+                for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                    for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                        final Location currentLocation = BoardUtils.getPosition(x, y);
+                        knights.put(currentLocation, alliance, new Knight(currentLocation, alliance, false));
+                    }
+                }
+            }
+        }
+        return knights.build();
+    }
 
     public static Knight createKnight(final Location location, final Alliance alliance, final boolean isFirstMove) {
-        if(isFirstMove) {
-            return alliance.equals(Alliance.WHITE) ? WHITE_NOT_MOVED_KNIGHTS.get(location) :
-                    BLACK_NOT_MOVED_KNIGHTS.get(location);
+        if (isFirstMove) {
+            return ALL_KNIGHTS.get(location, alliance);
         } else {
-            return alliance.equals(Alliance.WHITE) ? WHITE_ALREADY_MOVED_KNIGHTS.get(location) :
-                    BLACK_ALREADY_MOVED_KNIGHTS.get(location);
+            return ALL_MOVED_KNIGHTS.get(location, alliance);
         }
     }
 
-    public static Knight createKnight(final int x, final int y, final Alliance alliance, final boolean isFirstMove){
-        return createKnight(BoardUtils.getPosition(x,y), alliance, isFirstMove);
+    public static Knight createKnight(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
+        return createKnight(BoardUtils.getPosition(x, y), alliance, isFirstMove);
     }
 
     public static Knight createKnight(final char file, final int rank, final Alliance alliance,
-                                  final boolean isFirstMove){
-        return createKnight(BoardUtils.getPosition(file,rank), alliance, isFirstMove);
+                                      final boolean isFirstMove) {
+        return createKnight(BoardUtils.getPosition(file, rank), alliance, isFirstMove);
     }
 
     public static Knight createKnight(final String algebraicNotationForPosition, final Alliance alliance,
-                                      final boolean isFirstMove){
+                                      final boolean isFirstMove) {
         return createKnight(BoardUtils.getPosition(algebraicNotationForPosition), alliance, isFirstMove);
     }
 
     private Knight(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
-        this(BoardUtils.getPosition(x,y), alliance, isFirstMove);
+        this(BoardUtils.getPosition(x, y), alliance, isFirstMove);
     }
 
     private Knight(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
@@ -58,10 +77,7 @@ public class Knight extends Piece {
 
     @Override
     public void setPossibleOffsets() {
-        /*
-        *     private static final int[] DX = { -2, -2, -1, -1, 1, 1, 2, 2 };
-              private static final int[] DY = { -1, 1, -2, 2, -2, 2, -1, 1 };
-        * */
+
         this.moveOffsets.add(new Point(-2, -1));
         this.moveOffsets.add(new Point(-2, 1));
         this.moveOffsets.add(new Point(-1, -2));
@@ -74,16 +90,12 @@ public class Knight extends Piece {
 
     @Override
     public Collection<Move> getLegalMoves(final Board board) {
-        return this.getOneStepMovingPieceLegalMoves(board);
+        return this.getJumpingPieceLegalMoves(board);
     }
 
     @Override
     public Knight move(final Move move) {
-        if(move.getMovedPiece().getAlliance().equals(Alliance.WHITE)){
-            return WHITE_ALREADY_MOVED_KNIGHTS.get(move.getDestination());
-        } else {
-            return BLACK_ALREADY_MOVED_KNIGHTS.get(move.getDestination());
-        }
+        return ALL_MOVED_KNIGHTS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
     private static final Map<Location, Knight> createAllPossibleWhiteKnights(final boolean isFirstMove) {
@@ -96,16 +108,16 @@ public class Knight extends Piece {
 
     private static Map<Location, Knight> createAllPossibleKnights(final Alliance alliance, final boolean isFirstMove) {
         Map<Location, Knight> knights = new HashMap<>();
-        if(isFirstMove){
+        if (isFirstMove) {
             final int backRank = alliance.isWhite() ? BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
-            for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+            for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
                 final Location currentLocation = BoardUtils.getPosition(x, backRank);
                 knights.put(currentLocation, new Knight(currentLocation, alliance, true));
             }
 
         } else {
-            for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
-                for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
+            for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+                for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
                     final Location currentLocation = BoardUtils.getPosition(x, y);
                     knights.put(currentLocation, new Knight(currentLocation, alliance, false));
                 }
