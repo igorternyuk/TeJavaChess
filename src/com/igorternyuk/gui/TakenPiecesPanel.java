@@ -7,7 +7,9 @@ import com.igorternyuk.engine.pieces.PieceType;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static com.igorternyuk.engine.board.BoardUtils.BOARD_SIZE;
 
