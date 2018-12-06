@@ -161,7 +161,7 @@ public enum PieceType {
         }
     };
 
-    private PieceType(final String name, final int value) {
+    PieceType(final String name, final int value) {
         this.name = name;
         this.value = value;
     }

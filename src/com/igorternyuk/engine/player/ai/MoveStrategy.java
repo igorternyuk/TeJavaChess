@@ -7,5 +7,5 @@ import com.igorternyuk.engine.moves.Move;
  * Created by igor on 06.12.18.
  */
 public interface MoveStrategy {
-    Move execute(Board board, int depth);
+    Move execute(Board board);
 }

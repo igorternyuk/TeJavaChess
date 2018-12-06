@@ -37,7 +37,6 @@ public abstract class Player {
             final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
             /*System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
                     " has castles = " + castles.size());*/
-            final Alliance currentAlliance = this.getAlliance();
             //System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
             this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
         } else {
@@ -125,12 +124,6 @@ public abstract class Player {
             final Tile kingsRookDestinationTile = this.board.getTile('f', lastRank);
             final Tile kingsSideKingsDestinationTile = this.board.getTile('g', lastRank);
             //System.out.println("lastRank = " + lastRank);
-            boolean isKingsRookDestinationTileEmpty = kingsRookDestinationTile.isEmpty();
-            boolean isKingsSideKingsDestinationTileEmpty = kingsSideKingsDestinationTile.isEmpty();
-            boolean isGameTypeIsChess960 = this.board.getGameType().isRandomFisherChess();
-            //System.out.println("isKingsRookDestinationTileEmpty = " + isKingsRookDestinationTileEmpty);
-            //System.out.println("isKingsSideKingsDestinationTileEmpty = " + isKingsSideKingsDestinationTileEmpty);
-            //System.out.println("isGameTypeIsChess960 = " + isGameTypeIsChess960);
 
             if(this.board.getGameType().isClassicChess()) {
                 if(kingsRookDestinationTile.isEmpty() && kingsSideKingsDestinationTile.isEmpty()) {
@@ -209,8 +202,6 @@ public abstract class Player {
 
             final Tile queensSideKingsDestinationTile = this.board.getTile('c', lastRank);
             final Tile queensRookDestinationTile = this.board.getTile('d', lastRank);
-            boolean isQueensSideKingsDestinationTileEmpty = queensSideKingsDestinationTile.isEmpty();
-            boolean isQueensRookDestinationTileEmpty = queensRookDestinationTile.isEmpty();
 
             if(this.board.getGameType().isClassicChess()) {
                 if(queensSideKingsDestinationTile.isEmpty() && queensRookDestinationTile.isEmpty()){

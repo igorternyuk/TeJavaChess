@@ -43,11 +43,6 @@ public class BlackPlayer extends Player {
 
     @Override
     public String toString(){
-        return "Black";
+        return "Black player";
     }
-
-    /*public Collection<Move> calculateCastles(final Collection<Move> thisPlayerLegalMoves,
-                                             final Collection<Move> opponentLegalMoves) {
-        return super.calculateCastles(thisPlayerLegalMoves, opponentLegalMoves, Alliance.BLACK);
-    }*/
 }
