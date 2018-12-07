@@ -16,6 +16,21 @@ public enum PieceType {
         }
 
         @Override
+        public boolean isBishop() {
+            return false;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return false;
+        }
+
+        @Override
+        public boolean isQueen() {
+            return false;
+        }
+
+        @Override
         public boolean isPawn() {
             return false;
         }
@@ -42,6 +57,21 @@ public enum PieceType {
         }
 
         @Override
+        public boolean isBishop() {
+            return false;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return false;
+        }
+
+        @Override
+        public boolean isQueen() {
+            return true;
+        }
+
+        @Override
         public boolean isPawn() {
             return false;
         }
@@ -64,6 +94,21 @@ public enum PieceType {
 
         @Override
         public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isBishop() {
+            return true;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return false;
+        }
+
+        @Override
+        public boolean isQueen() {
             return false;
         }
 
@@ -94,6 +139,21 @@ public enum PieceType {
         }
 
         @Override
+        public boolean isBishop() {
+            return false;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return true;
+        }
+
+        @Override
+        public boolean isQueen() {
+            return false;
+        }
+
+        @Override
         public boolean isPawn() {
             return false;
         }
@@ -120,6 +180,21 @@ public enum PieceType {
         }
 
         @Override
+        public boolean isBishop() {
+            return false;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return false;
+        }
+
+        @Override
+        public boolean isQueen() {
+            return false;
+        }
+
+        @Override
         public boolean isPawn() {
             return false;
         }
@@ -142,6 +217,21 @@ public enum PieceType {
 
         @Override
         public boolean isRook() {
+            return false;
+        }
+
+        @Override
+        public boolean isBishop() {
+            return false;
+        }
+
+        @Override
+        public boolean isKnight() {
+            return false;
+        }
+
+        @Override
+        public boolean isQueen() {
             return false;
         }
 
@@ -177,6 +267,12 @@ public enum PieceType {
     public abstract boolean isKing();
 
     public abstract boolean isRook();
+
+    public abstract boolean isBishop();
+
+    public abstract boolean isKnight();
+
+    public abstract boolean isQueen();
 
     public abstract boolean isPawn();
 

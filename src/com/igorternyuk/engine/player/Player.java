@@ -27,6 +27,8 @@ public abstract class Player {
     private final Collection<Move> legalMoves;
     private final Collection<Move> opponentLegalMoves;
     private final boolean isInCheck;
+    private final boolean kingSideCastlingCapable;
+    private final boolean queenSideCastlingCapable;
 
     protected Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> opponentMoves) {
         this.board = board;
@@ -35,14 +37,22 @@ public abstract class Player {
         this.isInCheck = !Player.calculateAttacksOnTile(this.king.getLocation(), opponentMoves).isEmpty();
         if (!this.isCastled()) {
             final Collection<Move> castles = this.calculateCastles(legalMoves, opponentMoves);
+            this.kingSideCastlingCapable = castles.stream().anyMatch(move -> move.isKingSideCastling());
+            this.queenSideCastlingCapable = castles.stream().anyMatch(move -> move.isQueenSideCastling());
             /*System.out.println((this.getAlliance().isWhite() ? "White king" : "Black king") +
                     " has castles = " + castles.size());*/
             //System.out.println("Size of legal moves collection before adding the castles = " + legalMoves.size());
             this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, castles));
         } else {
             this.legalMoves = ImmutableList.copyOf(legalMoves);
+            this.kingSideCastlingCapable = false;
+            this.queenSideCastlingCapable = false;
         }
         //System.out.println("Size of legal moves collection after adding the castles = " + this.legalMoves.size());
+    }
+
+    public Board getBoard() {
+        return this.board;
     }
 
     public King getPlayerKing() {
@@ -66,7 +76,15 @@ public abstract class Player {
     }
 
     public boolean canCastle() {
-        return this.legalMoves.stream().anyMatch(Move::isCastlingMove);
+        return this.kingSideCastlingCapable || this.queenSideCastlingCapable;
+    }
+
+    public boolean isKingSideCastlingCapable() {
+        return this.kingSideCastlingCapable;
+    }
+
+    public boolean isQueenSideCastlingCapable() {
+        return this.queenSideCastlingCapable;
     }
 
     private boolean isMoveLegal(final Move move) {

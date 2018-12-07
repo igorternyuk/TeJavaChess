@@ -52,6 +52,23 @@ public class View {
     private boolean highlightLastMove = false;
     private boolean isAutoQueenEnabled = false;
 
+    public enum PlayerType {
+        HUMAN {
+            @Override
+            public String getLabel() {
+                return "Human";
+            }
+        },
+        COMPUTER {
+            @Override
+            public String getLabel() {
+                return "Computer";
+            }
+        };
+
+        public abstract String getLabel();
+    }
+
     public View(){
         this.chessBoard = this.game.getChessBoard();
         this.mainWindow = new JFrame(TITLE_OF_MAIN_WINDOW);
@@ -70,6 +87,10 @@ public class View {
         this.mainWindow.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.mainWindow.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.mainWindow.setVisible(true);
+    }
+
+    public JFrame getMainWindow() {
+        return this.mainWindow;
     }
 
     private JMenuBar createMenuBar(){
