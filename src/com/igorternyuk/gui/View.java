@@ -2,9 +2,11 @@ package com.igorternyuk.gui;
 
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.Game;
+import com.igorternyuk.engine.GameStatus;
 import com.igorternyuk.engine.board.*;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.pieces.*;
+import com.igorternyuk.engine.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
+import java.util.Observer;
 
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
@@ -20,7 +24,8 @@ import static javax.swing.SwingUtilities.isRightMouseButton;
  * Created by igor on 28.02.18.
  */
 
-public class View {
+public class View extends Observable {
+    private static View INSTANCE;
     private static final String TITLE_OF_MAIN_WINDOW = "TeChess";
     private static final int DX = 3;
     private static final int DY = 48;
@@ -37,7 +42,7 @@ public class View {
     private final String[] PROMOTED_PIECE_OPTIONS = {"Rook", "Bishop", "Knight", "Queen"};
     private static final ResourceManager RESOURCE_MANAGER = ResourceManager.getInstance();
     private final Game game = new Game(GameType.CLASSIC_CHESS);
-    private Board chessBoard;
+    private Board gameBoard;
     private Tile startTile;
     private Tile destinationTile;
     private Move lastMove;
@@ -47,6 +52,7 @@ public class View {
     private final BoardPanel boardPanel;
     private final TakenPiecesPanel takenPiecesPanel;
     private final GameHistoryPanel gameHistoryPanel;
+    private GameSetup gameSetupPanel;
     private BoardOrientation boardOrientation;
     private boolean highlightLegalMoves = false;
     private boolean highlightLastMove = false;
@@ -69,8 +75,8 @@ public class View {
         public abstract String getLabel();
     }
 
-    public View(){
-        this.chessBoard = this.game.getChessBoard();
+    private View() {
+        this.gameBoard = this.game.getChessBoard();
         this.mainWindow = new JFrame(TITLE_OF_MAIN_WINDOW);
         this.mainWindow.setLayout(new BorderLayout());
         this.mainWindow.setSize(MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT);
@@ -82,11 +88,64 @@ public class View {
         this.boardPanel = new BoardPanel();
         this.takenPiecesPanel = new TakenPiecesPanel();
         this.gameHistoryPanel = new GameHistoryPanel();
+        this.gameSetupPanel = new GameSetup(this.mainWindow, true);
         this.boardOrientation = BoardOrientation.REGULAR;
         this.mainWindow.add(this.boardPanel, BorderLayout.CENTER);
         this.mainWindow.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.mainWindow.add(this.gameHistoryPanel, BorderLayout.EAST);
         this.mainWindow.setVisible(true);
+    }
+
+    public static synchronized View getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new View();
+        }
+        return INSTANCE;
+    }
+
+    private GameStatus getGameStatus() {
+        return this.game.getGameStatus();
+    }
+
+    private Board getGameBoard() {
+        return this.gameBoard;
+    }
+
+    private BoardPanel getBoardPanel() {
+        return this.boardPanel;
+    }
+
+    private GameSetup getGameSetupPanel() {
+        return this.gameSetupPanel;
+    }
+
+    private void setupUpdate(GameSetup gameSetup) {
+        super.setChanged();
+        super.notifyObservers(gameSetup);
+    }
+
+    private static class AIWatcher implements Observer {
+
+        @Override
+        public void update(Observable o, Object arg) {
+            Player currentPlayer = View.getInstance().getGameBoard().getCurrentPlayer();
+            if (!View.getInstance().getGameStatus().isGameOver()
+                    && View.getInstance().getGameSetupPanel().isAIPlayer(currentPlayer)) {
+                //Create AI thread
+                //execute AI work
+            }
+            if (View.getInstance().getGameStatus().isGameOver()) {
+                View.getInstance().getBoardPanel().handleGameOver();
+            }
+        }
+    }
+
+    private static class AIThinkTank extends SwingWorker<Move, String> {
+
+        @Override
+        protected Move doInBackground() throws Exception {
+            return null;
+        }
     }
 
     public JFrame getMainWindow() {
@@ -97,6 +156,7 @@ public class View {
         final JMenuBar menuBar = new JMenuBar();
         menuBar.add(createFileMenu());
         menuBar.add(createPreferencesMenu());
+        menuBar.add(createOptionsMenu());
         return menuBar;
     }
 
@@ -132,6 +192,17 @@ public class View {
 
         fileMenu.add(exitMenuItem);
         return fileMenu;
+    }
+
+    private JMenu createOptionsMenu() {
+        final JMenu optionsMenu = new JMenu("Options");
+        final JMenuItem gameSetupMenuItem = new JMenuItem("Setup game");
+        gameSetupMenuItem.addActionListener((e) -> {
+            this.gameSetupPanel.promptUser();
+
+        });
+        optionsMenu.add(gameSetupMenuItem);
+        return optionsMenu;
     }
 
     private JMenu createPreferencesMenu(){
@@ -184,13 +255,13 @@ public class View {
     private void prepareNewClassicChessGame(){
         cleanAllUpForNewGame();
         this.game.prepareNewGame(GameType.CLASSIC_CHESS);
-        this.chessBoard = this.game.getChessBoard();
+        this.gameBoard = this.game.getChessBoard();
     }
 
     private void prepareNewRandomFisherChessGame(){
         cleanAllUpForNewGame();
         this.game.prepareNewGame(GameType.RANDOM_FISHER_CHESS);
-        this.chessBoard = this.game.getChessBoard();
+        this.gameBoard = this.game.getChessBoard();
     }
 
     private Piece choosePromotedPiece() {
@@ -239,7 +310,7 @@ public class View {
                             y = calculateFlippedCoordinate(y);
                         }
                         if(startTile == null){
-                            startTile = chessBoard.getTile(x,y);
+                            startTile = gameBoard.getTile(x, y);
                             if(startTile.isOccupied()) {
                                 humanMovedPiece = startTile.getPiece();
                                 //System.out.println("Selected piece = " + startTile.getPiece().getPieceType().getName());
@@ -247,24 +318,30 @@ public class View {
                                 startTile = null;
                             }
                         } else {
-                            destinationTile = chessBoard.getTile(x,y);
+                            destinationTile = gameBoard.getTile(x, y);
                             if(destinationTile != null){
                                 //System.out.println("Destination tile = " + destinationTile.getTileLocation());
                                 final Move move = detectMove();
                                 if (game.tryToMakeMove(move)) {
-                                    chessBoard = game.getChessBoard();
+                                    gameBoard = game.getChessBoard();
                                     lastMove = move;
-                                    gameHistoryPanel.update(chessBoard, game.getMoveLog());
-                                    if(move.isCapturingMove()) {
-                                        takenPiecesPanel.update(game.getMoveLog());
-                                    }
+                                    SwingUtilities.invokeLater(() -> {
+                                        gameHistoryPanel.update(gameBoard, game.getMoveLog());
+                                        if (move.isCapturingMove()) {
+                                            takenPiecesPanel.update(game.getMoveLog());
+                                        }
+                                        redraw();
+                                    });
+
                                 }
                                 cleanMoveTilesUp();
 
-                               if(game.isGameOver()){
-                                   showGameOverMessageAndAskUserAboutNewGame();
-                               }
-                                redraw();
+                                if(game.isGameOver()){
+                                    boardPanel.handleGameOver();
+                                }
+                                SwingUtilities.invokeLater(() -> {
+                                    redraw();
+                                });
                             } else {
                                 cleanMoveTilesUp();
                             }
@@ -273,43 +350,43 @@ public class View {
 
                     super.mouseReleased(e);
                 }
-
-                private void showGameOverMessageAndAskUserAboutNewGame() {
-                    final String[] options = {"Classic chess", "Chess960", "Exit"};
-                    int userAnswer = JOptionPane.showOptionDialog(
-                            null,
-                            game.getGameStatus().getMessage() + "\nDo you want play again?",
-                            "Select option",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.PLAIN_MESSAGE,
-                            null,
-                            options,
-                            options[0]
-                    );
-                    switch (userAnswer){
-                        case 0:
-                            prepareNewClassicChessGame();
-                            break;
-                        case 1:
-                            prepareNewRandomFisherChessGame();
-                            break;
-                        default:
-                            System.exit(0);
-                            break;
-                    }
-                }
             });
+        }
+
+        public void handleGameOver() {
+            final String[] options = {"Classic chess", "Chess960", "Exit"};
+            int userAnswer = JOptionPane.showOptionDialog(
+                    null,
+                    game.getGameStatus().getMessage() + "\nDo you want play again?",
+                    "Select option",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+            switch (userAnswer) {
+                case 0:
+                    prepareNewClassicChessGame();
+                    break;
+                case 1:
+                    prepareNewRandomFisherChessGame();
+                    break;
+                default:
+                    //System.exit(0);
+                    break;
+            }
         }
 
         private Move detectMove(){
             if(humanMovedPiece == null || destinationTile == null) return Move.NULL_MOVE;
-            if (chessBoard.getGameType().isRandomFisherChess() &&
+            if (gameBoard.getGameType().isRandomFisherChess() &&
                     humanMovedPiece.getPieceType().isKing()){
-                final int kingsRookStartCoordinateX = chessBoard.getKingsRookStartCoordinateX();
-                final int queensRookStartCoordinateX = chessBoard.getQueensRookStartCoordinateX();
-                final Alliance currentPlayerAlliance = chessBoard.getCurrentPlayer().getAlliance();
+                final int kingsRookStartCoordinateX = gameBoard.getKingsRookStartCoordinateX();
+                final int queensRookStartCoordinateX = gameBoard.getQueensRookStartCoordinateX();
+                final Alliance currentPlayerAlliance = gameBoard.getCurrentPlayer().getAlliance();
                 final int backRankCoordinateY =
-                        chessBoard.getCurrentPlayer().getAlliance().isWhite() ?
+                        gameBoard.getCurrentPlayer().getAlliance().isWhite() ?
                                 BoardUtils.FIRST_RANK : BoardUtils.EIGHTH_RANK;
                 final Location kingSideRookStartLocation =
                         BoardUtils.getLocation(kingsRookStartCoordinateX, backRankCoordinateY);
@@ -325,22 +402,22 @@ public class View {
                         BoardUtils.getQueensSideCastlingRookTargetLocation(currentPlayerAlliance);
 
                 if (destinationTile.getTileLocation().equals(kingSideRookStartLocation)) {
-                    Tile kingsRookStartTile = chessBoard.getTile(kingSideRookStartLocation);
+                    Tile kingsRookStartTile = gameBoard.getTile(kingSideRookStartLocation);
                     if(kingsRookStartTile.isOccupied() && kingsRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)kingsRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
-                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
+                            return Move.MoveFactory.createRandomFisherChessCastling(gameBoard,
                                     startTile.getTileLocation(), kingsSideKingLocation, castlingRook,
                                     kingsSideRookTargetLocation);
                         }
                     }
 
                 } else if (destinationTile.getTileLocation().equals(queenSideRookStartLocation)) {
-                    Tile queensRookStartTile = chessBoard.getTile(queenSideRookStartLocation);
+                    Tile queensRookStartTile = gameBoard.getTile(queenSideRookStartLocation);
                     if(queensRookStartTile.isOccupied() && queensRookStartTile.getPiece().getPieceType().isRook()){
                         Rook castlingRook = (Rook)queensRookStartTile.getPiece();
                         if(castlingRook.getAlliance().equals(humanMovedPiece.getAlliance())) {
-                            return Move.MoveFactory.createRandomFisherChessCastling(chessBoard,
+                            return Move.MoveFactory.createRandomFisherChessCastling(gameBoard,
                                     startTile.getTileLocation(), queensSideKingLocation, castlingRook,
                                     queensSideRookTargetLocation);
                         }
@@ -349,19 +426,19 @@ public class View {
             }
 
             if(humanMovedPiece.getPieceType().isPawn() &&
-                    chessBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
+                    gameBoard.getCurrentPlayer().getAlliance().isPawnPromotionSquare(destinationTile
                             .getTileLocation())) {
                 final Piece promotedPiece = isAutoQueenEnabled ?
                         Queen.createQueen(destinationTile.getTileLocation(),
                                 humanMovedPiece.getAlliance(),false) :
                         choosePromotedPiece();
-                return Move.MoveFactory.createPawnPromotionMove(chessBoard,
+                return Move.MoveFactory.createPawnPromotionMove(gameBoard,
                         startTile.getTileLocation(),
                         destinationTile.getTileLocation(),
                        promotedPiece);
 
             }
-            return Move.MoveFactory.createMove(chessBoard, startTile.getTileLocation(),
+            return Move.MoveFactory.createMove(gameBoard, startTile.getTileLocation(),
                     destinationTile.getTileLocation());
         }
 
@@ -397,11 +474,11 @@ public class View {
                 for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
                     g2D.setColor((x + y) % 2 == 0 ? Color.WHITE : new Color(0, 202, 255));
                     g2D.fillRect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE);
-                    final Tile currentTile = chessBoard.getTile(x, y);
+                    final Tile currentTile = gameBoard.getTile(x, y);
                     //Highlights king which is under check
-                    if((chessBoard.getCurrentPlayer().isUnderCheck() && currentTile.isOccupied() &&
+                    if ((gameBoard.getCurrentPlayer().isUnderCheck() && currentTile.isOccupied() &&
                             currentTile.getPiece().getPieceType().isKing() &&
-                            currentTile.getPiece().getAlliance().equals(chessBoard.getCurrentPlayer().getAlliance()))) {
+                            currentTile.getPiece().getAlliance().equals(gameBoard.getCurrentPlayer().getAlliance()))) {
                         g2D.setColor(Color.RED);
                         int checkedKingX = x;
                         int checkedKingY = y;
@@ -416,7 +493,7 @@ public class View {
         }
 
         private void drawAllActivePieces(Graphics2D g2D){
-            chessBoard.getAllActivePieces().stream().filter(piece -> !piece.equals(humanMovedPiece))
+            gameBoard.getAllActivePieces().stream().filter(piece -> !piece.equals(humanMovedPiece))
                     .forEach((Piece piece) -> {
                         final BufferedImage bufferedImage = RESOURCE_MANAGER.getPieceImage(piece);
                         final int pieceX = piece.getLocation().getX();
@@ -436,7 +513,7 @@ public class View {
         private void drawLegalMovesHints(Graphics2D g2D){
             //Draw current player's legal moves
             if(highlightLegalMoves){
-                chessBoard.getCurrentPlayer().calcEscapeMoves().stream()
+                gameBoard.getCurrentPlayer().calcEscapeMoves().stream()
                         .filter(move -> move.getMovedPiece().equals(humanMovedPiece)).forEach(move -> {
                     g2D.setColor(Color.GREEN.brighter());
                     int x = move.getDestination().getX();
