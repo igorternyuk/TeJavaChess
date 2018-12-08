@@ -28,6 +28,7 @@ public class MiniMax implements MoveStrategy {
         final long startTime = System.currentTimeMillis();
         System.out.println(board.getCurrentPlayer() + " starts thinking with searchDepth " + searchDepth);
         Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
+        System.out.println(" legalMoves.size() " + legalMoves.size());
         for (final Move move : legalMoves) {
             MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {
@@ -36,20 +37,21 @@ public class MiniMax implements MoveStrategy {
                 } else {
                     currentValue = max(moveTransition.getTransitedBoard(), searchDepth - 1);
                 }
-            }
 
-            if (board.getCurrentPlayer().getAlliance().isWhite()) {
-                if (highestDetectedValue < currentValue) {
-                    highestDetectedValue = currentValue;
-                    bestMove = move;
-                }
-            } else {
-                if (lowestDetectedValue > currentValue) {
-                    lowestDetectedValue = currentValue;
-                    bestMove = move;
+                if (board.getCurrentPlayer().getAlliance().isWhite()) {
+                    if (highestDetectedValue < currentValue) {
+                        highestDetectedValue = currentValue;
+                        bestMove = move;
+                    }
+                } else {
+                    if (lowestDetectedValue > currentValue) {
+                        lowestDetectedValue = currentValue;
+                        bestMove = move;
+                    }
                 }
             }
         }
+        System.out.println("bestMove: " + bestMove);
         final long moveTime = System.currentTimeMillis() - startTime;
         System.out.println("Move time: " + moveTime / 1000 + " seconds.");
         return bestMove;

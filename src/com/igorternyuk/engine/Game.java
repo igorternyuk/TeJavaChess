@@ -66,6 +66,7 @@ public class Game {
     public boolean tryToMakeMove(final Move move) {
         final MoveTransition moveTransition = this.chessBoard.getCurrentPlayer().makeMove(move);
         final Alliance currentPlayerAlliance = this.chessBoard.getCurrentPlayer().getAlliance();
+        System.out.println("moveTransition.getMoveStatus() = " + moveTransition.getMoveStatus());
         if(moveTransition.getMoveStatus().isDone()){
             if(currentPlayerAlliance.isWhite()){
                 ++numberOfWhiteMoves;

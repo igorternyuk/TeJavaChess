@@ -7,6 +7,8 @@ import com.igorternyuk.engine.board.*;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.pieces.*;
 import com.igorternyuk.engine.player.Player;
+import com.igorternyuk.engine.player.ai.MiniMax;
+import com.igorternyuk.engine.player.ai.MoveStrategy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.ExecutionException;
 
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
@@ -57,6 +60,7 @@ public class View extends Observable {
     private boolean highlightLegalMoves = false;
     private boolean highlightLastMove = false;
     private boolean isAutoQueenEnabled = false;
+    private Move computerMove;
 
     public enum PlayerType {
         HUMAN {
@@ -93,7 +97,8 @@ public class View extends Observable {
         this.mainWindow.add(this.boardPanel, BorderLayout.CENTER);
         this.mainWindow.add(this.takenPiecesPanel, BorderLayout.WEST);
         this.mainWindow.add(this.gameHistoryPanel, BorderLayout.EAST);
-        this.mainWindow.setVisible(true);
+        this.addObserver(new AIWatcher());
+        //this.mainWindow.setVisible(true);
     }
 
     public static synchronized View getInstance() {
@@ -101,6 +106,11 @@ public class View extends Observable {
             INSTANCE = new View();
         }
         return INSTANCE;
+    }
+
+    public void show() {
+        cleanAllUpForNewGame();
+        this.mainWindow.setVisible(true);
     }
 
     private GameStatus getGameStatus() {
@@ -133,6 +143,8 @@ public class View extends Observable {
                     && View.getInstance().getGameSetupPanel().isAIPlayer(currentPlayer)) {
                 //Create AI thread
                 //execute AI work
+                AIThinkTank thinkTank = new AIThinkTank();
+                thinkTank.execute();
             }
             if (View.getInstance().getGameStatus().isGameOver()) {
                 View.getInstance().getBoardPanel().handleGameOver();
@@ -144,8 +156,38 @@ public class View extends Observable {
 
         @Override
         protected Move doInBackground() throws Exception {
-            return null;
+            System.out.println("AI starts thinking");
+            final MoveStrategy strategy = new MiniMax(3);
+            final Move bestMove = strategy.execute(View.getInstance().getGameBoard());
+            return bestMove;
         }
+
+        @Override
+        public void done() {
+            try {
+                final Move bestMove = this.get();
+                View.getInstance().onComputerMoveDone(bestMove);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void onComputerMoveDone(final Move bestMove) {
+        tryToMakeMove(bestMove);
+        updateComputerMove(bestMove);
+        moveMadeUpdate(PlayerType.COMPUTER);
+    }
+
+    private void moveMadeUpdate(final PlayerType playerType) {
+        this.setChanged();
+        notifyObservers(playerType);
+    }
+
+    private void updateComputerMove(final Move bestMove) {
+        this.computerMove = bestMove;
     }
 
     public JFrame getMainWindow() {
@@ -290,6 +332,31 @@ public class View extends Observable {
         return newPiece;
     }
 
+    private void tryToMakeMove(final Move move) {
+        if (game.tryToMakeMove(move)) {
+            gameBoard = game.getChessBoard();
+            lastMove = move;
+            SwingUtilities.invokeLater(() -> {
+                gameHistoryPanel.update(gameBoard, game.getMoveLog());
+                if (move.isCapturingMove()) {
+                    takenPiecesPanel.update(game.getMoveLog());
+                }
+                if (this.gameSetupPanel.isAIPlayer(gameBoard.getCurrentPlayer())) {
+                    moveMadeUpdate(PlayerType.HUMAN);
+                }
+                this.boardPanel.redraw();
+            });
+
+        }
+        cleanMoveTilesUp();
+
+        if (game.isGameOver()) {
+            boardPanel.handleGameOver();
+        }
+        SwingUtilities.invokeLater(() -> {
+            this.boardPanel.redraw();
+        });
+    }
 
     private class BoardPanel extends JPanel implements MouseMotionListener{
         protected BoardPanel() {
@@ -322,26 +389,7 @@ public class View extends Observable {
                             if(destinationTile != null){
                                 //System.out.println("Destination tile = " + destinationTile.getTileLocation());
                                 final Move move = detectMove();
-                                if (game.tryToMakeMove(move)) {
-                                    gameBoard = game.getChessBoard();
-                                    lastMove = move;
-                                    SwingUtilities.invokeLater(() -> {
-                                        gameHistoryPanel.update(gameBoard, game.getMoveLog());
-                                        if (move.isCapturingMove()) {
-                                            takenPiecesPanel.update(game.getMoveLog());
-                                        }
-                                        redraw();
-                                    });
-
-                                }
-                                cleanMoveTilesUp();
-
-                                if(game.isGameOver()){
-                                    boardPanel.handleGameOver();
-                                }
-                                SwingUtilities.invokeLater(() -> {
-                                    redraw();
-                                });
+                                tryToMakeMove(move);
                             } else {
                                 cleanMoveTilesUp();
                             }

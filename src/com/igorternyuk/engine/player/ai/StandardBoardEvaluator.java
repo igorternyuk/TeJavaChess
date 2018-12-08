@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public final class StandardBoardEvaluator implements BoardEvaluator {
     private static final int CHECK_BONUS = 30;
-    private static final int CASTLE_BONUS = 60;
+    private static final int CASTLE_BONUS = 50;
     private static final int CASTLE_CAPABLE_BONUS = 30;
     private static final int BISHOP_PAIR_BONUS = 50;
     private static final int CHECKMATE_BONUS = 20000;

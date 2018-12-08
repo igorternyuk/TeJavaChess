@@ -254,4 +254,24 @@ public class TestBoard {
         final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
         assertEquals(aiMove, bestMove);
     }
+
+    @Test
+    public void testAI() {
+        final Board board = Board.createStandardBoard();
+        MoveTransition mt1 = board.getCurrentPlayer().makeMove(Move.MoveFactory.createMove(board, "e2", "e4"));
+        assertThat(mt1.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt2 = mt1.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt1.getTransitedBoard(), "e7", "e5"));
+        assertThat(mt2.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt3 = mt2.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt2.getTransitedBoard(), "g1", "f3"));
+        assertThat(mt3.getMoveStatus().isDone(), is(true));
+        final MoveStrategy moveStrategy = new MiniMax(3);
+        final Move aiMove = moveStrategy.execute(mt3.getTransitedBoard());
+        System.out.println("aiMove = " + aiMove);
+        //final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
+        //assertEquals(aiMove, bestMove);
+    }
 }
