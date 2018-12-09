@@ -71,6 +71,7 @@ public abstract class Castling extends Move {
         builder.setKingsRookStartCoordinateX(this.board.getKingsRookStartCoordinateX());
         builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
         builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
+        builder.setTransitionMove(this);
         return builder.build();
     }
 

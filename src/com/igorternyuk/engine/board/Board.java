@@ -32,6 +32,7 @@ public class Board {
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
     private final boolean isInsufficientMaterial;
+    private final Move transitionMove;
 
     private Board(final Builder builder) {
         this.gameType = builder.gameType;
@@ -48,6 +49,13 @@ public class Board {
         this.blackPlayer = new BlackPlayer(this, this.legalMovesBlackPieces, this.legalMovesWhitePieces);
         this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
         this.isInsufficientMaterial = checkIfInsufficientMaterial();
+        this.transitionMove = builder.transitionMove == null
+                ? Move.MoveFactory.NULL_MOVE
+                : builder.transitionMove;
+    }
+
+    public Move getTransitionMove() {
+        return this.transitionMove;
     }
 
     public Map<Location, Tile> getGameBoard() {
@@ -56,47 +64,6 @@ public class Board {
 
     public boolean isInsufficientMaterial() {
         return isInsufficientMaterial;
-    }
-
-    private boolean checkIfInsufficientMaterial() {
-        List<Piece> whitePieces = (List<Piece>) this.whitePieces;
-        List<Piece> blackPieces = (List<Piece>) this.blackPieces;
-        if (whitePieces.size() > 3 && blackPieces.size() > 3) return false;
-        if (whitePieces.size() == 1) {
-            if (blackPieces.size() == 1) return true;
-            if (blackPieces.size() == 2) {
-                final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
-                        blackPieces.get(1) : blackPieces.get(0);
-                if (secondBlackPiece.getPieceType().isMinorPiece())
-                    return true;
-            } else if (blackPieces.size() == 3) {
-                return blackPieces.stream().filter(piece -> !piece.getPieceType().isKing())
-                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
-            }
-        } else if (whitePieces.size() == 2) {
-            if (blackPieces.size() == 1) {
-                final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
-                        whitePieces.get(1) : whitePieces.get(0);
-                if (secondWhitePiece.getPieceType().isMinorPiece())
-                    return true;
-            } else if (blackPieces.size() == 2) {
-                final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
-                        whitePieces.get(1) : whitePieces.get(0);
-                final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
-                        blackPieces.get(1) : blackPieces.get(0);
-                if ((secondWhitePiece.getPieceType().isMinorPiece()) &&
-                        (secondBlackPiece.getPieceType().isMinorPiece())) {
-                    return true;
-                }
-            }
-        } else if (whitePieces.size() == 3) {
-            if (blackPieces.size() == 1) {
-                return whitePieces.stream().filter(piece -> !piece.getPieceType().isKing())
-                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
-            }
-        }
-
-        return false;
     }
 
     public GameType getGameType() {
@@ -159,6 +126,47 @@ public class Board {
         return Iterables.unmodifiableIterable(Iterables.concat(this.legalMovesWhitePieces, this.legalMovesBlackPieces));
     }
 
+    private boolean checkIfInsufficientMaterial() {
+        List<Piece> whitePieces = (List<Piece>) this.whitePieces;
+        List<Piece> blackPieces = (List<Piece>) this.blackPieces;
+        if (whitePieces.size() > 3 && blackPieces.size() > 3) return false;
+        if (whitePieces.size() == 1) {
+            if (blackPieces.size() == 1) return true;
+            if (blackPieces.size() == 2) {
+                final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
+                        blackPieces.get(1) : blackPieces.get(0);
+                if (secondBlackPiece.getPieceType().isMinorPiece())
+                    return true;
+            } else if (blackPieces.size() == 3) {
+                return blackPieces.stream().filter(piece -> !piece.getPieceType().isKing())
+                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
+            }
+        } else if (whitePieces.size() == 2) {
+            if (blackPieces.size() == 1) {
+                final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
+                        whitePieces.get(1) : whitePieces.get(0);
+                if (secondWhitePiece.getPieceType().isMinorPiece())
+                    return true;
+            } else if (blackPieces.size() == 2) {
+                final Piece secondWhitePiece = whitePieces.get(0).getPieceType().isKing() ?
+                        whitePieces.get(1) : whitePieces.get(0);
+                final Piece secondBlackPiece = blackPieces.get(0).getPieceType().isKing() ?
+                        blackPieces.get(1) : blackPieces.get(0);
+                if ((secondWhitePiece.getPieceType().isMinorPiece()) &&
+                        (secondBlackPiece.getPieceType().isMinorPiece())) {
+                    return true;
+                }
+            }
+        } else if (whitePieces.size() == 3) {
+            if (blackPieces.size() == 1) {
+                return whitePieces.stream().filter(piece -> !piece.getPieceType().isKing())
+                        .allMatch(piece -> piece.getPieceType().equals(PieceType.KNIGHT));
+            }
+        }
+
+        return false;
+    }
+
     public static class Builder {
         private Map<Location, Piece> boardPattern;
         private Alliance nextMoveMaker;
@@ -166,10 +174,11 @@ public class Board {
         private GameType gameType;
         private int kingsRookStartCoordinateX;
         private int queensRookStartCoordinateX;
-        private int totalNumberOfMoves;
+        private Move transitionMove;
+        /*private int totalNumberOfMoves;
         private int numberOfLastCapturingMove;
         private int numberOfLastPawnMove;
-        private int numberOfCurrentPositionRepetitions;
+        private int numberOfCurrentPositionRepetitions;*/
 
         public Builder() {
             this.boardPattern = new HashMap<>();
@@ -190,7 +199,7 @@ public class Board {
             this.gameType = gameType;
         }
 
-        public void setTotalNumberOfMoves(int totalNumberOfMoves) {
+        /*public void setTotalNumberOfMoves(int totalNumberOfMoves) {
             this.totalNumberOfMoves = totalNumberOfMoves;
         }
 
@@ -204,7 +213,7 @@ public class Board {
 
         public void setNumberOfLastPawnMove(int numberOfLastPawnMove) {
             this.numberOfLastPawnMove = numberOfLastPawnMove;
-        }
+        }*/
 
         public void setKingsRookStartCoordinateX(int kingsRookStartCoordinateX) {
             this.kingsRookStartCoordinateX = kingsRookStartCoordinateX;
@@ -212,6 +221,10 @@ public class Board {
 
         public void setQueensRookStartCoordinateX(int queensRookStartCoordinateX) {
             this.queensRookStartCoordinateX = queensRookStartCoordinateX;
+        }
+
+        public void setTransitionMove(final Move transitionMove) {
+            this.transitionMove = transitionMove;
         }
 
         public Board build() {

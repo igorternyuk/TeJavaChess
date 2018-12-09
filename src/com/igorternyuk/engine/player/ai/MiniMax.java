@@ -23,12 +23,21 @@ public class MiniMax implements MoveStrategy {
         int lowestDetectedValue = Integer.MAX_VALUE;
         int highestDetectedValue = Integer.MIN_VALUE;
         int currentValue = 0;
-        Move bestMove = Move.NULL_MOVE;
+        Move bestMove = Move.MoveFactory.NULL_MOVE;
 
         final long startTime = System.currentTimeMillis();
         System.out.println(board.getCurrentPlayer() + " starts thinking with searchDepth " + searchDepth);
         Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
         System.out.println(" legalMoves.size() " + legalMoves.size());
+        System.out.println("board.getCurrentPlayer().isCastled() = " + board.getCurrentPlayer().isCastled());
+        System.out.println("Castle capable => " + legalMoves.stream().anyMatch(move -> {
+            if (move.isCastlingMove()) {
+                System.out.println("castle = " + move);
+                System.out.println("move.getDestination() = " + move.getDestination());
+                return true;
+            }
+            return false;
+        }));
         for (final Move move : legalMoves) {
             MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {

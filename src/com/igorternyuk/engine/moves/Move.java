@@ -20,11 +20,6 @@ public abstract class Move {
     protected final Piece movedPiece;
     protected final Location destination;
     private final boolean isFirstMove;
-    public static final Move NULL_MOVE;
-
-    static {
-        NULL_MOVE = new NullMove();
-    }
 
     protected Move(final Board board, final Piece movingPiece, final Location destination) {
         this.board = board;
@@ -73,48 +68,13 @@ public abstract class Move {
     }
 
 
-    public static final class NullMove extends Move {
-        private NullMove() {
-            super(null, BoardUtils.NULL_LOCATION);
-        }
-
-        @Override
-        public boolean isCapturingMove() {
-            return false;
-        }
-
-        @Override
-        public boolean isCastlingMove() {
-            return false;
-        }
-
-        @Override
-        public boolean isKingSideCastling() {
-            return false;
-        }
-
-        @Override
-        public boolean isQueenSideCastling() {
-            return false;
-        }
-
-        @Override
-        public boolean isPawnPromotionMove() {
-            return false;
-        }
-
-        @Override
-        public boolean isEnPassantCapture() {
-            return false;
-        }
-
-        @Override
-        public Board execute() {
-            throw new RuntimeException("Could not execute the null move");
-        }
-    }
-
     public static class MoveFactory {
+
+        public static final Move NULL_MOVE;
+
+        static {
+            NULL_MOVE = new NullMove();
+        }
 
         public static Move createMove(final Board board, final String from, final String to) {
             return createMove(board, BoardUtils.getLocation(from), BoardUtils.getLocation(to));

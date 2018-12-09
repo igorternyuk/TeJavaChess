@@ -2,6 +2,10 @@ package com.igorternyuk.engine.board;
 
 import com.google.common.collect.ImmutableMap;
 import com.igorternyuk.engine.Alliance;
+import com.igorternyuk.engine.moves.Move;
+import com.igorternyuk.engine.moves.MoveTransition;
+import com.igorternyuk.engine.pieces.Piece;
+import com.igorternyuk.engine.pieces.PieceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +27,28 @@ public class BoardUtils {
     public static final Location NULL_LOCATION = new Location(-1, -1);
     static final Location[][] LOCATIONS = BoardUtils.createAllPossibleLocations();
     private static final Map<Character, Integer> ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X =
-            BoardUtils.createAlgebraicNotationFileToCoordinateX();
-    private static final char[] COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE = BoardUtils.createCoordinateXToAlgebraicNotationFile();
-    private static final int[] COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK = BoardUtils.createCoordinateYToAlgebraicNotationRank();
-    private static final int[] ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y = BoardUtils.createAlgebraicNotationRankToCoordinateY();
+            BoardUtils.createFileAlgebraicNotationToCoordinateXMap();
+    private static final char[] COORDINATE_X_TO_FILE_ALGEBRAIC_NOTATION = BoardUtils.createCoordinateXToAlgebraicNotationFile();
+    private static final int[] COORDINATE_Y_TO_RANK_ALGEBRAIC_NOTATION = BoardUtils.createCoordinateYToAlgebraicNotationRank();
+    private static final int[] RANK_ALGEBRAIC_NOTATION_TO_COORDINATE_Y = BoardUtils.createAlgebraicNotationRankToCoordinateY();
     private static final Map<String, Location> ALGEBRAIC_NOTATION_TO_LOCATION = BoardUtils.createAlgebraicNotationToLocationMap();
     private static final Map<Location, String> LOCATION_TO_ALGEBRAIC_NOTATION = BoardUtils.createLocationToAlgebraicNotationMap();
+
+    public static boolean kingThreat(final Move move) {
+        final Board board = move.getBoard();
+        final MoveTransition transition = board.getCurrentPlayer().makeMove(move);
+        return transition.getTransitedBoard().getCurrentPlayer().isUnderCheck();
+    }
+
+    // MVV-LVA (Most Valuable Victim - Least Valuable Aggressor),
+    public static int mvvlva(final Move move) {
+        final Piece movedPiece = move.getMovedPiece();
+        if (move.isCapturingMove()) {
+            final Piece capturedPiece = move.getCapturedPiece();
+            return (capturedPiece.getValue() - movedPiece.getValue() + PieceType.KING.getValue()) * 100;
+        }
+        return PieceType.KING.getValue() - movedPiece.getValue();
+    }
 
     public static boolean isValidLocation(final Location location) {
         return location.getX() >= 0 && location.getX() < BOARD_SIZE && location.getY() >= 0 &&
@@ -40,15 +60,15 @@ public class BoardUtils {
     }
 
     public static int getAlgebraicNotationForCoordinateY(final int y){
-        return COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK[y];
+        return COORDINATE_Y_TO_RANK_ALGEBRAIC_NOTATION[y];
     }
 
     public static int getCoordinateYForAlgebraicNotation(final int rank){
-        return ALGEBRAIC_NOTATION_RANK_TO_COORDINATE_Y[rank];
+        return RANK_ALGEBRAIC_NOTATION_TO_COORDINATE_Y[rank];
     }
 
     public static char getAlgebraicNotationForCoordinateX(final int x){
-        return COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE[x];
+        return COORDINATE_X_TO_FILE_ALGEBRAIC_NOTATION[x];
     }
 
     public static int getCoordinateXForAlgebraicNotation(final char file){
@@ -102,7 +122,7 @@ public class BoardUtils {
         return allPossibleLocations;
     }
 
-    private static Map<Character,Integer> createAlgebraicNotationFileToCoordinateX() {
+    private static Map<Character, Integer> createFileAlgebraicNotationToCoordinateXMap() {
         Map<Character, Integer> map = new HashMap<>();
         for(int i = 0; i < BoardUtils.BOARD_SIZE; ++i){
             map.put((char)(i + 97), i);
@@ -137,8 +157,8 @@ public class BoardUtils {
         for(int y = 0; y < BoardUtils.BOARD_SIZE; ++y){
             for(int x = 0; x < BoardUtils.BOARD_SIZE; ++x){
                 final Location location = BoardUtils.LOCATIONS[y][x];
-                final String algebraicNotation = String.valueOf(COORDINATE_X_TO_ALGEBRAIC_NOTATION_FILE[x]) +
-                        String.valueOf(COORDINATE_Y_TO_ALGEBRAIC_NOTATION_RANK[y]);
+                final String algebraicNotation = String.valueOf(COORDINATE_X_TO_FILE_ALGEBRAIC_NOTATION[x]) +
+                        String.valueOf(COORDINATE_Y_TO_RANK_ALGEBRAIC_NOTATION[y]);
                 map.put(algebraicNotation, location);
             }
         }

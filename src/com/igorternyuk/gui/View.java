@@ -241,7 +241,7 @@ public class View extends Observable {
         final JMenuItem gameSetupMenuItem = new JMenuItem("Setup game");
         gameSetupMenuItem.addActionListener((e) -> {
             this.gameSetupPanel.promptUser();
-
+            this.setupUpdate(this.gameSetupPanel);
         });
         optionsMenu.add(gameSetupMenuItem);
         return optionsMenu;
@@ -298,6 +298,7 @@ public class View extends Observable {
         cleanAllUpForNewGame();
         this.game.prepareNewGame(GameType.CLASSIC_CHESS);
         this.gameBoard = this.game.getChessBoard();
+        setupUpdate(this.gameSetupPanel);
     }
 
     private void prepareNewRandomFisherChessGame(){
@@ -427,7 +428,7 @@ public class View extends Observable {
         }
 
         private Move detectMove(){
-            if(humanMovedPiece == null || destinationTile == null) return Move.NULL_MOVE;
+            if (humanMovedPiece == null || destinationTile == null) return Move.MoveFactory.NULL_MOVE;
             if (gameBoard.getGameType().isRandomFisherChess() &&
                     humanMovedPiece.getPieceType().isKing()){
                 final int kingsRookStartCoordinateX = gameBoard.getKingsRookStartCoordinateX();

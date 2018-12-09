@@ -83,7 +83,7 @@ public abstract class Piece {
                 Location candidateDestination = BoardUtils.getLocation(destX, destY);
                 while (true) {
                     Move move = getNextMove(board, candidateDestination);
-                    if (move.equals(Move.NULL_MOVE)) {
+                    if (move.equals(Move.MoveFactory.NULL_MOVE)) {
                         break;
                     } else {
                         legalMoves.add(move);
@@ -114,7 +114,7 @@ public abstract class Piece {
             if (BoardUtils.isValidLocation(destX, destY)) {
                 final Location candidateDestination = BoardUtils.getLocation(destX, destY);
                 Move move = getNextMove(board, candidateDestination);
-                if (!move.equals(Move.NULL_MOVE)) {
+                if (!move.equals(Move.MoveFactory.NULL_MOVE)) {
                     legalMoves.add(move);
                 }
             }
@@ -135,7 +135,7 @@ public abstract class Piece {
                 return new RegularMove(board, this, candidateDestination);
             }
         }
-        return Move.NULL_MOVE;
+        return Move.MoveFactory.NULL_MOVE;
     }
 
     @Override
