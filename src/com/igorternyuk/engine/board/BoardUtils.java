@@ -1,5 +1,6 @@
 package com.igorternyuk.engine.board;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.moves.Move;
@@ -7,8 +8,7 @@ import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.pieces.Piece;
 import com.igorternyuk.engine.pieces.PieceType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by igor on 07.03.18.
@@ -48,6 +48,22 @@ public class BoardUtils {
             return (capturedPiece.getValue() - movedPiece.getValue() + PieceType.KING.getValue()) * 100;
         }
         return PieceType.KING.getValue() - movedPiece.getValue();
+    }
+
+    public static Collection<Move> getMoveHistory(final Board board, int numberOfMoves) {
+        final List<Move> moveHistory = new ArrayList<>(numberOfMoves);
+        Move currentMove = board.getTransitionMove();
+        int i = 0;
+        while (!currentMove.equals(Move.MoveFactory.NULL_MOVE) && i < numberOfMoves) {
+            moveHistory.add(currentMove);
+            currentMove = currentMove.getBoard().getTransitionMove();
+            ++i;
+        }
+        return ImmutableList.copyOf(moveHistory);
+    }
+
+    public static boolean isThreatenedBoardImmediate(final Board board) {
+        return board.getWhitePlayer().isUnderCheck() || board.getBlackPlayer().isUnderCheck();
     }
 
     public static boolean isValidLocation(final Location location) {

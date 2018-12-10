@@ -8,10 +8,12 @@ import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.pieces.Piece;
 import com.igorternyuk.engine.pieces.PieceType;
 import com.igorternyuk.engine.player.ai.MiniMax;
+import com.igorternyuk.engine.player.ai.MoveSorter;
 import com.igorternyuk.engine.player.ai.MoveStrategy;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -268,9 +270,27 @@ public class TestBoard {
                 .getCurrentPlayer()
                 .makeMove(Move.MoveFactory.createMove(mt2.getTransitedBoard(), "g1", "f3"));
         assertThat(mt3.getMoveStatus().isDone(), is(true));
-        final MoveStrategy moveStrategy = new MiniMax(3);
-        final Move aiMove = moveStrategy.execute(mt3.getTransitedBoard());
-        System.out.println("aiMove = " + aiMove);
+        final MoveTransition mt4 = mt3.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "g5"));
+        assertThat(mt4.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt5 = mt4.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt4.getTransitedBoard(), "f1", "c4"));
+        assertThat(mt4.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt6 = mt5.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt5.getTransitedBoard(), "g8", "e7"));
+        assertThat(mt4.getMoveStatus().isDone(), is(true));
+        //final MoveStrategy moveStrategy = new AlphaBeta(3);
+        //final Move aiMove = moveStrategy.execute(mt3.getTransitedBoard());
+        final Collection<Move> history = BoardUtils.getMoveHistory(mt6.getTransitedBoard(), 4);
+        System.out.println("History:");
+        history.forEach(System.out::println);
+        System.out.println("Sorted moves:");
+        Collection<Move> sortedMoves = MoveSorter.SMART.sort(mt6.getTransitedBoard().getCurrentPlayer().getLegalMoves());
+        sortedMoves.forEach(System.out::println);
+        //System.out.println("aiMove = " + aiMove);
         //final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
         //assertEquals(aiMove, bestMove);
     }

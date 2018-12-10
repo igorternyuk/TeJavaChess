@@ -5,9 +5,10 @@ import com.igorternyuk.engine.Game;
 import com.igorternyuk.engine.GameStatus;
 import com.igorternyuk.engine.board.*;
 import com.igorternyuk.engine.moves.Move;
+import com.igorternyuk.engine.moves.MoveLog;
 import com.igorternyuk.engine.pieces.*;
 import com.igorternyuk.engine.player.Player;
-import com.igorternyuk.engine.player.ai.MiniMax;
+import com.igorternyuk.engine.player.ai.AlphaBeta;
 import com.igorternyuk.engine.player.ai.MoveStrategy;
 
 import javax.swing.*;
@@ -113,6 +114,10 @@ public class View extends Observable {
         this.mainWindow.setVisible(true);
     }
 
+    private MoveLog getMoveLog() {
+        return this.game.getMoveLog();
+    }
+
     private GameStatus getGameStatus() {
         return this.game.getGameStatus();
     }
@@ -157,7 +162,10 @@ public class View extends Observable {
         @Override
         protected Move doInBackground() throws Exception {
             System.out.println("AI starts thinking");
-            final MoveStrategy strategy = new MiniMax(3);
+            //final MoveStrategy strategy = new MiniMax(3);
+            //View.getInstance().get
+            //final int depth = View.getInstance().getMoveLog().size() > 4 ? 5 : 4;
+            final MoveStrategy strategy = new AlphaBeta(4);
             final Move bestMove = strategy.execute(View.getInstance().getGameBoard());
             return bestMove;
         }
@@ -351,9 +359,9 @@ public class View extends Observable {
         }
         cleanMoveTilesUp();
 
-        if (game.isGameOver()) {
+        /*if (game.isGameOver()) {
             boardPanel.handleGameOver();
-        }
+        }*/
         SwingUtilities.invokeLater(() -> {
             this.boardPanel.redraw();
         });

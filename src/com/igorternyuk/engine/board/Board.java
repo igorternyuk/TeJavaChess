@@ -66,6 +66,12 @@ public class Board {
         return isInsufficientMaterial;
     }
 
+    public boolean isEndGameScenario() {
+        return getCurrentPlayer().isCheckMate()
+                || getCurrentPlayer().isInStalemate()
+                || isInsufficientMaterial();
+    }
+
     public GameType getGameType() {
         return this.gameType;
     }
