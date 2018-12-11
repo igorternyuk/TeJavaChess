@@ -20,6 +20,7 @@ public class AlphaBeta implements MoveStrategy {
     private int quiescenceCount;
     private static final int MAX_QUIESCENCE = 5000;
 
+    //private Map<Board, Integer> tt = new HashMap<>();
     public AlphaBeta(int depth) {
         this.boardEvaluator = new StandardBoardEvaluator();
         this.searchDepth = depth;
@@ -151,9 +152,14 @@ public class AlphaBeta implements MoveStrategy {
         int highestSeenValue = Integer.MIN_VALUE;
         int lowestSeenValue = Integer.MAX_VALUE;
         int currentValue;
+        int moveCounter = 0;
+        final Collection<Move> legalMoves = MoveSorter.SMART.sort((board.getCurrentPlayer().getLegalMoves()));
+        final int numMoves = legalMoves.size();
         System.out.println(board.getCurrentPlayer() + " THINKING with depth = " + this.searchDepth);
-
-        for (final Move move : MoveSorter.SMART.sort((board.getCurrentPlayer().getLegalMoves()))) {
+        String s = "";
+        for (final Move move : legalMoves) {
+            final long candidateMoveStartTime = System.nanoTime();
+            ++moveCounter;
             final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             this.quiescenceCount = 0;
             if (moveTransition.getMoveStatus().isDone()) {
@@ -174,13 +180,32 @@ public class AlphaBeta implements MoveStrategy {
                         break;
                     }
                 }
+
+                final String quiescenceInfo = " " + score(currentPlayer, highestSeenValue, lowestSeenValue) + " q: " + this.quiescenceCount;
+                s = "\t" + toString() + "(" + this.searchDepth + "), m: (" + moveCounter + "/" + numMoves + ") " + move + ", best:  " + bestMove
+
+                        + quiescenceInfo + ", t: " + calculateTimeTaken(candidateMoveStartTime, System.nanoTime());
             }
+            System.out.println(s);
         }
+
         System.out.println("Board evaluated = " + this.boardsEvaluated);
         System.out.println("this.cutsOffProduced = " + this.cutsOffProduced);
         System.out.println("Best move = " + bestMove);
         System.out.println("Move time = " + (System.currentTimeMillis() - startTime) / 1000 + " seconds");
         return bestMove;
+    }
+
+    private static String score(final Player currentPlayer,
+                                final int highestSeenValue,
+                                final int lowestSeenValue) {
+
+        if (currentPlayer.getAlliance().isWhite()) {
+            return "[score: " + highestSeenValue + "]";
+        } else if (currentPlayer.getAlliance().isBlack()) {
+            return "[score: " + lowestSeenValue + "]";
+        }
+        throw new RuntimeException("Eso tiene mala pinta hijo mio!");
     }
 
 
@@ -231,6 +256,11 @@ public class AlphaBeta implements MoveStrategy {
             }
         }
         return currentLowest;
+    }
+
+    @Override
+    public String toString() {
+        return "AlphaBeta";
     }
 
 }

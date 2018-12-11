@@ -1,5 +1,10 @@
 package com.igorternyuk.engine.player.ai;
 
+import com.igorternyuk.engine.pieces.Piece;
+import com.igorternyuk.engine.player.Player;
+
+import java.util.Collection;
+
 /**
  * Created by igor on 08.12.18.
  */
@@ -8,7 +13,13 @@ public class PawnStructureAnalyzer {
     public static final int DOUBLED_PAWN_PENALTY = -35;
     public static final int PASS_PAWN_BONUS = 35;
 
+    public int pawnStructureScore(final Player player) {
+        return 0;
+    }
 
+    public static Collection<Piece> getPlayerPawns() {
+        return null;
+    }
 }
 
 /*

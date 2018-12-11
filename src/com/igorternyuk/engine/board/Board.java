@@ -52,6 +52,32 @@ public class Board {
         this.transitionMove = builder.transitionMove == null
                 ? Move.MoveFactory.NULL_MOVE
                 : builder.transitionMove;
+        if (builder.checkEndGamePhase()) {
+            this.setEndGameKings();
+        }
+    }
+
+    public boolean isEndGamePhase() {
+        int numMinorPieces = 0;
+        int numMajorPieces = 0;
+        boolean noQueens = false;
+        for (final Piece piece : this.allActivePieces) {
+            if (piece.getPieceType().isMinorPiece()) {
+                ++numMinorPieces;
+            } else if (piece.getPieceType().isMajorPiece()) {
+                ++numMajorPieces;
+            }
+            if (piece.getPieceType().isQueen()) {
+                noQueens = false;
+            }
+        }
+        if (noQueens && (numMinorPieces + numMajorPieces) <= 8) {
+            return true;
+        }
+        if (!noQueens && (numMinorPieces + numMajorPieces) <= 2) {
+            return true;
+        }
+        return false;
     }
 
     public Move getTransitionMove() {
@@ -132,6 +158,13 @@ public class Board {
         return Iterables.unmodifiableIterable(Iterables.concat(this.legalMovesWhitePieces, this.legalMovesBlackPieces));
     }
 
+    public void setEndGameKings() {
+        if (this.isEndGamePhase()) {
+            this.getWhitePlayer().getPlayerKing().setEndGameValue();
+            this.getBlackPlayer().getPlayerKing().setEndGameValue();
+        }
+    }
+
     private boolean checkIfInsufficientMaterial() {
         List<Piece> whitePieces = (List<Piece>) this.whitePieces;
         List<Piece> blackPieces = (List<Piece>) this.blackPieces;
@@ -173,6 +206,43 @@ public class Board {
         return false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Board board = (Board) o;
+
+        if (kingsRookStartCoordinateX != board.kingsRookStartCoordinateX) return false;
+        if (queensRookStartCoordinateX != board.queensRookStartCoordinateX) return false;
+        if (gameType != board.gameType) return false;
+        if (enPassantPawn != null ? !enPassantPawn.equals(board.enPassantPawn) : board.enPassantPawn != null)
+            return false;
+        if (gameBoard != null ? !gameBoard.equals(board.gameBoard) : board.gameBoard != null) return false;
+        if (whitePieces != null ? !whitePieces.equals(board.whitePieces) : board.whitePieces != null) return false;
+        if (blackPieces != null ? !blackPieces.equals(board.blackPieces) : board.blackPieces != null) return false;
+        if (allActivePieces != null ? !allActivePieces.equals(board.allActivePieces) : board.allActivePieces != null)
+            return false;
+        if (legalMovesWhitePieces != null ? !legalMovesWhitePieces.equals(board.legalMovesWhitePieces) : board.legalMovesWhitePieces != null)
+            return false;
+        return legalMovesBlackPieces != null ? legalMovesBlackPieces.equals(board.legalMovesBlackPieces) : board.legalMovesBlackPieces == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = gameType != null ? gameType.hashCode() : 0;
+        result = 31 * result + (enPassantPawn != null ? enPassantPawn.hashCode() : 0);
+        result = 31 * result + kingsRookStartCoordinateX;
+        result = 31 * result + queensRookStartCoordinateX;
+        result = 31 * result + (gameBoard != null ? gameBoard.hashCode() : 0);
+        result = 31 * result + (whitePieces != null ? whitePieces.hashCode() : 0);
+        result = 31 * result + (blackPieces != null ? blackPieces.hashCode() : 0);
+        result = 31 * result + (allActivePieces != null ? allActivePieces.hashCode() : 0);
+        result = 31 * result + (legalMovesWhitePieces != null ? legalMovesWhitePieces.hashCode() : 0);
+        result = 31 * result + (legalMovesBlackPieces != null ? legalMovesBlackPieces.hashCode() : 0);
+        return result;
+    }
+
     public static class Builder {
         private Map<Location, Piece> boardPattern;
         private Alliance nextMoveMaker;
@@ -181,10 +251,7 @@ public class Board {
         private int kingsRookStartCoordinateX;
         private int queensRookStartCoordinateX;
         private Move transitionMove;
-        /*private int totalNumberOfMoves;
-        private int numberOfLastCapturingMove;
-        private int numberOfLastPawnMove;
-        private int numberOfCurrentPositionRepetitions;*/
+        private boolean checkEndGamePhase = false;
 
         public Builder() {
             this.boardPattern = new HashMap<>();
@@ -201,25 +268,17 @@ public class Board {
             return this;
         }
 
+        public void setCheckEndGamePhase(boolean checkEndGamePhase) {
+            this.checkEndGamePhase = checkEndGamePhase;
+        }
+
+        public boolean checkEndGamePhase() {
+            return this.checkEndGamePhase;
+        }
+
         public void setGameType(GameType gameType) {
             this.gameType = gameType;
         }
-
-        /*public void setTotalNumberOfMoves(int totalNumberOfMoves) {
-            this.totalNumberOfMoves = totalNumberOfMoves;
-        }
-
-        public void setNumberOfLastCapturingMove(int numberOfLastCapturingMove) {
-            this.numberOfLastCapturingMove = numberOfLastCapturingMove;
-        }
-
-        public void setNumberOfCurrentPositionRepetitions(int numberOfCurrentPositionRepetitions) {
-            this.numberOfCurrentPositionRepetitions = numberOfCurrentPositionRepetitions;
-        }
-
-        public void setNumberOfLastPawnMove(int numberOfLastPawnMove) {
-            this.numberOfLastPawnMove = numberOfLastPawnMove;
-        }*/
 
         public void setKingsRookStartCoordinateX(int kingsRookStartCoordinateX) {
             this.kingsRookStartCoordinateX = kingsRookStartCoordinateX;

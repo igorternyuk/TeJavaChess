@@ -19,6 +19,7 @@ public class Rook extends Piece {
 
     private static final Table<Location, Alliance, Rook> ALL_ROOKS = createAllPossibleRooks(true);
     private static final Table<Location, Alliance, Rook> ALL_MOVED_ROOKS = createAllPossibleRooks(false);
+    private int value;
 
     private static Table<Location, Alliance, Rook> createAllPossibleRooks(final boolean isFirstMove) {
         final ImmutableTable.Builder<Location, Alliance, Rook> rooks = ImmutableTable.builder();
@@ -70,6 +71,18 @@ public class Rook extends Piece {
 
     private Rook(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.ROOK, pieceLocation, pieceAlliance, isFirstMove);
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        this.value = super.getValue();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_ROOK[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.BLACK_ROOK[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
     }
 
     @Override

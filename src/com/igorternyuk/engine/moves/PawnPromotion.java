@@ -52,6 +52,7 @@ public class PawnPromotion extends PawnMove {
         builder.setQueensRookStartCoordinateX(this.board.getQueensRookStartCoordinateX());
         builder.setMoveMaker(this.board.getCurrentPlayer().getOpponentAlliance());
         builder.setTransitionMove(this);
+        builder.setCheckEndGamePhase(true);
         return builder.build();
     }
 

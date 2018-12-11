@@ -31,21 +31,11 @@ public final class StandardBoardEvaluator implements BoardEvaluator {
 
     @VisibleForTesting
     private int scorePlayer(final Player player, int depth) {
-        return materialValue(player) + evaluateBishops(player)
+        return materialValue(player)/* + evaluateBishops(player)*/
                 + castleCapable(player) + castled(player)
                 + mobility(player) + kingThreats(player, depth)
                 + attacks(player);
     }
-
-    /*private static int kingMoves(final Player player){
-        if(!player.isCastled()) {
-            if(!player.getPlayerKing().isFirstMove()){
-                System.out.println("Kings move penalty");
-                return -KING_MOVED_PENALTY;
-            }
-        }
-        return 0;
-    }*/
 
     private static int materialValue(final Player player) {
         Collection<Piece> pieces = player.getActivePieces();

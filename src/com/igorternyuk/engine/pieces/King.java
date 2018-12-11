@@ -19,6 +19,7 @@ public class King extends Piece {
 
     private static final Table<Location, Alliance, King> ALL_KINGS = createAllPossibleKings(true);
     private static final Table<Location, Alliance, King> ALL_MOVED_KINGS = createAllPossibleKings(false);
+    private int value;
 
     private static Table<Location, Alliance, King> createAllPossibleKings(final boolean isFirstMove) {
         final ImmutableTable.Builder<Location, Alliance, King> kings = ImmutableTable.builder();
@@ -70,8 +71,30 @@ public class King extends Piece {
 
     private King(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.KING, pieceLocation, pieceAlliance, isFirstMove);
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        this.value = super.getValue();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_KING_MIDDLE_GAME[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.WHITE_KING_MIDDLE_GAME[index];
+        }
     }
 
+    public void setEndGameValue() {
+        final int index = getLocation().getY() * BoardUtils.BOARD_SIZE + getLocation().getX();
+        if (getAlliance().isWhite()) {
+            this.value -= PieceSquareTables.WHITE_KING_MIDDLE_GAME[index];
+            this.value += PieceSquareTables.WHITE_KING_ENDGAME[index];
+        } else if (getAlliance().isBlack()) {
+            this.value -= PieceSquareTables.WHITE_KING_MIDDLE_GAME[index];
+            this.value += PieceSquareTables.WHITE_KING_ENDGAME[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
+    }
     @Override
     public void setPossibleOffsets() {
         this.moveVectors.add(new Point(-1, -1));

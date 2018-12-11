@@ -310,8 +310,8 @@ public abstract class Player {
         throw new RuntimeException("\nPlayer should have the king!\n");
     }
 
-    private static Collection<Move> calculateAttacksOnTile(final Location location,
-                                                           final Collection<Move> opponentMoves) {
+    public static Collection<Move> calculateAttacksOnTile(final Location location,
+                                                          final Collection<Move> opponentMoves) {
         final List<Move> attackMoves = new ArrayList<>();
         opponentMoves.stream().filter(move -> move.getDestination().equals(location)).forEach(attackMoves::add);
         return attackMoves;

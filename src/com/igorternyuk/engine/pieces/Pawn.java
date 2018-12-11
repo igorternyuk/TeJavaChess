@@ -22,6 +22,7 @@ import java.util.List;
 public class Pawn extends Piece {
     private static final Table<Location, Alliance, Pawn> ALL_PAWNS = createAllPossiblePawns(true);
     private static final Table<Location, Alliance, Pawn> ALL_MOVED_PAWNS = createAllPossiblePawns(false);
+    private int value;
 
     private static final Table<Location, Alliance, Pawn> createAllPossiblePawns(final boolean isFirstMove) {
         ImmutableTable.Builder<Location, Alliance, Pawn> pawns = ImmutableTable.builder();
@@ -75,6 +76,18 @@ public class Pawn extends Piece {
 
     private Pawn(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.PAWN, pieceLocation, pieceAlliance, isFirstMove);
+        this.value = super.getValue();
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_PAWN[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.BLACK_PAWN[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
     }
 
     @Override

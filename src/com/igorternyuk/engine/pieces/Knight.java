@@ -22,6 +22,7 @@ public class Knight extends Piece {
 
     private static final Table<Location, Alliance, Knight> ALL_KNIGHTS = createAllPossibleKnights(true);
     private static final Table<Location, Alliance, Knight> ALL_MOVED_KNIGHTS = createAllPossibleKnights(false);
+    private int value;
 
     private static Table<Location, Alliance, Knight> createAllPossibleKnights(boolean isFirstMove) {
         final ImmutableTable.Builder<Location, Alliance, Knight> knights = ImmutableTable.builder();
@@ -73,6 +74,18 @@ public class Knight extends Piece {
 
     private Knight(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.KNIGHT, pieceLocation, pieceAlliance, isFirstMove);
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        this.value = super.getValue();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_KNIGHT[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.BLACK_KNIGHT[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
     }
 
     @Override

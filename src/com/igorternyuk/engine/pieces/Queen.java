@@ -19,6 +19,7 @@ public class Queen extends Piece {
 
     private static final Table<Location, Alliance, Queen> ALL_QUEENS = createAllPossibleQueens(true);
     private static final Table<Location, Alliance, Queen> ALL_MOVED_QUEENS = createAllPossibleQueens(false);
+    private int value;
 
     private static Table<Location, Alliance, Queen> createAllPossibleQueens(final boolean isFirstMove) {
         final ImmutableTable.Builder<Location, Alliance, Queen> queens = ImmutableTable.builder();
@@ -69,8 +70,20 @@ public class Queen extends Piece {
         this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
     }
 
-    private Queen(final Location pieceLocation, final Alliance alliance, final boolean isFirstMove) {
-        super(PieceType.QUEEN, pieceLocation, alliance, isFirstMove);
+    private Queen(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
+        super(PieceType.QUEEN, pieceLocation, pieceAlliance, isFirstMove);
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        this.value = super.getValue();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_ROOK[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.BLACK_ROOK[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
     }
 
     @Override

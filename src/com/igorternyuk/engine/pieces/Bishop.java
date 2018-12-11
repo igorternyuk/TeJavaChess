@@ -18,6 +18,7 @@ import java.util.Collection;
 public class Bishop extends Piece {
     private static final Table<Location, Alliance, Bishop> ALL_BISHOPS = createAllPossibleBishops(true);
     private static final Table<Location, Alliance, Bishop> ALL_MOVED_BISHOPS = createAllPossibleBishops(false);
+    private int value;
 
     private static Table<Location, Alliance, Bishop> createAllPossibleBishops(final boolean isFirstMove) {
         final ImmutableTable.Builder<Location, Alliance, Bishop> bishops = ImmutableTable.builder();
@@ -65,10 +66,23 @@ public class Bishop extends Piece {
 
     private Bishop(final int x, final int y, final Alliance alliance, final boolean isFirstMove) {
         this(BoardUtils.getLocation(x, y), alliance, isFirstMove);
+
     }
 
     private Bishop(final Location pieceLocation, final Alliance pieceAlliance, final boolean isFirstMove) {
         super(PieceType.BISHOP, pieceLocation, pieceAlliance, isFirstMove);
+        final int index = pieceLocation.getY() * BoardUtils.BOARD_SIZE + pieceLocation.getX();
+        this.value = super.getValue();
+        if (pieceAlliance.isWhite()) {
+            this.value += PieceSquareTables.WHITE_BISHOP[index];
+        } else if (pieceAlliance.isBlack()) {
+            this.value += PieceSquareTables.BLACK_BISHOP[index];
+        }
+    }
+
+    @Override
+    public int getValue() {
+        return this.value;
     }
 
     @Override
