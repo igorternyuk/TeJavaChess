@@ -31,10 +31,12 @@ public final class StandardBoardEvaluator implements BoardEvaluator {
 
     @VisibleForTesting
     private int scorePlayer(final Player player, int depth) {
+        final PawnStructureAnalyzer pawnStructureAnalyzer = new PawnStructureAnalyzer(player);
         return materialValue(player)/* + evaluateBishops(player)*/
                 + castleCapable(player) + castled(player)
                 + mobility(player) + kingThreats(player, depth)
-                + attacks(player);
+                + attacks(player)
+                + pawnStructureAnalyzer.pawnStructureScore();
     }
 
     private static int materialValue(final Player player) {

@@ -67,12 +67,19 @@ public class BoardUtils {
     }
 
     public static boolean isValidLocation(final Location location) {
-        return location.getX() >= 0 && location.getX() < BOARD_SIZE && location.getY() >= 0 &&
-                location.getY() < BOARD_SIZE;
+        return isValidLocation(location.getX(), location.getY());
     }
 
     public static boolean isValidLocation(final int x, final int y) {
-        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
+        return isValidFile(x) && isValidRank(y);
+    }
+
+    public static boolean isValidFile(final int x) {
+        return x >= 0 && x < BOARD_SIZE;
+    }
+
+    public static boolean isValidRank(final int y) {
+        return y >= 0 && y < BOARD_SIZE;
     }
 
     public static int getAlgebraicNotationForCoordinateY(final int y){

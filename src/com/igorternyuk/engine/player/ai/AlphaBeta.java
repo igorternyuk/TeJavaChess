@@ -29,49 +29,6 @@ public class AlphaBeta implements MoveStrategy {
         this.quiescenceCount = 0;
     }
 
-    /*@Override
-    public Move execute(final Board board) {
-        final long startTime = System.nanoTime();
-        final Player currentPlayer = board.getCurrentPlayer();
-        Move bestMove = Move.MoveFactory.NULL_MOVE;
-        int alpha = Integer.MIN_VALUE;
-        int beta = Integer.MAX_VALUE;
-        int currentValue;
-        System.out.println("AI starts thinking with depth = " + this.searchDepth);
-
-        Collection<Move> sortedMoves = MoveSorter.EXPENSIVE.sort(currentPlayer.getLegalMoves());
-
-        System.out.println("All possible moves were sorted");
-
-        for(final Move move: sortedMoves){
-            final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
-            if(moveTransition.getMoveStatus().isDone()){
-                currentValue = alphaBeta(moveTransition.getTransitedBoard()
-                        , this.searchDepth, alpha, beta,board.getCurrentPlayer().getAlliance() );
-                System.out.println("currentMove = " + move + " => value = " + currentValue);
-                if(currentPlayer.getAlliance().isWhite()){
-                    alpha = currentValue;
-                    bestMove = move;
-                    if(moveTransition.getTransitedBoard().getBlackPlayer().isCheckMate()){
-                        break;
-                    }
-                } else {
-                    beta = currentValue;
-                    bestMove = move;
-                    if(moveTransition.getTransitedBoard().getWhitePlayer().isCheckMate()){
-                        break;
-                    }
-                }
-            }
-        }
-        System.out.println("Board evaluated = "+ this.boardsEvaluated);
-        System.out.println("this.cutsOffProduced = "+ this.cutsOffProduced);
-        System.out.println("Best move = " + bestMove);
-        System.out.println("Move time = " + calculateTimeTaken(startTime, System.nanoTime()));
-        return bestMove;
-    }*/
-
-
     private int alphaBeta(final Board board, int depth, int alpha, int beta, Alliance alliance) {
         System.out.println(" alpha = " + alpha + " beta = " + beta + " depth = " + depth);
         if (depth == 0 || board.isEndGameScenario()) {
@@ -82,7 +39,6 @@ public class AlphaBeta implements MoveStrategy {
         Collection<Move> sortedMoves = MoveSorter.STANDARD.sort(board.getCurrentPlayer().getLegalMoves());
         int current;
 
-
         if (alliance.isWhite()) {
             current = alpha;
             for (final Move move : sortedMoves) {
@@ -90,7 +46,7 @@ public class AlphaBeta implements MoveStrategy {
                 if (moveTransition.getMoveStatus().isDone()) {
                     current = Math.max(current, alphaBeta(moveTransition.getTransitedBoard(),
                             calculateQuiescenceDepth(moveTransition, depth), current, beta, Alliance.BLACK));
-                    if (current >= beta) {
+                    if (current > beta) {
                         ++this.cutsOffProduced;
                         System.out.println("//////////////////////////////////////////////////////////");
                         return beta;
@@ -105,7 +61,7 @@ public class AlphaBeta implements MoveStrategy {
                 if (moveTransition.getMoveStatus().isDone()) {
                     current = Math.min(current, alphaBeta(moveTransition.getTransitedBoard(),
                             calculateQuiescenceDepth(moveTransition, depth), alpha, current, Alliance.WHITE));
-                    if (current <= alpha) {
+                    if (current < alpha) {
                         ++this.cutsOffProduced;
                         System.out.println("//////////////////////////////////////////////////////////");
                         return alpha;
@@ -142,7 +98,6 @@ public class AlphaBeta implements MoveStrategy {
         final long timeTaken = (end - start) / 1000000;
         return timeTaken + " ms";
     }
-
 
     @Override
     public Move execute(final Board board) {
