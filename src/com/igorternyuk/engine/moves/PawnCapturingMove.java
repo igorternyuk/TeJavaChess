@@ -15,7 +15,7 @@ public class PawnCapturingMove extends CapturingMove {
     }
 
     public String toString() {
-        return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromPosition(destination);
+        return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromLocation(destination);
     }
 
     @Override

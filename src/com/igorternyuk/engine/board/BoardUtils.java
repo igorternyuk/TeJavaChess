@@ -24,6 +24,7 @@ public class BoardUtils {
     public static final int SIXTH_RANK = 2;
     public static final int SEVENTH_RANK = 1;
     public static final int EIGHTH_RANK = 0;
+    public static final int MAX_NEIGHBOURS = 8;
     public static final Location NULL_LOCATION = new Location(-1, -1);
     static final Location[][] LOCATIONS = BoardUtils.createAllPossibleLocations();
     private static final Map<Character, Integer> ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X =
@@ -98,7 +99,7 @@ public class BoardUtils {
         return ALGEBRAIC_NOTATION_FILE_TO_COORDINATE_X.get(file);
     }
 
-    public static String getAlgebraicNotationFromPosition(final Location location) {
+    public static String getAlgebraicNotationFromLocation(final Location location) {
         return LOCATION_TO_ALGEBRAIC_NOTATION.get(location);
     }
 
@@ -143,6 +144,22 @@ public class BoardUtils {
             }
         }
         return allPossibleLocations;
+    }
+
+    public static List<Location> getNeighbours(final Location location) {
+        List<Location> neighbours = new ArrayList<>(MAX_NEIGHBOURS);
+        int lx = location.getX();
+        int ly = location.getY();
+        for (int dx = -1; dx < 2; ++dx) {
+            for (int dy = -1; dy < 2; ++dy) {
+                int nx = lx + dx;
+                int ny = ly + dy;
+                if (isValidLocation(nx, ny)) {
+                    neighbours.add(getLocation(nx, ny));
+                }
+            }
+        }
+        return neighbours;
     }
 
     private static Map<Character, Integer> createFileAlgebraicNotationToCoordinateXMap() {

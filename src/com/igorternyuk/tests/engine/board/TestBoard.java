@@ -3,10 +3,12 @@ package com.igorternyuk.tests.engine.board;
 import com.google.common.collect.Iterables;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
+import com.igorternyuk.engine.board.Location;
 import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.pieces.Piece;
 import com.igorternyuk.engine.pieces.PieceType;
+import com.igorternyuk.engine.player.ai.KingSafetyAnalyzer;
 import com.igorternyuk.engine.player.ai.MiniMax;
 import com.igorternyuk.engine.player.ai.MoveSorter;
 import com.igorternyuk.engine.player.ai.MoveStrategy;
@@ -15,6 +17,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -277,11 +280,11 @@ public class TestBoard {
         final MoveTransition mt5 = mt4.getTransitedBoard()
                 .getCurrentPlayer()
                 .makeMove(Move.MoveFactory.createMove(mt4.getTransitedBoard(), "f1", "c4"));
-        assertThat(mt4.getMoveStatus().isDone(), is(true));
+        assertThat(mt5.getMoveStatus().isDone(), is(true));
         final MoveTransition mt6 = mt5.getTransitedBoard()
                 .getCurrentPlayer()
-                .makeMove(Move.MoveFactory.createMove(mt5.getTransitedBoard(), "g8", "e7"));
-        assertThat(mt4.getMoveStatus().isDone(), is(true));
+                .makeMove(Move.MoveFactory.createMove(mt5.getTransitedBoard(), "g8", "f6"));
+        assertThat(mt6.getMoveStatus().isDone(), is(true));
         //final MoveStrategy moveStrategy = new AlphaBeta(3);
         //final Move aiMove = moveStrategy.execute(mt3.getTransitedBoard());
         final Collection<Move> history = BoardUtils.getMoveHistory(mt6.getTransitedBoard(), 4);
@@ -290,6 +293,37 @@ public class TestBoard {
         System.out.println("Sorted moves:");
         Collection<Move> sortedMoves = MoveSorter.SMART.sort(mt6.getTransitedBoard().getCurrentPlayer().getLegalMoves());
         sortedMoves.forEach(System.out::println);
+
+        KingSafetyAnalyzer ksa = new KingSafetyAnalyzer(mt6.getTransitedBoard().getCurrentPlayer());
+        Set<Location> zoneW = ksa.getKingsZone();
+        System.out.println("White King's zone:");
+        zoneW.forEach(l -> {
+            System.out.println(BoardUtils.getAlgebraicNotationFromLocation(l));
+        });
+
+        KingSafetyAnalyzer ksa2 = new KingSafetyAnalyzer(mt5.getTransitedBoard().getCurrentPlayer());
+        Set<Location> zoneB = ksa2.getKingsZone();
+        System.out.println("Black King's zone:");
+
+        zoneB.forEach(l -> {
+            System.out.println(BoardUtils.getAlgebraicNotationFromLocation(l));
+        });
+
+        final MoveTransition mt7 = mt6.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt6.getTransitedBoard(), "e1", "g1"));
+        assertThat(mt7.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt8 = mt7.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt7.getTransitedBoard(), "f8", "e7"));
+        assertThat(mt8.getMoveStatus().isDone(), is(true));
+
+        KingSafetyAnalyzer kingSafetyAnalyzer = new KingSafetyAnalyzer(mt8.getTransitedBoard().getCurrentPlayer());
+        System.out.println("kingSafetyAnalyzer.scoreEnemyAttackPosibility() = " + kingSafetyAnalyzer.scoreEnemyAttackPosibility());
+        System.out.println("kingSafetyAnalyzer.scoreEnemyPawnStorm() = " + kingSafetyAnalyzer.scoreEnemyPawnStorm());
+        System.out.println("kingSafetyAnalyzer.scorePawnShield() = " + kingSafetyAnalyzer.scorePawnShield());
+        System.out.println("kingSafetyAnalyzer.scoreOpenFilesThreats() = " + kingSafetyAnalyzer.scoreOpenFilesThreats());
         //System.out.println("aiMove = " + aiMove);
         //final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
         //assertEquals(aiMove, bestMove);

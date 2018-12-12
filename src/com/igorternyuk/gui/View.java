@@ -165,7 +165,8 @@ public class View extends Observable {
             //final MoveStrategy strategy = new MiniMax(3);
             //View.getInstance().get
             //final int depth = View.getInstance().getMoveLog().size() > 4 ? 5 : 4;
-            final MoveStrategy strategy = new AlphaBeta(5);
+            final int depth = View.getInstance().getGameSetupPanel().getSearchDepthValue();
+            final MoveStrategy strategy = new AlphaBeta(depth);
             final Move bestMove = strategy.execute(View.getInstance().getGameBoard());
             return bestMove;
         }

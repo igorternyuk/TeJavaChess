@@ -66,6 +66,6 @@ public class RegularMove extends Move {
 
     @Override
     public String toString() {
-        return movedPiece.toString() + BoardUtils.getAlgebraicNotationFromPosition(destination);
+        return movedPiece.toString() + BoardUtils.getAlgebraicNotationFromLocation(destination);
     }
 }

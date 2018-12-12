@@ -8,6 +8,8 @@ import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.player.Player;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by igor on 09.12.18.
@@ -18,6 +20,7 @@ public class AlphaBeta implements MoveStrategy {
     private long boardsEvaluated;
     private long cutsOffProduced;
     private int quiescenceCount;
+    private Map<String, Integer> tt = new HashMap<>();
     private static final int MAX_QUIESCENCE = 5000;
 
     //private Map<Board, Integer> tt = new HashMap<>();
@@ -72,32 +75,7 @@ public class AlphaBeta implements MoveStrategy {
         return current;
     }
 
-    private int calculateQuiescenceDepth(final MoveTransition moveTransition, int depth) {
-        if (depth == 1 && this.quiescenceCount < MAX_QUIESCENCE) {
-            int activityMeasure = 0;
-            if (moveTransition.getTransitedBoard().getCurrentPlayer().isUnderCheck()) {
-                activityMeasure += 2;
-            }
-            final Collection<Move> history = BoardUtils.getMoveHistory(moveTransition.getTransitedBoard(), 4);
 
-            for (final Move move : history) {
-                if (move.isCapturingMove()) {
-                    ++activityMeasure;
-                }
-            }
-
-            if (activityMeasure > 3) {
-                ++this.quiescenceCount;
-                return 2;
-            }
-        }
-        return depth - 1;
-    }
-
-    private static String calculateTimeTaken(final long start, final long end) {
-        final long timeTaken = (end - start) / 1000000;
-        return timeTaken + " ms";
-    }
 
     @Override
     public Move execute(final Board board) {
@@ -211,6 +189,33 @@ public class AlphaBeta implements MoveStrategy {
             }
         }
         return currentLowest;
+    }
+
+    private int calculateQuiescenceDepth(final MoveTransition moveTransition, int depth) {
+        if (depth == 1 && this.quiescenceCount < MAX_QUIESCENCE) {
+            int activityMeasure = 0;
+            if (moveTransition.getTransitedBoard().getCurrentPlayer().isUnderCheck()) {
+                activityMeasure += 2;
+            }
+            final Collection<Move> history = BoardUtils.getMoveHistory(moveTransition.getTransitedBoard(), 4);
+
+            for (final Move move : history) {
+                if (move.isCapturingMove()) {
+                    ++activityMeasure;
+                }
+            }
+
+            if (activityMeasure > 3) {
+                ++this.quiescenceCount;
+                return 2;
+            }
+        }
+        return depth - 1;
+    }
+
+    private static String calculateTimeTaken(final long start, final long end) {
+        final long timeTaken = (end - start) / 1000000;
+        return timeTaken + " ms";
     }
 
     @Override

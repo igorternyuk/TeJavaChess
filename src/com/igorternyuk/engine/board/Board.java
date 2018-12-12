@@ -206,7 +206,7 @@ public class Board {
         return false;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -241,7 +241,7 @@ public class Board {
         result = 31 * result + (legalMovesWhitePieces != null ? legalMovesWhitePieces.hashCode() : 0);
         result = 31 * result + (legalMovesBlackPieces != null ? legalMovesBlackPieces.hashCode() : 0);
         return result;
-    }
+    }*/
 
     public static class Builder {
         private Map<Location, Piece> boardPattern;
@@ -438,7 +438,7 @@ public class Board {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("\n-----------------------\n");
+        StringBuilder stringBuilder = new StringBuilder("\n");
         for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
             for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
                 final String tileText = this.getTile(x, y).toString();
@@ -446,7 +446,18 @@ public class Board {
             }
             stringBuilder.append("\n");
         }
-        stringBuilder.append("\n-----------------------\n");
+        stringBuilder.append("\n");
+        if (this.whitePlayer.isCastled()) {
+            stringBuilder.append("1");
+        } else {
+            stringBuilder.append("0");
+        }
+        if (this.blackPlayer.isCastled()) {
+            stringBuilder.append("1");
+        } else {
+            stringBuilder.append("0");
+        }
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 }

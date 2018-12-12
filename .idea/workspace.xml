@@ -2,12 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,16 +42,22 @@
       <file leaf-file-name="BoardUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="69" column="63" lean-forward="false" selection-start-line="69" selection-start-column="63" selection-end-line="69" selection-end-column="63" />
+            <state relative-caret-position="216">
+              <caret line="149" column="66" lean-forward="false" selection-start-line="149" selection-start-column="66" selection-end-line="149" selection-end-column="66" />
               <folding>
-                <element signature="e#3503#3504#0" expanded="true" />
-                <element signature="e#3558#3559#0" expanded="true" />
-                <element signature="e#3611#3612#0" expanded="true" />
-                <element signature="e#3658#3659#0" expanded="true" />
-                <element signature="e#3711#3712#0" expanded="true" />
-                <element signature="e#3758#3759#0" expanded="true" />
+                <element signature="e#4761#4762#0" expanded="true" />
+                <element signature="e#4799#4800#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestBoard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1110">
+              <caret line="318" column="88" lean-forward="false" selection-start-line="318" selection-start-column="88" selection-end-line="318" selection-end-column="88" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -49,15 +65,9 @@
       <file leaf-file-name="PawnStructureAnalyzer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-245">
-              <caret line="42" column="34" lean-forward="false" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1768#1769#0" expanded="true" />
-                <element signature="e#1818#1819#0" expanded="true" />
-                <element signature="e#1873#1874#0" expanded="true" />
-                <element signature="e#1926#1927#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="215">
+              <caret line="36" column="55" lean-forward="false" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="72" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,19 +75,21 @@
       <file leaf-file-name="StandardBoardEvaluator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="450">
+              <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RookPositionAnalyzer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RookPositionAnalyzer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-              <folding />
+            <state relative-caret-position="224">
+              <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,9 +97,33 @@
       <file leaf-file-name="AlphaBeta.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1674">
-              <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+            <state relative-caret-position="1757">
+              <caret line="150" column="62" lean-forward="false" selection-start-line="150" selection-start-column="62" selection-end-line="150" selection-end-column="62" />
+              <folding>
+                <element signature="method#alphaBeta#0;class#AlphaBeta#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="View.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/View.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="168" column="61" lean-forward="false" selection-start-line="168" selection-start-column="61" selection-end-line="168" selection-end-column="61" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KingSafetyAnalyzer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,53 +131,18 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="163" column="16" lean-forward="false" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="16" />
-              <folding>
-                <element signature="e#10992#10993#0" expanded="true" />
-                <element signature="e#11058#11059#0" expanded="true" />
-                <element signature="e#11104#11105#0" expanded="true" />
-                <element signature="e#11157#11158#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegularMove.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state relative-caret-position="475">
+              <caret line="459" column="35" lean-forward="false" selection-start-line="459" selection-start-column="35" selection-end-line="459" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PawnPromotion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnPromotion.java">
+      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CapturingMove.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="144">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -161,8 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>detect</find>
-      <find>sort</find>
       <find>check</find>
       <find>che</find>
       <find>detec</find>
@@ -191,6 +190,8 @@
       <find>on</find>
       <find>handleGameOver()</find>
       <find>Alpha</find>
+      <find>multiM</find>
+      <find>e</find>
     </findStrings>
     <replaceStrings>
       <replace>EIGHTH_RANK</replace>
@@ -214,9 +215,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/techess/engine/board/Tile.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/player/WhitePlayer.java" />
-        <option value="$PROJECT_DIR$/src/com/techess/engine/player/BlackPlayer.java" />
         <option value="$PROJECT_DIR$/src/com/tests/techess/engine/board/BoardTest.java" />
         <option value="$PROJECT_DIR$/src/com/techess/tests/engine/board/BoardTest.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/BoardTest.java" />
@@ -244,9 +242,6 @@
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnJump.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Castling.java" />
         <option value="$USER_HOME$/Programs/JavaLibs/guava-19.0.jar!/com/google/common/collect/ComparisonChain.class" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceSquareTables.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Knight.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Bishop.java" />
@@ -257,14 +252,20 @@
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/King.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnPromotion.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
       </list>
     </option>
   </component>
@@ -297,7 +298,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -339,6 +339,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="igorternyuk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TeChess" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TeChess" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="igorternyuk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TeChess" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TeChess" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="igorternyuk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -502,6 +546,7 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -514,7 +559,7 @@
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="SearchEverywhereHistoryKey" value="underC&#9;PSI&#9;JAVA://com.igorternyuk.engine.player.Player#isUnderCheck" />
+    <property name="SearchEverywhereHistoryKey" value="Location&#9;FILE&#9;file:///home/igor/prj/java/TeChess/src/com/igorternyuk/engine/board/Location.java&#10;underC&#9;PSI&#9;JAVA://com.igorternyuk.engine.player.Player#isUnderCheck" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -1134,7 +1179,8 @@
       <workItem from="1544426035698" duration="12499000" />
       <workItem from="1544459305794" duration="1989000" />
       <workItem from="1544461847361" duration="1256000" />
-      <workItem from="1544510173578" duration="11438000" />
+      <workItem from="1544510173578" duration="18911000" />
+      <workItem from="1544599378119" duration="9255000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -1248,33 +1294,40 @@
       <option name="project" value="LOCAL" />
       <updated>1544518825696</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="adds pawn structure analyzer">
+      <created>1544522714541</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1544522714541</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 11h 22m 34s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 09h 28m 05s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 11h 59m 05s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 09h 39m 59s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 12h 00m 13s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 09h 43m 16s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 12h 07m 49s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 11h 28m 02s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 12h 08m 46s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 11h 32m 40s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testAI - 2018.12.10 at 12h 26m 17s.xml">
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 11h 34m 17s.xml">
       <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestBoard_testFoolsMate - 2018.12.07 at 10h 28m 42s.xml">
-      <configuration name="TestBoard.testFoolsMate" configurationId="JUnit" />
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 11h 35m 10s.xml">
+      <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestCastling_testWhiteKingSideCastling - 2018.08.08 at 16h 56m 34s.xml">
-      <configuration name="TestCastling.testWhiteKingSideCastling" configurationId="JUnit" />
+    <history-entry file="TestBoard_testAI - 2018.12.12 at 11h 36m 24s.xml">
+      <configuration name="TestBoard.testAI" configurationId="JUnit" />
     </history-entry>
     <history-entry file="com_igorternyuk_tests_engine_board_in_TeChess - 2018.08.08 at 16h 57m 22s.xml">
       <configuration name="com.igorternyuk.tests.engine.board in TeChess" configurationId="JUnit" />
@@ -1284,7 +1337,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="458464000" />
+    <option name="totallyTimeSpent" value="475192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1308,26 +1361,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41815478" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3169643" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3735119" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20327103" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21884735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42559522" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5505952" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5505952" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42559522" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1384,13 +1437,22 @@
     <MESSAGE value="Move sorter for alpha-beta" />
     <MESSAGE value="Alpha-Beta" />
     <MESSAGE value="adds Piece-Square tables" />
-    <option name="LAST_COMMIT_MESSAGE" value="adds Piece-Square tables" />
+    <MESSAGE value="adds pawn structure analyzer" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds pawn structure analyzer" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="41" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java</url>
+          <line>76</line>
+          <properties />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="43" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1399,27 +1461,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/GameStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestCastling.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3960">
-          <caret line="226" column="59" lean-forward="false" selection-start-line="217" selection-start-column="8" selection-end-line="226" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/GameHistoryPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1470,13 +1511,6 @@
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -1593,14 +1627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4536">
-          <caret line="269" column="35" lean-forward="false" selection-start-line="269" selection-start-column="35" selection-end-line="269" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/WhitePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1634,24 +1660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="23" column="15" lean-forward="true" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="167" column="57" lean-forward="false" selection-start-line="167" selection-start-column="57" selection-end-line="167" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceSquareTables.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -1676,8 +1684,8 @@
         <state relative-caret-position="547">
           <caret line="85" column="13" lean-forward="false" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
           <folding>
-            <element signature="e#3758#3759#0" expanded="true" />
-            <element signature="e#3791#3792#0" expanded="true" />
+            <element signature="e#3758#3759#0" expanded="false" />
+            <element signature="e#3791#3792#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1687,8 +1695,8 @@
         <state relative-caret-position="324">
           <caret line="75" column="8" lean-forward="true" selection-start-line="75" selection-start-column="8" selection-end-line="80" selection-end-column="9" />
           <folding>
-            <element signature="e#3625#3626#0" expanded="true" />
-            <element signature="e#3658#3659#0" expanded="true" />
+            <element signature="e#3625#3626#0" expanded="false" />
+            <element signature="e#3658#3659#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1698,8 +1706,8 @@
         <state relative-caret-position="234">
           <caret line="73" column="94" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="94" />
           <folding>
-            <element signature="e#3591#3592#0" expanded="true" />
-            <element signature="e#3624#3625#0" expanded="true" />
+            <element signature="e#3591#3592#0" expanded="false" />
+            <element signature="e#3624#3625#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1709,8 +1717,8 @@
         <state relative-caret-position="468">
           <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
-            <element signature="e#3953#3954#0" expanded="true" />
-            <element signature="e#3986#3987#0" expanded="true" />
+            <element signature="e#3953#3954#0" expanded="false" />
+            <element signature="e#3986#3987#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1719,14 +1727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
           <caret line="310" column="5" lean-forward="true" selection-start-line="310" selection-start-column="5" selection-end-line="310" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="31" lean-forward="true" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1744,8 +1744,8 @@
         <state relative-caret-position="223">
           <caret line="73" column="94" lean-forward="true" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="94" />
           <folding>
-            <element signature="e#3665#3666#0" expanded="true" />
-            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3665#3666#0" expanded="false" />
+            <element signature="e#3698#3699#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1755,8 +1755,8 @@
         <state relative-caret-position="360">
           <caret line="86" column="62" lean-forward="false" selection-start-line="86" selection-start-column="62" selection-end-line="86" selection-end-column="62" />
           <folding>
-            <element signature="e#4142#4143#0" expanded="true" />
-            <element signature="e#4175#4176#0" expanded="true" />
+            <element signature="e#4142#4143#0" expanded="false" />
+            <element signature="e#4175#4176#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1766,19 +1766,6 @@
         <state relative-caret-position="396">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="163" column="16" lean-forward="false" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="16" />
-          <folding>
-            <element signature="e#10992#10993#0" expanded="true" />
-            <element signature="e#11058#11059#0" expanded="true" />
-            <element signature="e#11104#11105#0" expanded="true" />
-            <element signature="e#11157#11158#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1825,55 +1812,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1674">
-          <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+        <state relative-caret-position="720">
+          <caret line="46" column="4" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#237#238#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#406#407#0" expanded="false" />
+            <element signature="e#442#443#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="69" column="63" lean-forward="false" selection-start-line="69" selection-start-column="63" selection-end-line="69" selection-end-column="63" />
+        <state relative-caret-position="216">
+          <caret line="149" column="66" lean-forward="false" selection-start-line="149" selection-start-column="66" selection-end-line="149" selection-end-column="66" />
           <folding>
-            <element signature="e#3503#3504#0" expanded="true" />
-            <element signature="e#3558#3559#0" expanded="true" />
-            <element signature="e#3611#3612#0" expanded="true" />
-            <element signature="e#3658#3659#0" expanded="true" />
-            <element signature="e#3711#3712#0" expanded="true" />
-            <element signature="e#3758#3759#0" expanded="true" />
+            <element signature="e#4761#4762#0" expanded="true" />
+            <element signature="e#4799#4800#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="211" column="6" lean-forward="false" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="36" column="55" lean-forward="false" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="459" column="35" lean-forward="false" selection-start-line="459" selection-start-column="35" selection-end-line="459" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="318" column="88" lean-forward="false" selection-start-line="318" selection-start-column="88" selection-end-line="318" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1757">
+          <caret line="150" column="62" lean-forward="false" selection-start-line="150" selection-start-column="62" selection-end-line="150" selection-end-column="62" />
+          <folding>
+            <element signature="method#alphaBeta#0;class#AlphaBeta#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="450">
+          <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-245">
-          <caret line="42" column="34" lean-forward="false" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1768#1769#0" expanded="true" />
-            <element signature="e#1818#1819#0" expanded="true" />
-            <element signature="e#1873#1874#0" expanded="true" />
-            <element signature="e#1926#1927#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
+        <state relative-caret-position="198">
+          <caret line="168" column="61" lean-forward="false" selection-start-line="168" selection-start-column="61" selection-end-line="168" selection-end-column="61" />
           <folding />
         </state>
       </provider>

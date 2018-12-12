@@ -21,6 +21,6 @@ public class PieceCapturingMove extends CapturingMove {
 
     @Override
     public String toString() {
-        return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromPosition(destination);
+        return movedPiece.toString() + "x" + BoardUtils.getAlgebraicNotationFromLocation(destination);
     }
 }
