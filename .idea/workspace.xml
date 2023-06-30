@@ -1,31 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" afterPath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" />
+    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="adds king safety analyzer">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_luben_zstd_jni_1_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_18_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_failureaccess_1_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_32_1_0_jre.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_2_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_23_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_archiver_3_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_assembly_plugin_3_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_shared_maven_common_artifact_filters_3_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_shared_maven_filtering_3_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_33_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_archiver_4_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_interpolation_1_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_io_3_4_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_3_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_iq80_snappy_snappy_0_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_36.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_sonatype_plexus_plexus_build_api_0_0_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_tukaani_xz_1_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/chessPiecesSpriteSet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/App.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/BoardUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Location.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile$EmptyTile.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile$OccupiedTile.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/CapturingMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Castling.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/KingsSideCastling.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveLog.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveTransition.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/NullMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnCapturingMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnEnPassantCapture.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnJump.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnPromotion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PieceCapturingMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/QueensSideCastling.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/RegularMove.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Bishop.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/King.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Knight.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Pawn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceSquareTables.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Queen.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Rook.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/BlackPlayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/WhitePlayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BishopsEvaluator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BoardEvaluator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MiniMax.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MobilityAnalyzer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveStrategy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel$DataModel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel$MoveRecord.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/ResourceManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/TakenPiecesPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$AIThinkTank.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$AIWatcher.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$BoardPanel$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$BoardPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TeChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TeChess.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/img/chessPiecesSpriteSet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/Alliance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/Alliance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/GameStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/BoardUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/GameType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/GameType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/CapturingMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Castling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Castling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/KingsSideCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/KingsSideCastling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveTransition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/NullMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/NullMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnCapturingMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnEnPassantCapture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnEnPassantCapture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnJump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnJump.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnPromotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnPromotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PieceCapturingMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/QueensSideCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/QueensSideCastling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/RegularMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceSquareTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceSquareTables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/BlackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/BlackPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/WhitePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/WhitePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/BoardOrientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/BoardOrientation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/GameHistoryPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameHistoryPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/GameSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/ResourceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/ResourceManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/TakenPiecesPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/TakenPiecesPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestCastling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestStaleMate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestStaleMate.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -35,120 +206,6 @@
     <option name="SHOW_TABLE_DETAILS" value="true" />
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-  </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BoardUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="149" column="66" lean-forward="false" selection-start-line="149" selection-start-column="66" selection-end-line="149" selection-end-column="66" />
-              <folding>
-                <element signature="e#4761#4762#0" expanded="true" />
-                <element signature="e#4799#4800#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestBoard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1110">
-              <caret line="318" column="88" lean-forward="false" selection-start-line="318" selection-start-column="88" selection-end-line="318" selection-end-column="88" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PawnStructureAnalyzer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="36" column="55" lean-forward="false" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StandardBoardEvaluator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RookPositionAnalyzer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlphaBeta.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1757">
-              <caret line="150" column="62" lean-forward="false" selection-start-line="150" selection-start-column="62" selection-end-line="150" selection-end-column="62" />
-              <folding>
-                <element signature="method#alphaBeta#0;class#AlphaBeta#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="View.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/gui/View.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="168" column="61" lean-forward="false" selection-start-line="168" selection-start-column="61" selection-end-line="168" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KingSafetyAnalyzer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="459" column="35" lean-forward="false" selection-start-line="459" selection-start-column="35" selection-end-line="459" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -207,6 +264,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8a20a2d2-1913-48f2-ac57-9471b048f57f" />
+        <option name="url" value="https://github.com/igorternyuk/TeSimpleChessEngine" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -263,9 +328,9 @@
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" />
-        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" />
         <option value="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" />
+        <option value="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" />
       </list>
     </option>
   </component>
@@ -275,11 +340,15 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-3" />
     <option name="width" value="1290" />
     <option name="height" value="771" />
   </component>
+  <component name="ProjectId" id="2Rvv6801rM6oVlkLQA1uOyIgz16" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -549,213 +618,57 @@
       <pane id="Scratches" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="Location&#9;FILE&#9;file:///home/igor/prj/java/TeChess/src/com/igorternyuk/engine/board/Location.java&#10;underC&#9;PSI&#9;JAVA://com.igorternyuk.engine.player.Player#isUnderCheck" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="create.test.in.the.same.root" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="SearchEverywhereHistoryKey" value="Location&#9;FILE&#9;file:///home/igor/prj/java/TeChess/src/com/igorternyuk/engine/board/Location.java&#10;underC&#9;PSI&#9;JAVA://com.igorternyuk.engine.player.Player#isUnderCheck" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.techess.engine.player" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
-    </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.tests.techess.engine.board" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="com.igorternyuk.engine.moves.Move.MoveFactory" />
       <recent name="com.techess.engine.board.BoardUtils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.techess.gui" />
       <recent name="com.techess.engine.moves" />
       <recent name="com.techess.engine.board" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.tests.techess.engine.board" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.techess.engine.player" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.App">
-    <configuration default="false" name="com.igorternyuk.tests.engine.board in TeChess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.igorternyuk.tests.engine.board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="TeChess" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.igorternyuk.tests.engine.board" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestCastling" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.igorternyuk.tests.engine.board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="TeChess" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.igorternyuk.tests.engine.board" />
-      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.tests.engine.board.TestCastling" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.igorternyuk.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.App" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="TeChess" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestBoard.testFoolsMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.igorternyuk.tests.engine.board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="TeChess" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.igorternyuk.tests.engine.board" />
-      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.tests.engine.board.TestBoard" />
-      <option name="METHOD_NAME" value="testFoolsMate" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestBoard.testAI" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.igorternyuk.tests.engine.board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="TeChess" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.igorternyuk.tests.engine.board" />
-      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.tests.engine.board.TestBoard" />
-      <option name="METHOD_NAME" value="testAI" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
-        <option name="GAPID_ENABLED" value="false" />
-        <option name="GAPID_DISABLE_PCS" value="false" />
-        <option name="SUPPORT_LIB_ENABLED" value="true" />
-        <option name="INSTRUMENTATION_ENABLED" value="true" />
-      </Profilers>
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -783,30 +696,12 @@
       </Profilers>
       <method />
     </configuration>
-    <configuration default="true" type="AntRunConfiguration" factoryName="Ant Target">
-      <method />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <module />
-      <method />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -871,25 +766,6 @@
     <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
       <method />
     </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
       <option name="BCName" value="" />
       <option name="IOSSimulatorSdkPath" value="" />
@@ -939,192 +815,166 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="passParentEnv" value="true" />
-      <setting name="launchBrowser" value="true" />
-      <setting name="launchBrowserUrl" value="" />
-      <setting name="depsClasspath" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SCRATCH_FILE_ID" value="0" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
-      <node-interpreter value="project" />
-      <working-dir value="" />
-      <envs />
-      <scope-kind value="ALL" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
-      <config-file value="" />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="TeChess" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
       <method />
     </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.com.igorternyuk.tests.engine.board in TeChess" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.TestCastling" />
-      <item index="2" class="java.lang.String" itemvalue="Application.App" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TestBoard.testFoolsMate" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TestBoard.testAI" />
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.igorternyuk.App" />
+      <module name="TeChess" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.igorternyuk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="grailsApplicationRoot" value="" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeChess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.java" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestBoard" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCastling (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeChess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.java" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestCastling" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeChess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.java" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestStaleMate" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestStaleMate.testPolgarTruongStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeChess" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.java" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestStaleMate" />
+      <option name="METHOD_NAME" value="testPolgarTruongStaleMate" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="JUnit.TestStaleMate.testPolgarTruongStaleMate" />
+      <item itemvalue="JUnit.TestStaleMate" />
+      <item itemvalue="JUnit.TestCastling (1)" />
+      <item itemvalue="JUnit.TestBoard" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.App" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TestBoard.testAI" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TestBoard.testFoolsMate" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.com.igorternyuk.tests.engine.board in TeChess" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TestCastling" />
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestBoard" />
+        <item itemvalue="JUnit.TestStaleMate" />
+        <item itemvalue="JUnit.TestCastling (1)" />
+        <item itemvalue="JUnit.TestStaleMate.testPolgarTruongStaleMate" />
       </list>
     </recent_temporary>
   </component>
@@ -1133,9 +983,7 @@
       <projects_view />
     </option>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -1180,7 +1028,11 @@
       <workItem from="1544459305794" duration="1989000" />
       <workItem from="1544461847361" duration="1256000" />
       <workItem from="1544510173578" duration="18911000" />
-      <workItem from="1544599378119" duration="9255000" />
+      <workItem from="1544599378119" duration="9421000" />
+      <workItem from="1688143193290" duration="3149000" />
+      <workItem from="1688146361556" duration="5714000" />
+      <workItem from="1688152660057" duration="1589000" />
+      <workItem from="1688154266122" duration="967000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -1301,7 +1153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544522714541</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="adds king safety analyzer">
+      <created>1544608895345</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1544608895345</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1337,7 +1196,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="475192000" />
+    <option name="totallyTimeSpent" value="475358000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1350,7 +1209,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1290" height="771" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.49676898" order="6" side_tool="false" content_ui="tabs" />
@@ -1415,12 +1273,21 @@
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="3" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="King_Pawn" />
     <MESSAGE value="Board" />
     <MESSAGE value="Some cometic changes in the Board class" />
@@ -1438,23 +1305,10 @@
     <MESSAGE value="Alpha-Beta" />
     <MESSAGE value="adds Piece-Square tables" />
     <MESSAGE value="adds pawn structure analyzer" />
-    <option name="LAST_COMMIT_MESSAGE" value="adds pawn structure analyzer" />
+    <MESSAGE value="adds king safety analyzer" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds king safety analyzer" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java</url>
-          <line>76</line>
-          <properties />
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="43" />
-    </breakpoint-manager>
-    <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1827,8 +1681,8 @@
         <state relative-caret-position="162">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#237#238#0" expanded="true" />
-            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#238#239#0" expanded="true" />
+            <element signature="e#274#275#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1839,8 +1693,8 @@
           <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#406#407#0" expanded="false" />
-            <element signature="e#442#443#0" expanded="false" />
+            <element signature="e#407#408#0" expanded="false" />
+            <element signature="e#443#444#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1875,10 +1729,8 @@
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
-          <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="67" column="28" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1916,21 +1768,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1757">
-          <caret line="150" column="62" lean-forward="false" selection-start-line="150" selection-start-column="62" selection-end-line="150" selection-end-column="62" />
-          <folding>
-            <element signature="method#alphaBeta#0;class#AlphaBeta#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="41" column="58" lean-forward="true" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-          <folding />
+          <caret line="40" column="58" lean-forward="true" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1939,6 +1783,16 @@
         <state relative-caret-position="198">
           <caret line="168" column="61" lean-forward="false" selection-start-line="168" selection-start-column="61" selection-end-line="168" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-918">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="method#alphaBeta#0;class#AlphaBeta#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
