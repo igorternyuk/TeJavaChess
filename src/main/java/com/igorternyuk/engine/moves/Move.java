@@ -67,7 +67,6 @@ public abstract class Move {
         return this.board;
     }
 
-
     public static class MoveFactory {
 
         public static final Move NULL_MOVE;
@@ -139,7 +138,8 @@ public abstract class Move {
     @Override
     public int hashCode() {
         final int hashPrime = 31;
-        int result = getMovedPiece().hashCode();
+        Piece piece = getMovedPiece();
+        int result = piece != null ? piece.hashCode() : 0;
         result = hashPrime * result + getDestination().hashCode();
         return result;
     }

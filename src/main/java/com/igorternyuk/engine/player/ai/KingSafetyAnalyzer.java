@@ -20,7 +20,9 @@ public class KingSafetyAnalyzer {
     private static final Map<PieceType, Integer> ATTACK_VALUE_MAP = createAttackValueMap();
     private static final int STORMING_ENEMY_PAWN_PENALTY = -20;
     private static final int OPEN_FILE_AGAINST_KING_PENALTY = -40;
-    private static final int SEMIOPEN_FILE_AGAINST_KING_PENALTY = -30;
+    private static final int SEMI_OPEN_FILE_AGAINST_KING_PENALTY = -30;
+    private static final int CASTLED_SCORE = 80;
+    private static final double CHECKMATE_BONUS = 100000000;
     /*
     * 3.King's safety analyzer
  3.1 Pawn shield
@@ -36,9 +38,9 @@ public class KingSafetyAnalyzer {
         this.kingZone = getKingsZone();
     }
 
-    public int scoreKingSafety() {
-        return scorePawnShield() + scoreOpenFilesThreats()
-                + scoreEnemyPawnStorm() - scoreEnemyAttackPosibility();
+    public double scoreKingSafety() {
+        return (player.isCastled() ? CASTLED_SCORE : 0) + scorePawnShield() + scoreOpenFilesThreats()
+                + scoreEnemyPawnStorm() - scoreEnemyAttackPosibility() - (player.isCheckMate() ? CHECKMATE_BONUS : 0);
     }
 
     public Set<Location> getKingsZone() {
@@ -141,7 +143,7 @@ public class KingSafetyAnalyzer {
                 if (pawnsOnFile.isEmpty()) {
                     value += OPEN_FILE_AGAINST_KING_PENALTY;
                 } else if (pawnsOnFile.size() == 1) {
-                    value += SEMIOPEN_FILE_AGAINST_KING_PENALTY;
+                    value += SEMI_OPEN_FILE_AGAINST_KING_PENALTY;
                 }
             }
             return value;
@@ -202,12 +204,12 @@ public class KingSafetyAnalyzer {
 
     private static Map<PieceType, Integer> createAttackValueMap() {
         Map<PieceType, Integer> table = new HashMap<>();
-        table.put(PieceType.KNIGHT, 20);
-        table.put(PieceType.BISHOP, 20);
-        table.put(PieceType.ROOK, 40);
-        table.put(PieceType.QUEEN, 80);
+        table.put(PieceType.KNIGHT, 30);
+        table.put(PieceType.BISHOP, 30);
+        table.put(PieceType.ROOK, 50);
+        table.put(PieceType.QUEEN, 90);
         table.put(PieceType.KING, 0);
-        table.put(PieceType.PAWN, 5);
+        table.put(PieceType.PAWN, 10);
         return table;
     }
 }

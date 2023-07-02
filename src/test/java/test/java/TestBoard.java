@@ -1,6 +1,7 @@
 package test.java;
 
 import com.google.common.collect.Iterables;
+import com.igorternyuk.engine.Alliance;
 import com.igorternyuk.engine.board.Board;
 import com.igorternyuk.engine.board.BoardUtils;
 import com.igorternyuk.engine.board.Location;
@@ -8,10 +9,7 @@ import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.pieces.Piece;
 import com.igorternyuk.engine.pieces.PieceType;
-import com.igorternyuk.engine.player.ai.KingSafetyAnalyzer;
-import com.igorternyuk.engine.player.ai.MiniMax;
-import com.igorternyuk.engine.player.ai.MoveSorter;
-import com.igorternyuk.engine.player.ai.MoveStrategy;
+import com.igorternyuk.engine.player.ai.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -120,14 +118,14 @@ public class TestBoard {
 
         final Iterable<Move> allMoves = standardBoard.getAllLegalMoves();
         assertEquals(Iterables.size(allMoves), 40);
-        allMoves.forEach(move ->{
+        allMoves.forEach(move -> {
             assertFalse(move.isCapturingMove());
             assertFalse(move.isPawnPromotionMove());
             assertFalse(move.isCastlingMove());
         });
 
-        assertEquals(standardBoard.getTile(0,0), standardBoard.getTile("a8"));
-        assertEquals(standardBoard.getTile(7,7), standardBoard.getTile("h1"));
+        assertEquals(standardBoard.getTile("a8"), standardBoard.getTile(0, 0));
+        assertEquals(standardBoard.getTile("h1"), standardBoard.getTile(7, 7));
 
     }
 
@@ -227,7 +225,7 @@ public class TestBoard {
         randomBoard.getCurrentPlayer().getOpponent().getActivePieces().stream()
                 .filter(piece -> piece.getPieceType().equals(PieceType.BISHOP)).forEach(blackBishops::add);
 
-        assertEquals(blackBishops.size(), 2);
+        assertEquals(2, blackBishops.size());
         assertTrue((randomBoard.getTile(blackBishops.get(0).getLocation()).isTileLight() &&
                 randomBoard.getTile(blackBishops.get(1).getLocation()).isTileDark()) ||
                 (randomBoard.getTile(blackBishops.get(0).getLocation()).isTileDark() &&
@@ -257,7 +255,77 @@ public class TestBoard {
         final Move aiMove = moveStrategy.execute(mt3.getTransitedBoard());
         System.out.println("Moved piece = " + aiMove.getMovedPiece() + " dest = " + aiMove.getDestination());
         final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
-        assertEquals(aiMove, bestMove);
+        assertEquals(bestMove, aiMove);
+    }
+
+    @Test
+    public void testCheckMate2() {
+        String[][] pattern = {
+                {"[ ]", "[R]", "[ ]", "[.]", "[ ]", "[.]", "[K]", "[.]"},
+                {"[r]", "[B]", "[B]", "[ ]", "[.]", "[ ]", "[P]", "[ ]"},
+                {"[ ]", "[P]", "[ ]", "[.]", "[P]", "[.]", "[ ]", "[.]"},
+                {"[.]", "[ ]", "[.]", "[Q]", "[n]", "[ ]", "[.]", "[P]"},
+                {"[ ]", "[.]", "[n]", "[p]", "[ ]", "[.]", "[ ]", "[.]"},
+                {"[.]", "[ ]", "[.]", "[ ]", "[q]", "[ ]", "[p]", "[p]"},
+                {"[ ]", "[.]", "[ ]", "[.]", "[ ]", "[p]", "[ ]", "[k]"},
+                {"[.]", "[ ]", "[.]", "[ ]", "[.]", "[ ]", "[.]", "[ ]"}
+        };
+
+        Board board = Board.createBoardByPattern(pattern, Alliance.BLACK);
+        System.out.println(board.toDecoratedString());
+
+        final MoveStrategy moveStrategy = new AlphaBeta(4);
+        final Move aiMove = moveStrategy.execute(board);
+        System.out.println("Moved piece = " + aiMove.getMovedPiece() + " dest = " + aiMove.getDestination());
+        final Move bestMove = Move.MoveFactory.createMove(board, "d5", "h1");
+        assertEquals(bestMove, aiMove);
+    }
+
+    @Test
+    public void testEval1() {
+        final Board board = Board.createStandardBoard();
+        MoveTransition mt1 = board.getCurrentPlayer().makeMove(Move.MoveFactory.createMove(board, "f2", "f4"));
+        assertThat(mt1.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt2 = mt1.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt1.getTransitedBoard(), "d7", "d5"));
+        assertThat(mt2.getMoveStatus().isDone(), is(true));
+        final MoveTransition mt3 = mt2.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt2.getTransitedBoard(), "e2", "e3"));
+        assertThat(mt3.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt4 = mt3.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt3.getTransitedBoard(), "c7", "c5"));
+        assertThat(mt4.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt5 = mt4.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt4.getTransitedBoard(), "f1", "b5"));
+        assertThat(mt5.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt6 = mt5.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt5.getTransitedBoard(), "b8", "c6"));
+        assertThat(mt6.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt7 = mt6.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt6.getTransitedBoard(), "b5", "c6"));
+        assertThat(mt7.getMoveStatus().isDone(), is(true));
+
+        final MoveTransition mt8 = mt7.getTransitedBoard()
+                .getCurrentPlayer()
+                .makeMove(Move.MoveFactory.createMove(mt7.getTransitedBoard(), "b7", "c6"));
+        assertThat(mt8.getMoveStatus().isDone(), is(true));
+
+        final MoveStrategy moveStrategy = new MiniMax(4);
+        final Move aiMove = moveStrategy.execute(mt8.getTransitedBoard());
+        System.out.println("Move " + aiMove.toString() + " Moved piece = " + aiMove.getMovedPiece() + " dest = " + aiMove.getDestination());
+        System.out.println(mt8.getTransitedBoard().toDecoratedString());
+        //final Move bestMove = Move.MoveFactory.createMove(mt3.getTransitedBoard(), "d8", "h4");
+        //assertEquals(aiMove, bestMove);
     }
 
     @Test

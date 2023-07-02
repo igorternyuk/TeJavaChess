@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  */
 public class PawnStructureAnalyzer {
 
-    public static final int ISOLATED_PAWN_PENALTY = -15;
-    public static final int DOUBLED_PAWN_PENALTY = -35;
+    public static final int ISOLATED_PAWN_PENALTY = -30;
+    public static final int DOUBLED_PAWN_PENALTY = -50;
     private Player player;
     private Collection<Piece> playerPawns;
     private ListMultimap<Integer, Piece> pawnColumnTable;

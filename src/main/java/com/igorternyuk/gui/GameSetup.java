@@ -43,7 +43,7 @@ public class GameSetup extends JDialog {
 
         panel.add(new JLabel("Search"));
         this.searchDepthSpinner = addLabeledSpinner(panel, "Search Depth",
-                new SpinnerNumberModel(6, 0, 10, 1));
+                new SpinnerNumberModel(4, 0, 10, 1));
 
         final JButton cancelButton = new JButton("Cancel");
         final JButton okButton = new JButton("OK");

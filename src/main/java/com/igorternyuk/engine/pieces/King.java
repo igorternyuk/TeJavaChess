@@ -119,6 +119,6 @@ public class King extends Piece {
 
     /*@Override
     public String toString() {
-        return PieceType.KING.getName().toUpperCase() + Board.getChessNotationTileName(this.getLocation);
+        return PieceType.KING.getName();
     }*/
 }

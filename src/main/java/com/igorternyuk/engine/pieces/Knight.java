@@ -141,6 +141,6 @@ public class Knight extends Piece {
 
     /*@Override
     public String toString() {
-        return PieceType.KNIGHT.getName().toUpperCase() + Board.getChessNotationTileName(this.getLocation);
+        return PieceType.KNIGHT.getName();
     }*/
 }

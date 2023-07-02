@@ -4,7 +4,7 @@ package com.igorternyuk.engine.pieces;
  * Created by igor on 05.03.18.
  */
 public enum PieceType {
-    KING("k", 10000) {
+    KING("k", 1000) {
         @Override
         public boolean isKing() {
             return true;
@@ -86,7 +86,7 @@ public enum PieceType {
             return true;
         }
     },
-    BISHOP("b", 300) {
+    BISHOP("b", 350) {
         @Override
         public boolean isKing() {
             return false;

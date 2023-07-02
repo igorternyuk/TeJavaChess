@@ -35,12 +35,16 @@ public enum MoveSorter {
         @Override
         public Collection<Move> sort(Collection<Move> moves) {
             return Ordering.from((Comparator<Move>) (first, second) -> ComparisonChain.start()
+                    .compareTrueFirst(first.isCastlingMove(), second.isCastlingMove())
+                    .compare(second.getMovedPiece().getValue(), first.getMovedPiece().getValue())
+                    .compareTrueFirst(second.getMovedPiece().getPieceType().isKing(),
+                            first.getMovedPiece().getPieceType().isKing())
+                    .compareTrueFirst(second.getMovedPiece().getPieceType().isQueen(),
+                            first.getMovedPiece().getPieceType().isQueen())
                     .compareTrueFirst(BoardUtils.isThreatenedBoardImmediate(first.getBoard()),
                             BoardUtils.isThreatenedBoardImmediate(second.getBoard()))
                     .compareTrueFirst(first.isCapturingMove(), second.isCapturingMove())
-                    .compareTrueFirst(first.isCastlingMove(), second.isCastlingMove())
                     .compare(BoardUtils.mvvlva(second), BoardUtils.mvvlva(first))
-                    .compare(first.getMovedPiece().getValue(), second.getMovedPiece().getValue())
                     .result()).immutableSortedCopy(moves);
         }
     };

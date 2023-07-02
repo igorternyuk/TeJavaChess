@@ -157,7 +157,7 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return this.pieceType.getName().toUpperCase();
+        return this.pieceType.getName();
     }
 
     private int computeHashCode() {

@@ -32,7 +32,7 @@ public class View extends Observable {
     private static View INSTANCE;
     private static final String TITLE_OF_MAIN_WINDOW = "TeChess";
     private static final int DX = 3;
-    private static final int DY = 48;
+    private static final int DY = 56;
     private static final int TILE_SIZE = 64;
     private static final int MAIN_WINDOW_WIDTH = TILE_SIZE * BoardUtils.BOARD_SIZE + com.igorternyuk.gui.TakenPiecesPanel.PANEL_WIDTH +
             com.igorternyuk.gui.GameHistoryPanel.PANEL_WIDTH + DX;

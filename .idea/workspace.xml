@@ -4,191 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="adds king safety analyzer">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_luben_zstd_jni_1_5_5_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_18_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_failureaccess_1_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_32_1_0_jre.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_2_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_compress_1_23_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_archiver_3_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_assembly_plugin_3_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_shared_maven_common_artifact_filters_3_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_shared_maven_filtering_3_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_33_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_archiver_4_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_interpolation_1_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_io_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_3_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_iq80_snappy_snappy_0_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_36.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_sonatype_plexus_plexus_build_api_0_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_tukaani_xz_1_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/chessPiecesSpriteSet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Alliance.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/Game.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$5.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$6.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus$7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/GameStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board$Builder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/BoardUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/GameType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Location.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile$EmptyTile.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile$OccupiedTile.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Tile.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/CapturingMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Castling.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/KingsSideCastling.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveLog.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveStatus.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/MoveTransition.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/NullMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnCapturingMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnEnPassantCapture.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnJump.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PawnPromotion.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/PieceCapturingMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/QueensSideCastling.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/RegularMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Bishop.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/King.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Knight.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Pawn.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceSquareTables.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$4.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$5.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType$6.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Queen.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Rook.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/BlackPlayer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/Player.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/WhitePlayer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BishopsEvaluator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BoardEvaluator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MiniMax.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MobilityAnalyzer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveStrategy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/BoardOrientation.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel$DataModel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel$MoveRecord.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameHistoryPanel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/ResourceManager.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/TakenPiecesPanel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$AIThinkTank.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$AIWatcher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$BoardPanel$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$BoardPanel.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View$PlayerType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="Added maven to the project.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TeChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TeChess.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/img/chessPiecesSpriteSet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/Alliance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/Alliance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/BoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/BoardUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/GameType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/GameType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/CapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/CapturingMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Castling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Castling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/KingsSideCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/KingsSideCastling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/MoveTransition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/MoveTransition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/NullMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/NullMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnCapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnCapturingMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnEnPassantCapture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnEnPassantCapture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnJump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnJump.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PawnPromotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PawnPromotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/PieceCapturingMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/PieceCapturingMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/QueensSideCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/QueensSideCastling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/moves/RegularMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/RegularMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceSquareTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceSquareTables.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/PieceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/BlackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/BlackPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/WhitePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/WhitePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/AlphaBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/BoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MobilityAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/MoveStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/RookPositionAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/BoardOrientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/BoardOrientation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/GameHistoryPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameHistoryPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/GameSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/ResourceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/ResourceManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/TakenPiecesPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/TakenPiecesPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/gui/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestCastling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestCastling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/igorternyuk/tests/engine/board/TestStaleMate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestStaleMate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -872,7 +715,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCastling (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestBoard.testCheckMate2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeChess" />
       <extension name="coverage">
         <pattern>
@@ -881,14 +724,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.java" />
-      <option name="MAIN_CLASS_NAME" value="test.java.TestCastling" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestBoard" />
+      <option name="METHOD_NAME" value="testCheckMate2" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestBoard.testEval1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeChess" />
       <extension name="coverage">
         <pattern>
@@ -897,14 +741,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.java" />
-      <option name="MAIN_CLASS_NAME" value="test.java.TestStaleMate" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestBoard" />
+      <option name="METHOD_NAME" value="testEval1" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestStaleMate.testPolgarTruongStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestBoard.testFoolsMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TeChess" />
       <extension name="coverage">
         <pattern>
@@ -913,8 +758,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.java" />
-      <option name="MAIN_CLASS_NAME" value="test.java.TestStaleMate" />
-      <option name="METHOD_NAME" value="testPolgarTruongStaleMate" />
+      <option name="MAIN_CLASS_NAME" value="test.java.TestBoard" />
+      <option name="METHOD_NAME" value="testFoolsMate" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -963,18 +808,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.App" />
-      <item itemvalue="JUnit.TestStaleMate.testPolgarTruongStaleMate" />
-      <item itemvalue="JUnit.TestStaleMate" />
-      <item itemvalue="JUnit.TestCastling (1)" />
       <item itemvalue="JUnit.TestBoard" />
+      <item itemvalue="JUnit.TestBoard.testEval1" />
+      <item itemvalue="JUnit.TestBoard.testCheckMate2" />
+      <item itemvalue="JUnit.TestBoard.testFoolsMate" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="JUnit.TestBoard.testCheckMate2" />
+        <item itemvalue="JUnit.TestBoard.testFoolsMate" />
+        <item itemvalue="JUnit.TestBoard.testEval1" />
         <item itemvalue="JUnit.TestBoard" />
-        <item itemvalue="JUnit.TestStaleMate" />
-        <item itemvalue="JUnit.TestCastling (1)" />
-        <item itemvalue="JUnit.TestStaleMate.testPolgarTruongStaleMate" />
       </list>
     </recent_temporary>
   </component>
@@ -1032,7 +877,9 @@
       <workItem from="1688143193290" duration="3149000" />
       <workItem from="1688146361556" duration="5714000" />
       <workItem from="1688152660057" duration="1589000" />
-      <workItem from="1688154266122" duration="967000" />
+      <workItem from="1688154266122" duration="4536000" />
+      <workItem from="1688189287659" duration="26288000" />
+      <workItem from="1688286849928" duration="33685000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -1160,7 +1007,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544608895345</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added maven to the project.">
+      <created>1688155388674</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1688155388674</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1306,9 +1160,29 @@
     <MESSAGE value="adds Piece-Square tables" />
     <MESSAGE value="adds pawn structure analyzer" />
     <MESSAGE value="adds king safety analyzer" />
-    <option name="LAST_COMMIT_MESSAGE" value="adds king safety analyzer" />
+    <MESSAGE value="Added maven to the project." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added maven to the project." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="Integer.MAX_VALUE" language="JAVA" />
+        <watch expression="whiteScore - blackScore" language="JAVA" />
+        <watch expression="CHECKMATE_BONUS * depthBonus(depth)" language="JAVA" />
+        <watch expression="depthBonus(depth)" language="JAVA" />
+        <watch expression="2.7 * material + mobility_ + kingThreat + bishops + pawns + bishops + rooks+ kingSafety" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

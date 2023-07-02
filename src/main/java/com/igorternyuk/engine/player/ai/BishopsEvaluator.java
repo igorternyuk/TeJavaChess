@@ -10,7 +10,7 @@ import java.util.Collection;
  * Created by igor on 11.12.18.
  */
 public class BishopsEvaluator {
-    private static final int BISHOP_PAIR_BONUS = 50;
+    private static final int BISHOP_PAIR_BONUS = 80;
     private Player player;
 
     public BishopsEvaluator(final Player player) {

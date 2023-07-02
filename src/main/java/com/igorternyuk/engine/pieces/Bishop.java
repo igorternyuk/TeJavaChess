@@ -103,10 +103,8 @@ public class Bishop extends Piece {
         return ALL_MOVED_BISHOPS.get(move.getDestination(), move.getMovedPiece().getAlliance());
     }
 
-
-
     /*@Override
     public String toString() {
-        return PieceType.BISHOP.getName().toUpperCase() + Board.getChessNotationTileName(this.getLocation);
+        return PieceType.BISHOP.getName();
     }*/
 }

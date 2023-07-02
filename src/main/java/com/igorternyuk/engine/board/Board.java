@@ -409,6 +409,46 @@ public class Board {
         return builder.build();
     }
 
+    public static Board createBoardByPattern(final String[][] pattern, Alliance moveMaker) {
+        Builder builder = new Builder();
+        //builder.setGameType(GameType.CLASSIC_CHESS);
+
+        for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+            for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                if (pattern[y][x].equals("[p]")) {
+                    builder.setPiece(Pawn.createPawn(x, y, Alliance.WHITE, y == BoardUtils.BOARD_SIZE - 2));
+                } else if (pattern[y][x].equals("[P]")) {
+                    builder.setPiece(Pawn.createPawn(x, y, Alliance.BLACK, y == 1));
+                } else if (pattern[y][x].equals("[r]")) {
+                    builder.setPiece(Rook.createRook(x, y, Alliance.WHITE, false));
+                } else if (pattern[y][x].equals("[R]")) {
+                    builder.setPiece(Rook.createRook(x, y, Alliance.BLACK, false));
+                } else if (pattern[y][x].equals("[n]")) {
+                    builder.setPiece(Knight.createKnight(x, y, Alliance.WHITE, false));
+                } else if (pattern[y][x].equals("[N]")) {
+                    builder.setPiece(Knight.createKnight(x, y, Alliance.BLACK, false));
+                } else if (pattern[y][x].equals("[b]")) {
+                    builder.setPiece(Bishop.createBishop(x, y, Alliance.WHITE, false));
+                } else if (pattern[y][x].equals("[B]")) {
+                    builder.setPiece(Bishop.createBishop(x, y, Alliance.BLACK, false));
+                } else if (pattern[y][x].equals("[q]")) {
+                    builder.setPiece(Queen.createQueen(x, y, Alliance.WHITE, false));
+                } else if (pattern[y][x].equals("[Q]")) {
+                    builder.setPiece(Queen.createQueen(x, y, Alliance.BLACK, false));
+                } else if (pattern[y][x].equals("[k]")) {
+                    builder.setPiece(King.createKing(x, y, Alliance.WHITE, false));
+                } else if (pattern[y][x].equals("[K]")) {
+                    builder.setPiece(King.createKing(x, y, Alliance.BLACK, false));
+                }
+            }
+        }
+
+        builder.setMoveMaker(moveMaker);
+
+        return builder.build();
+    }
+
+
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
         pieces.forEach(piece -> legalMoves.addAll(piece.getLegalMoves(this)));
@@ -458,6 +498,28 @@ public class Board {
             stringBuilder.append("0");
         }
         stringBuilder.append("\n");
+        return stringBuilder.toString();
+    }
+
+    public String toDecoratedString() {
+        StringBuilder stringBuilder = new StringBuilder("\n");
+        for (int y = 0; y < BoardUtils.BOARD_SIZE; ++y) {
+            StringBuilder row = new StringBuilder("");
+            for (int x = 0; x < BoardUtils.BOARD_SIZE; ++x) {
+                Tile tile = this.getTile(x, y);
+                if (tile.isEmpty()) {
+                    row.append(tile.isTileLight() ? "[ ]" : "[.]");
+                } else {
+                    Piece piece = tile.getPiece();
+                    String tileText = piece.getPieceType().equals(PieceType.PAWN) ? "p" : piece.toString();
+                    if (piece.getAlliance().isBlack())
+                        tileText = tileText.toUpperCase();
+                    row.append(String.format("[%s]", tileText));
+                }
+            }
+            row.append("\n");
+            stringBuilder.append(row);
+        }
         return stringBuilder.toString();
     }
 }
