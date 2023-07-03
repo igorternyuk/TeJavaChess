@@ -22,7 +22,7 @@ public class KingSafetyAnalyzer {
     private static final int OPEN_FILE_AGAINST_KING_PENALTY = -40;
     private static final int SEMI_OPEN_FILE_AGAINST_KING_PENALTY = -30;
     private static final int CASTLED_SCORE = 80;
-    private static final double CHECKMATE_BONUS = 100000000;
+    //private static final int CHECKMATE_BONUS = 100000000;
     /*
     * 3.King's safety analyzer
  3.1 Pawn shield
@@ -38,9 +38,13 @@ public class KingSafetyAnalyzer {
         this.kingZone = getKingsZone();
     }
 
-    public double scoreKingSafety() {
-        return (player.isCastled() ? CASTLED_SCORE : 0) + scorePawnShield() + scoreOpenFilesThreats()
-                + scoreEnemyPawnStorm() - scoreEnemyAttackPosibility() - (player.isCheckMate() ? CHECKMATE_BONUS : 0);
+    public long scoreKingSafety() {
+        return (player.isCastled() ? CASTLED_SCORE : 0)
+                + scorePawnShield()
+                + scoreOpenFilesThreats()
+                + scoreEnemyPawnStorm()
+                - scoreEnemyAttackPosibility();
+        //- (player.isCheckMate() ? CHECKMATE_BONUS : 0);
     }
 
     public Set<Location> getKingsZone() {

@@ -20,9 +20,9 @@ public class MiniMax implements MoveStrategy {
 
     @Override
     public Move execute(Board board) {
-        double lowestDetectedValue = Integer.MAX_VALUE;
-        double highestDetectedValue = Integer.MIN_VALUE;
-        double currentValue = 0;
+        long lowestDetectedValue = Integer.MAX_VALUE;
+        long highestDetectedValue = Integer.MIN_VALUE;
+        long currentValue = 0;
         Move bestMove = Move.MoveFactory.NULL_MOVE;
 
         final long startTime = System.currentTimeMillis();
@@ -66,18 +66,18 @@ public class MiniMax implements MoveStrategy {
         return bestMove;
     }
 
-    public double min(final Board board, int depth) {
+    public long min(final Board board, int depth) {
 
         //If we are on the leaf level of the tree we can evaluate the current position
         if (depth == 0 || isGameOver(board)) {
             return this.boardEvaluator.evaluate(board, depth);
         }
-        double lowestDetectedValue = Integer.MAX_VALUE;
+        long lowestDetectedValue = Integer.MAX_VALUE;
         Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
         for (final Move move : legalMoves) {
             final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {
-                final double currentValue = max(moveTransition.getTransitedBoard(), depth - 1);
+                final long currentValue = max(moveTransition.getTransitedBoard(), depth - 1);
                 if (currentValue < lowestDetectedValue) {
                     lowestDetectedValue = currentValue;
                 }
@@ -86,19 +86,19 @@ public class MiniMax implements MoveStrategy {
         return lowestDetectedValue;
     }
 
-    public double max(final Board board, int depth) {
+    public long max(final Board board, int depth) {
 
         //If we are on the leaf level of the tree we can evaluate the current position
         if (depth == 0 || isGameOver(board)) {
             return this.boardEvaluator.evaluate(board, depth);
         }
 
-        double highestDetectedValue = Integer.MIN_VALUE;
+        long highestDetectedValue = Integer.MIN_VALUE;
         Collection<Move> legalMoves = board.getCurrentPlayer().getLegalMoves();
         for (final Move move : legalMoves) {
             final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {
-                final double currentValue = min(moveTransition.getTransitedBoard(), depth - 1);
+                final long currentValue = min(moveTransition.getTransitedBoard(), depth - 1);
                 if (currentValue > highestDetectedValue) {
                     highestDetectedValue = currentValue;
                 }

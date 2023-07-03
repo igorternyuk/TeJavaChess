@@ -37,10 +37,12 @@ public enum MoveSorter {
             return Ordering.from((Comparator<Move>) (first, second) -> ComparisonChain.start()
                     .compareTrueFirst(first.isCastlingMove(), second.isCastlingMove())
                     .compare(second.getMovedPiece().getValue(), first.getMovedPiece().getValue())
-                    .compareTrueFirst(second.getMovedPiece().getPieceType().isKing(),
-                            first.getMovedPiece().getPieceType().isKing())
+                    .compareTrueFirst(first.getMovedPiece().getPieceType().isPawn(),
+                            second.getMovedPiece().getPieceType().isPawn())
                     .compareTrueFirst(second.getMovedPiece().getPieceType().isQueen(),
                             first.getMovedPiece().getPieceType().isQueen())
+                    .compareTrueFirst(second.getMovedPiece().getPieceType().isKing(),
+                            first.getMovedPiece().getPieceType().isKing())
                     .compareTrueFirst(BoardUtils.isThreatenedBoardImmediate(first.getBoard()),
                             BoardUtils.isThreatenedBoardImmediate(second.getBoard()))
                     .compareTrueFirst(first.isCapturingMove(), second.isCapturingMove())

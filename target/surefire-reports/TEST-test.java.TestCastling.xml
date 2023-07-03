@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="test.java.TestCastling" time="0.126" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="test.java.TestCastling" time="0.469" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.19+7"/>
@@ -59,9 +59,9 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="test.java.TestCastling" name="testWhiteQueenSideCastling" time="0.103"/>
-  <testcase classname="test.java.TestCastling" name="testBlackKingSideCastling" time="0.003"/>
-  <testcase classname="test.java.TestCastling" name="testWhiteKingSideCastling" time="0.003"/>
-  <testcase classname="test.java.TestCastling" name="testNoCastlingOutOfCheck" time="0.015"/>
-  <testcase classname="test.java.TestCastling" name="testBlackQueenSideCastling" time="0.002"/>
+  <testcase classname="test.java.TestCastling" name="testWhiteQueenSideCastling" time="0.373"/>
+  <testcase classname="test.java.TestCastling" name="testBlackKingSideCastling" time="0.026"/>
+  <testcase classname="test.java.TestCastling" name="testWhiteKingSideCastling" time="0.02"/>
+  <testcase classname="test.java.TestCastling" name="testNoCastlingOutOfCheck" time="0.043"/>
+  <testcase classname="test.java.TestCastling" name="testBlackQueenSideCastling" time="0.007"/>
 </testsuite>

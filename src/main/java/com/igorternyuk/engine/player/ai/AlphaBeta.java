@@ -7,10 +7,7 @@ import com.igorternyuk.engine.moves.Move;
 import com.igorternyuk.engine.moves.MoveTransition;
 import com.igorternyuk.engine.player.Player;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by igor on 09.12.18.
@@ -23,7 +20,7 @@ public class AlphaBeta implements MoveStrategy {
     private int quiescenceCount;
     //private Map<String, Integer> tt = new HashMap<>();
     private static final int MAX_QUIESCENCE = 5000;
-
+    private final Random random = new Random();
     //private Map<Board, Integer> tt = new HashMap<>();
     public AlphaBeta(int depth) {
         this.boardEvaluator = new StandardBoardEvaluator();
@@ -77,17 +74,17 @@ public class AlphaBeta implements MoveStrategy {
     }
 
     private static class Evaluation {
-        private final double score;
+        private final long score;
         private final String bestLine;
         private final String evalBoard;
 
-        public Evaluation(double score, String bestLine, String evalBoard) {
+        public Evaluation(long score, String bestLine, String evalBoard) {
             this.score = score;
             this.bestLine = bestLine;
             this.evalBoard = evalBoard;
         }
 
-        public double GetScore() {
+        public long GetScore() {
             return this.score;
         }
 
@@ -102,9 +99,9 @@ public class AlphaBeta implements MoveStrategy {
 
     private static class ScoredMove {
         private final Move move;
-        private final double score;
+        private final long score;
 
-        private ScoredMove(Move move, double score) {
+        private ScoredMove(Move move, long score) {
             this.move = move;
             this.score = score;
         }
@@ -113,7 +110,7 @@ public class AlphaBeta implements MoveStrategy {
             return this.move;
         }
 
-        double getScore() {
+        long getScore() {
             return this.score;
         }
 
@@ -141,19 +138,19 @@ public class AlphaBeta implements MoveStrategy {
         final Player currentPlayer = board.getCurrentPlayer();
         Move bestMove = Move.MoveFactory.NULL_MOVE;
 
-        double alpha = -1e20;
-        double beta = +1e20;
+        long alpha = Long.MIN_VALUE;
+        long beta = Long.MAX_VALUE;
 
         final Collection<Move> legalMoves = MoveSorter.SMART.sort((board.getCurrentPlayer().getLegalMoves()));
         final int numMoves = legalMoves.size();
         System.out.println(board.getCurrentPlayer() + " THINKING with depth = " + this.searchDepth);
 
         List<ScoredMove> listOfBestMoves = new ArrayList<>();
-        double evalBest = 0;
+        long evalBest = 0;
         if (currentPlayer.getAlliance().isBlack()) {
             final Move mateMove = Move.MoveFactory.createMove(board, "d5", "h1");
             int moveCounter = 0;
-            double minVal = +1e20;
+            long minVal = Long.MAX_VALUE;
             for (final Move move : legalMoves) {
                 final long candidateMoveStartTime = System.nanoTime();
                 ++moveCounter;
@@ -162,10 +159,11 @@ public class AlphaBeta implements MoveStrategy {
                 if (moveTransition.getMoveStatus().isDone()) {
                     String currLine = move.toString();
                     Evaluation currEval = max(moveTransition.getTransitedBoard(), calculateQuiescenceDepth(moveTransition, this.searchDepth), alpha, beta, currLine);
+                    ScoredMove bestScoredMove = new ScoredMove(bestMove, currEval.score);
+                    listOfBestMoves.add(bestScoredMove);
+
                     if (currEval.score < minVal) {
                         bestMove = move;
-                        ScoredMove bestScoredMove = new ScoredMove(bestMove, currEval.score);
-                        listOfBestMoves.add(bestScoredMove);
                         minVal = currEval.score;
                         evalBest = currEval.score;
                         if (board.isEndGameScenario())
@@ -174,16 +172,16 @@ public class AlphaBeta implements MoveStrategy {
                     StringBuilder builder = new StringBuilder();
                     String strMove = move.toString();
                     builder.append(String.format("Analyzed move %s (%d / %d):  with depth %d q: %d\n", move, moveCounter, numMoves, this.searchDepth, this.quiescenceCount));
-                    builder.append(String.format("best move: %s score: %.3f best line: %s", strMove, currEval.GetScore(), currEval.GetBestLine()));
-                    builder.append(String.format("\nEvaluated board: %s\n", currEval.GetEvalBoard()));
-                    builder.append(String.format("Time taken: %s", calculateTimeTaken(candidateMoveStartTime, System.nanoTime())));
+                    builder.append(String.format("best move: %s score: %d best line: %s", strMove, currEval.GetScore(), currEval.GetBestLine()));
+                    //builder.append(String.format("\nEvaluated board: %s\n", currEval.GetEvalBoard()));
+                    builder.append(String.format("\nTime taken: %s", calculateTimeTaken(candidateMoveStartTime, System.nanoTime())));
                     final String strInfo = builder.toString();
                     System.out.println(strInfo);
                 }
             }
         } else if (currentPlayer.getAlliance().isWhite()) {
             int moveCounter = 0;
-            double maxVal = -1e20;
+            long maxVal = Long.MIN_VALUE;
             for (final Move move : legalMoves) {
                 final long candidateMoveStartTime = System.nanoTime();
                 ++moveCounter;
@@ -192,10 +190,11 @@ public class AlphaBeta implements MoveStrategy {
                 if (moveTransition.getMoveStatus().isDone()) {
                     String currLine = move.toString();
                     Evaluation currEval = min(moveTransition.getTransitedBoard(), calculateQuiescenceDepth(moveTransition, this.searchDepth), alpha, beta, currLine);
+                    ScoredMove bestScoredMove = new ScoredMove(bestMove, currEval.score);
+                    listOfBestMoves.add(bestScoredMove);
+
                     if (currEval.score > maxVal) {
                         bestMove = move;
-                        ScoredMove bestScoredMove = new ScoredMove(bestMove, currEval.score);
-                        listOfBestMoves.add(bestScoredMove);
                         maxVal = Math.max(currEval.score, maxVal);
                         evalBest = currEval.score;
                         if (board.isEndGameScenario())
@@ -204,9 +203,9 @@ public class AlphaBeta implements MoveStrategy {
                     StringBuilder builder = new StringBuilder();
                     String strMove = move.toString();
                     builder.append(String.format("Analyzed move %s (%d / %d):  with depth %d q: %d\n", move, moveCounter, numMoves, this.searchDepth, this.quiescenceCount));
-                    builder.append(String.format("best move: %s score: %.3f\nbest line: %s\n", strMove, currEval.GetScore(), currEval.GetBestLine()));
-                    builder.append(String.format("Evaluated board: %s\n", currEval.GetEvalBoard()));
-                    builder.append(String.format("Time taken: %s", calculateTimeTaken(candidateMoveStartTime, System.nanoTime())));
+                    builder.append(String.format("best move: %s score: %d\nbest line: %s\n", strMove, currEval.GetScore(), currEval.GetBestLine()));
+                    // builder.append(String.format("Evaluated board: %s\n", currEval.GetEvalBoard()));
+                    builder.append(String.format("\nTime taken: %s", calculateTimeTaken(candidateMoveStartTime, System.nanoTime())));
                     final String strInfo = builder.toString();
                     System.out.println(strInfo);
                 }
@@ -215,14 +214,32 @@ public class AlphaBeta implements MoveStrategy {
 
         System.out.println("Board evaluated = " + this.boardsEvaluated);
         System.out.println("this.cutsOffProduced = " + this.cutsOffProduced);
-        System.out.println(String.format("Best move = %s eval = %.3f", bestMove, evalBest));
+
+        /*List<ScoredMove> sortedBestMoves = Ordering.from((Comparator<ScoredMove>) (first, second) -> ComparisonChain.start()
+                 .compare(second.getScore(), first.getScore()).result()).immutableSortedCopy(listOfBestMoves);
+
+        if(!sortedBestMoves.isEmpty()){
+            final double maxScore = sortedBestMoves.get(0).getScore();
+            final List<ScoredMove> filteredMoves = sortedBestMoves.stream()
+                    .filter(move -> Math.abs(maxScore - move.getScore()) < 10)
+                    .collect(Collectors.toList());
+            final int sz = filteredMoves.size();
+            final int index = sz > 1 ? random.nextInt(sz) : 0;
+            Move bestMove_ =  filteredMoves.get(index).getMove();
+            double bestScore_ = filteredMoves.get(index).getScore();
+            bestMove = bestMove_;
+            evalBest = bestScore_;
+        }*/
+
+        System.out.println(String.format("Best move = %s eval = %d", bestMove, evalBest));
         System.out.println("Move time = " + (System.currentTimeMillis() - startTime) / 1000 + " seconds");
+
         return bestMove;
     }
 
     private static String score(final Player currentPlayer,
-                                final double highestSeenValue,
-                                final double lowestSeenValue) {
+                                final long highestSeenValue,
+                                final long lowestSeenValue) {
 
         if (currentPlayer.getAlliance().isWhite()) {
             return "[score: " + highestSeenValue + "]";
@@ -235,21 +252,21 @@ public class AlphaBeta implements MoveStrategy {
 
     private Evaluation max(final Board board,
                            final int depth,
-                           double alpha,
-                           double beta, String currLine) {
+                           long alpha,
+                           long beta, String currLine) {
         if (depth == 0 || board.isEndGameScenario()) {
             this.boardsEvaluated++;
-            double score = this.boardEvaluator.evaluate(board, depth);
+            long score = this.boardEvaluator.evaluate(board, depth);
             return new Evaluation(score, currLine.toString(), board.toDecoratedString());
         }
-        double value = -1e20;
+        long value = Long.MIN_VALUE;
         Evaluation evalBest = null;
         for (final Move move : MoveSorter.SMART.sort((board.getCurrentPlayer().getLegalMoves()))) {
             final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {
                 Evaluation evaluation = min(moveTransition.getTransitedBoard(), depth - 1, alpha, beta, String.format("%s %s ", currLine, move));
                 if (evaluation != null) {
-                    double score = evaluation.GetScore();
+                    long score = evaluation.GetScore();
                     value = Math.max(score, value);
                     if (score == value) {
                         evalBest = evaluation;
@@ -268,14 +285,14 @@ public class AlphaBeta implements MoveStrategy {
 
     private Evaluation min(final Board board,
                            final int depth,
-                           double alpha,
-                           double beta, String currLine) {
+                           long alpha,
+                           long beta, String currLine) {
         if (depth == 0 || board.isEndGameScenario()) {
             this.boardsEvaluated++;
-            double score = this.boardEvaluator.evaluate(board, depth);
+            long score = this.boardEvaluator.evaluate(board, depth);
             return new Evaluation(score, currLine.toString(), board.toDecoratedString());
         }
-        double value = 1000000;
+        long value = Long.MAX_VALUE;
         Evaluation evalBest = null;
         for (final Move move : MoveSorter.SMART.sort((board.getCurrentPlayer().getLegalMoves()))) {
             final MoveTransition moveTransition = board.getCurrentPlayer().makeMove(move);
@@ -283,7 +300,7 @@ public class AlphaBeta implements MoveStrategy {
             if (moveTransition.getMoveStatus().isDone()) {
                 Evaluation evaluation = max(moveTransition.getTransitedBoard(), depth - 1, alpha, beta, String.format("%s %s ", currLine, move));
                 if (evaluation != null) {
-                    double score = evaluation.GetScore();
+                    long score = evaluation.GetScore();
                     value = Math.min(score, value);
                     if (score == value) {
                         value = score;

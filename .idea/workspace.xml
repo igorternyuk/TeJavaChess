@@ -4,34 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="Added maven to the project.">
+    <list default="true" id="a6ec48bc-47b4-4fb4-9c05-9817d6336345" name="Default" comment="Added jar.">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/moves/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/pieces/PieceType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/AlphaBeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BishopsEvaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/BoardEvaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MiniMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/MoveSorter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/GameSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/igorternyuk/gui/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/java/TestBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TeChess-1.0-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TeChess-1.0-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TeChess-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/TeChess-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/board/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move$MoveFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/moves/Move.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/pieces/PieceType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta$Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta$Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta$ScoredMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta$ScoredMove.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/AlphaBeta.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BishopsEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BishopsEvaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BoardEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/BoardEvaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/KingSafetyAnalyzer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MiniMax.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MiniMax.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/MoveSorter$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/PawnStructureAnalyzer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/engine/player/ai/StandardBoardEvaluator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/GameSetup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/igorternyuk/gui/View.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestBoard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestBoard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestCastling.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestCastling.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestStaleMate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-test.java.TestStaleMate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test.java.TestBoard.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test.java.TestBoard.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test.java.TestCastling.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test.java.TestCastling.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/test.java.TestStaleMate.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/test.java.TestStaleMate.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +107,7 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
@@ -879,7 +881,8 @@
       <workItem from="1688152660057" duration="1589000" />
       <workItem from="1688154266122" duration="4536000" />
       <workItem from="1688189287659" duration="26288000" />
-      <workItem from="1688286849928" duration="33685000" />
+      <workItem from="1688286849928" duration="38434000" />
+      <workItem from="1688371907313" duration="3567000" />
     </task>
     <task id="LOCAL-00001" summary="King_Pawn">
       <created>1512311829762</created>
@@ -1014,7 +1017,21 @@
       <option name="project" value="LOCAL" />
       <updated>1688155388674</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Fixed alpha-beta.">
+      <created>1688334366498</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1688334366498</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added jar.">
+      <created>1688334420258</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1688334420258</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1161,7 +1178,9 @@
     <MESSAGE value="adds pawn structure analyzer" />
     <MESSAGE value="adds king safety analyzer" />
     <MESSAGE value="Added maven to the project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added maven to the project." />
+    <MESSAGE value="Fixed alpha-beta." />
+    <MESSAGE value="Added jar." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added jar." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="test.java.TestBoard" time="1.457" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="test.java.TestBoard" time="64.608" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.19+7"/>
@@ -59,8 +59,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="test.java.TestBoard" name="testAI" time="0.033"/>
-  <testcase classname="test.java.TestBoard" name="testFoolsMate" time="1.415"/>
-  <testcase classname="test.java.TestBoard" name="initialRandomFisherChessBoard" time="0.005"/>
+  <testcase classname="test.java.TestBoard" name="testCheckMate2" time="30.515"/>
+  <testcase classname="test.java.TestBoard" name="testEval1" time="32.901"/>
+  <testcase classname="test.java.TestBoard" name="testAI" time="0.008"/>
+  <testcase classname="test.java.TestBoard" name="testFoolsMate" time="1.174"/>
+  <testcase classname="test.java.TestBoard" name="initialRandomFisherChessBoard" time="0.006"/>
   <testcase classname="test.java.TestBoard" name="initialStandardBoard" time="0.004"/>
 </testsuite>
